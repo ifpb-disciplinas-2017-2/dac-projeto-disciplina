@@ -1,5 +1,14 @@
 version: '2.1'
 services:
+    json:
+        build: ./app-json
+        image: projeto/json
+        container_name: json
+        depends_on:
+            banco:
+                condition: service_healthy
+        links:
+            - "banco:host-banco"
     dac:
         build: .
         image: projeto/dac
