@@ -13,7 +13,7 @@ public class ServiceLocator {
             Properties properties = new Properties();
             properties.put(InitialContext.INITIAL_CONTEXT_FACTORY,
                     "com.sun.enterprise.naming.SerialInitContextFactory");
-            properties.setProperty("org.omg.CORBA.ORBInitialHost", "host-core");
+            properties.setProperty("org.omg.CORBA.ORBInitialHost", "dac");
             properties.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
             InitialContext context = new InitialContext(properties);
             return (T) context.lookup(resource);
