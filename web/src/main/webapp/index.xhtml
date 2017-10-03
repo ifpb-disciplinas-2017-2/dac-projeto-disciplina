@@ -7,28 +7,9 @@
         <title>Professores</title>
     </h:head>
     <h:body>
-        <h:dataTable var="prof" value="#{controladorTeste.todosProfessores}">
-            <h:column>
-                <f:facet name="header">Codigo</f:facet>
-                <h:outputText value="#{prof.codigo}"></h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Email</f:facet>
-                <h:outputText value="#{prof.email}"></h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Nome</f:facet>
-                <h:outputText value="#{prof.nome}"></h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Regime</f:facet>
-                <h:outputText value="#{prof.regime}"></h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Unidade</f:facet>
-                <h:outputText value="#{prof.unidade}"></h:outputText>
-            </h:column>
-        </h:dataTable>
+        <h:form>
+            <h:commandButton value="Adicionar" action="#{controladorTeste.acao()}"/>
+        </h:form>
     </h:body>
 </html>
 
