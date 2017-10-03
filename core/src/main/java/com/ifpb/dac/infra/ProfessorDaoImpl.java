@@ -19,22 +19,23 @@ public class ProfessorDaoImpl implements ProfessorDao {
     @Override
     public void adicionar(Professor prof) {
         em.persist(prof);
-//        System.out.println(prof.toString());
     }
 
     @Override
     public void remover(Professor prof) {
-        System.out.println(prof.toString());
+        Professor auxiliar = em.find(Professor.class, prof.getCodigo());
+        em.remove(auxiliar);
     }
 
     @Override
     public void atualizar(Professor prof) {
-        System.out.println(prof.toString());
+        em.merge(prof);
     }
 
     @Override
     public List<Professor> listarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return em.createQuery("SELECT p FROM Professor p",
+                Professor.class).getResultList();
     }
     
 }

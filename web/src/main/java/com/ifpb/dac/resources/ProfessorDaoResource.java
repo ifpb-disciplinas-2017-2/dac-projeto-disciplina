@@ -1,4 +1,4 @@
-package com.ifpb.dac.infra;
+package com.ifpb.dac.resources;
 
 import com.ifpb.dac.interfaces.ProfessorDao;
 import com.ifpb.dac.servicelocater.ServiceLocator;
