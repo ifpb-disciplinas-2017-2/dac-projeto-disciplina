@@ -6,14 +6,20 @@ import com.ifpb.dac.interfaces.ProfessorDao;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Stateless
 @Remote(ProfessorDao.class)
 public class ProfessorDaoImpl implements ProfessorDao {
 
+    @PersistenceContext
+    private EntityManager em;
+    
     @Override
     public void adicionar(Professor prof) {
-        System.out.println(prof.toString());
+        em.persist(prof);
+//        System.out.println(prof.toString());
     }
 
     @Override

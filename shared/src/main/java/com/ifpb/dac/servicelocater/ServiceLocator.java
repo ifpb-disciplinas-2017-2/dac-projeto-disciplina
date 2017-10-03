@@ -8,7 +8,7 @@ import javax.naming.NamingException;
 
 public class ServiceLocator {
 
-    public <T> T lookup(String resource) {
+    public static <T> T lookup(String resource) {
         try {
             Properties properties = new Properties();
             properties.put(InitialContext.INITIAL_CONTEXT_FACTORY,

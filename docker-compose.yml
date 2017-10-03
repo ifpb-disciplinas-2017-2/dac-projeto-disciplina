@@ -1,0 +1,21 @@
+version: '2.1'
+services:
+    dac:
+        build: .
+        image: projeto/dac
+        container_name: dac
+        ports:
+          - "8081:8080"
+        depends_on:
+            banco:
+                condition: service_healthy
+        links:
+            - "banco:host-banco"
+    banco:
+        build: ./postgres
+        image: projeto/banco
+        container_name: banco
+        ports:
+            - "5433:5432"
+        healthcheck:
+            test: "exit 0"
