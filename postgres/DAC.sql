@@ -1,13 +1,13 @@
 ﻿CREATE TABLE curso(
 	codigo_curso int primary key,
-	abreviacao varchar(30) not null,
+	abreviacao varchar(40) not null,
 	descricao varchar(50) not null,
 	periodo int not null,
 	unidade varchar(50) not null
 );
 CREATE TABLE disciplina (
 	codigo_disc int primary key,
-	abreviacao varchar(30) not null,
+	abreviacao varchar(40) not null,
 	aulas_semana int not null,
 	carga_horaria int not null,
 	descricao varchar(50) not null,
@@ -17,11 +17,11 @@ CREATE TABLE disciplina (
 CREATE TABLE laboratorio(
 	codigo_lab int primary key,
 	abreviacao varchar(40) not null,
-	descricao varchar(60) not null
+	descricao varchar(50) not null
 );
 CREATE TABLE sala (
 	codigo_sala int primary key,
-	abreviacao varchar(30) not null,
+	abreviacao varchar(40) not null,
 	descricao varchar(50) not null
 );
 CREATE TABLE horario (

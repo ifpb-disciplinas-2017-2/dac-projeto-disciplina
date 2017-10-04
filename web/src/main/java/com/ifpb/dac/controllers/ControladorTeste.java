@@ -1,6 +1,7 @@
 
 package com.ifpb.dac.controllers;
 
+import com.ifpb.dac.entidades.Info;
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Sala;
 import com.ifpb.dac.enums.Regime;
@@ -35,7 +36,8 @@ public class ControladorTeste {
     public String acao(){
         dao.adicionar(new Professor("X", "X", Regime.DE, 
                 Unidade.UNIND, Vinculo.Efetivo));
-        salaDao.adicionar(new Sala("Teste", "Teste"));
+        Info informacao = new Info("Teste", "Teste");
+        salaDao.adicionar(new Sala(informacao));
         return null;
     }
     

@@ -2,6 +2,7 @@ package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,14 +20,12 @@ public class Sala implements Serializable {
     @GeneratedValue(generator = "minha_seq_sala", strategy = GenerationType.SEQUENCE)
     @Column(name = "codigo_sala")
     private int codigo_sala;
-    @Column(name = "abreviacao", nullable = false, length = 30)
-    private String abreviacao;
-    @Column(name = "descricao", nullable = false, length = 50)
-    private String descricao;
+    
+    @Embedded
+    private Info info;
 
-    public Sala(String abreviacao, String descricao) {
-        this.abreviacao = abreviacao;
-        this.descricao = descricao;
+    public Sala(Info informacoes) {
+        this.info = informacoes;
     }
 
     public Sala() {
@@ -40,25 +39,17 @@ public class Sala implements Serializable {
         this.codigo_sala = codigo_sala;
     }
 
-    public String getAbreviacao() {
-        return abreviacao;
+    public Info getInfo() {
+        return info;
     }
 
-    public void setAbreviacao(String abreviacao) {
-        this.abreviacao = abreviacao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setInfo(Info info) {
+        this.info = info;
     }
 
     @Override
     public String toString() {
-        return "Sala{" + "codigo_sala=" + codigo_sala + ", abreviacao=" + abreviacao + ", descricao=" + descricao + '}';
-    }    
+        return "Sala{" + "codigo_sala=" + codigo_sala + ", info=" + info + '}';
+    }
          
 }
