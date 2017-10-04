@@ -12,7 +12,7 @@ CREATE TABLE disciplina (
 	carga_horaria int not null,
 	descricao varchar(50) not null,
 	codigo_curso int,
-	FOREIGN KEY (codigo_curso) REFERENCES curso(codigo_curso) 
+	FOREIGN KEY (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE laboratorio(
 	codigo_lab int primary key,
@@ -44,8 +44,8 @@ CREATE TABLE turma(
 	disciplina varchar(50) not null,
 	codigo_curso int,
 	codigo_prof int,
-	foreign key (codigo_curso) REFERENCES curso(codigo_curso),
-	foreign key (codigo_prof) REFERENCES professor(codigo_prof)
+	foreign key (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_prof) REFERENCES professor(codigo_prof) ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE aula (
 	id serial primary key,
@@ -57,13 +57,13 @@ CREATE TABLE aula (
 	codigo_sala int,
 	codigo_lab int,
 	codigo_turma int,
-	foreign key (codigo_curso) REFERENCES curso(codigo_curso),
-	foreign key (codigo_disc) REFERENCES disciplina(codigo_disc),
-	foreign key (codigo_hora) REFERENCES horario(codigo_hora),
-	foreign key (codigo_sala) REFERENCES sala(codigo_sala),
-	foreign key (codigo_lab) REFERENCES laboratorio(codigo_lab),
-	foreign key (codigo_turma) REFERENCES turma(codigo_turma),
-	foreign key (codigo_prof) REFERENCES professor(codigo_prof)
+	foreign key (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_disc) REFERENCES disciplina(codigo_disc) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_hora) REFERENCES horario(codigo_hora) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_sala) REFERENCES sala(codigo_sala) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_lab) REFERENCES laboratorio(codigo_lab) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_turma) REFERENCES turma(codigo_turma) ON DELETE CASCADE ON UPDATE CASCADE,
+	foreign key (codigo_prof) REFERENCES professor(codigo_prof) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO laboratorio (codigo_lab, abreviacao, descricao) VALUES(0, '', '');
