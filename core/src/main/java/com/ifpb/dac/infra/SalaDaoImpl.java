@@ -1,4 +1,3 @@
-
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Sala;
@@ -15,7 +14,7 @@ public class SalaDaoImpl implements SalaDao {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Override
     public void adicionar(Sala sala) {
         em.persist(sala);
@@ -42,5 +41,5 @@ public class SalaDaoImpl implements SalaDao {
     public Sala buscarPorId(int id) {
         return em.find(Sala.class, id);
     }
-    
+
 }

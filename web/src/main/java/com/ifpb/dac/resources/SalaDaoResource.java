@@ -11,7 +11,7 @@ import javax.enterprise.inject.Produces;
 public class SalaDaoResource {
     
     private static final String RESOURCE = "java:global/core/SalaDaoImpl!com.ifpb.dac.interfaces.SalaDao";
-    
+
     @Dependent
     @Produces
     @Default

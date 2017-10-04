@@ -1,4 +1,3 @@
-
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import javax.persistence.SequenceGenerator;
         initialValue = 26,
         allocationSize = 1)
 public class Curso implements Serializable {
-    
+
     @Id
     @GeneratedValue(generator = "minha_seq_curso", strategy = GenerationType.SEQUENCE)
     @Column(name = "codigo_curso")
@@ -73,5 +72,5 @@ public class Curso implements Serializable {
     public String toString() {
         return "Curso{" + "codigo_curso=" + codigo_curso + ", info=" + info + ", periodo=" + periodo + ", unidade=" + unidade + '}';
     }
-    
+
 }
