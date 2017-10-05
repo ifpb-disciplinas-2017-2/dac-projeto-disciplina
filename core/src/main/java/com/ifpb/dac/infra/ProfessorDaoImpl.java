@@ -38,4 +38,9 @@ public class ProfessorDaoImpl implements ProfessorDao {
                 Professor.class).getResultList();
     }
     
+    @Override
+    public Professor buscarPorId(int id){
+        return em.find(Professor.class, id);
+    }
+    
 }

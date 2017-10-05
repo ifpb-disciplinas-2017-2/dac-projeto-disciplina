@@ -1,14 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ifpb.dac.interfaces;
+
+import com.ifpb.dac.entidades.Laboratorio;
+import java.util.List;
 
 /**
  *
  * @author rodrigobento
  */
 public interface LaboratorioDao {
+    
+    void adicionar(Laboratorio lab);
+    void remover(Laboratorio lab);
+    void atualizar(Laboratorio lab);
+    List<Laboratorio> listarTodos();
+    Laboratorio buscarPorId(int id);
     
 }

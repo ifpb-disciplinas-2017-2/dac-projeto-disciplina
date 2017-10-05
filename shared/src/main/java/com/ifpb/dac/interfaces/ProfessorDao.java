@@ -10,5 +10,5 @@ public interface ProfessorDao {
     void remover(Professor prof);
     void atualizar(Professor prof);
     List<Professor> listarTodos();
-    
+    Professor buscarPorId(int id);
 }

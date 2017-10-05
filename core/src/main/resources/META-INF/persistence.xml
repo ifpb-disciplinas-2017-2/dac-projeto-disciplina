@@ -7,6 +7,9 @@
     <class>com.ifpb.dac.entidades.Curso</class>
     <class>com.ifpb.dac.entidades.Disciplina</class>
     <class>com.ifpb.dac.entidades.Laboratorio</class>
+    <class>com.ifpb.dac.entidades.Aula</class>
+    <class>com.ifpb.dac.entidades.Horario</class>
+    <class>com.ifpb.dac.entidades.Turma</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
