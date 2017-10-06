@@ -31,7 +31,7 @@ public class AulaDaoImpl implements AulaDao{
 
     @Override
     public void remover(Aula a) {
-        Aula auxiliar = buscarPorId(a.getId());
+        Aula auxiliar = buscarPorId(a.getCod_Aula());
         em.remove(auxiliar);
     }
 

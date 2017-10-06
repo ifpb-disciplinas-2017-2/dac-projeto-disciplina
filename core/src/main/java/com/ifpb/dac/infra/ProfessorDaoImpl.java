@@ -23,7 +23,7 @@ public class ProfessorDaoImpl implements ProfessorDao {
 
     @Override
     public void remover(Professor prof) {
-        Professor auxiliar = em.find(Professor.class, prof.getCodigo());
+        Professor auxiliar = buscarPorId(prof.getCodigo());
         em.remove(auxiliar);
     }
 
