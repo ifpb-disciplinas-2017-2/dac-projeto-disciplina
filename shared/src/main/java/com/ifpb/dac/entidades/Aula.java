@@ -18,34 +18,34 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @SequenceGenerator(name = "minha_seq_aula",
         sequenceName = "seq_aula",
-        initialValue = 2800,
+        initialValue = 1440,
         allocationSize = 1)
 public class Aula implements Serializable {
     
     @Id
     @GeneratedValue(generator = "minha_seq_aula", strategy = GenerationType.SEQUENCE)
-    private int id;
+    private int cod_aula;
     @Column(name = "dia", length = 15, nullable = false)
     private String dia;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_curso")
     private Curso curso;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_disc")
     private Disciplina disciplina;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_hora")
     private Horario horario;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_prof")
     private Professor professor;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_sala")
     private Sala sala;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_lab")
     private Laboratorio laboratorio;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_turma")
     private Turma turma;
 
@@ -63,12 +63,12 @@ public class Aula implements Serializable {
     public Aula() {
     }
 
-    public int getId() {
-        return id;
+    public int getCod_Aula() {
+        return cod_aula;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCod_Aula(int id) {
+        this.cod_aula = id;
     }
 
     public String getDia() {

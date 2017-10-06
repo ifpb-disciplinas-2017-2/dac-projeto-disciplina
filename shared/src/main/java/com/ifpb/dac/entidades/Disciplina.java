@@ -1,15 +1,19 @@
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -29,11 +33,14 @@ public class Disciplina implements Serializable {
     private int aulas_semana;
     @Column(name = "carga_horaria", nullable = false)
     private int carga_horaria;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "codigo_curso")
     private Curso curso;
+    @OneToMany(mappedBy = "disciplina", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Aula> aulas;
 
     public Disciplina(Info info, int aulas_semana, int carga_horaria, Curso curso) {
+        this();
         this.info = info;
         this.aulas_semana = aulas_semana;
         this.carga_horaria = carga_horaria;
@@ -41,6 +48,7 @@ public class Disciplina implements Serializable {
     }
 
     public Disciplina() {
+        this.aulas = new ArrayList<>();
     }
 
     public int getCodigo_disc() {
@@ -83,9 +91,12 @@ public class Disciplina implements Serializable {
         this.curso = curso;
     }
 
-    @Override
-    public String toString() {
-        return "Disciplina{" + "codigo_disc=" + codigo_disc + ", info=" + info + ", aulas_semana=" + aulas_semana + ", carga_horaria=" + carga_horaria + ", curso=" + curso + '}';
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
     }
 
 }

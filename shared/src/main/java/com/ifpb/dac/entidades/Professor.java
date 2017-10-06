@@ -4,12 +4,17 @@ import com.ifpb.dac.enums.Regime;
 import com.ifpb.dac.enums.Unidade;
 import com.ifpb.dac.enums.Vinculo;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Professor implements Serializable {
@@ -31,11 +36,18 @@ public class Professor implements Serializable {
     @Column(name = "vinculo")
     @Enumerated(EnumType.STRING)
     private Vinculo vinculo;
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Aula> aulas;
+    @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Turma> turmas;
 
     public Professor() {
+        turmas = new ArrayList<>();
+        aulas = new ArrayList<>();
     }
 
     public Professor(String email, String nome, Regime regime, Unidade unidade, Vinculo vinculo) {
+        this();
         this.email = email;
         this.nome = nome;
         this.regime = regime;
@@ -91,9 +103,20 @@ public class Professor implements Serializable {
         this.vinculo = vinculo;
     }
 
-    @Override
-    public String toString() {
-        return "Professor{" + "codigo=" + codigo + ", email=" + email + ", nome=" + nome + ", regime=" + regime + ", unidade=" + unidade + ", vinculo=" + vinculo + '}';
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
+    }
+
+    public List<Turma> getTurmas() {
+        return turmas;
+    }
+
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
     }
 
 }

@@ -1,14 +1,18 @@
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -30,14 +34,17 @@ public class Turma implements Serializable {
     private String identificacao;
     @Column(name = "disciplina", nullable = false, length = 50)
     private String nome_disciplina;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "codigo_curso")
     private Curso curso;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "codigo_prof")
     private Professor professor;
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Aula> aulas;
 
     public Turma(String identificacao, String nome_disciplina, Curso curso, Professor professor) {
+        this();
         this.identificacao = identificacao;
         this.nome_disciplina = nome_disciplina;
         this.curso = curso;
@@ -45,6 +52,7 @@ public class Turma implements Serializable {
     }
 
     public Turma() {
+        aulas = new ArrayList<>();
     }
 
     public int getCodigo_turma() {
@@ -86,6 +94,13 @@ public class Turma implements Serializable {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
-    
+
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
+    }
 
 }

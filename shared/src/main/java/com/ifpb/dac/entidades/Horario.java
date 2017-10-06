@@ -1,12 +1,17 @@
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,14 +37,18 @@ public class Horario implements Serializable {
     private Calendar inicio;
     @Temporal(TemporalType.TIME)
     private Calendar fim;
+    @OneToMany(mappedBy = "horario", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Aula> aulas;
 
     public Horario(String descricao, Calendar inicio, Calendar fim) {
+        this();
         this.descricao = descricao;
         this.inicio = inicio;
         this.fim = fim;
     }
 
     public Horario() {
+        aulas = new ArrayList<>();
     }
 
     public int getCodigo_hora() {
@@ -72,6 +81,14 @@ public class Horario implements Serializable {
 
     public void setFim(Calendar fim) {
         this.fim = fim;
+    }
+
+    public List<Aula> getAulas() {
+        return aulas;
+    }
+
+    public void setAulas(List<Aula> aulas) {
+        this.aulas = aulas;
     }
     
 }

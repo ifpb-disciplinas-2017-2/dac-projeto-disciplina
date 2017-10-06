@@ -8,9 +8,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Info implements Serializable {
     
-    @Column(name = "abreviacao", nullable = false, length = 30)
+    @Column(name = "abreviacao", length = 30)
     private String abreviacao;
-    @Column(name = "descricao", nullable = false, length = 50)
+    @Column(name = "descricao", length = 50)
     private String descricao;
 
     public Info() {
@@ -35,11 +35,6 @@ public class Info implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    @Override
-    public String toString() {
-        return "Info{" + "abreviacao=" + abreviacao + ", descricao=" + descricao + '}';
     }
     
 }
