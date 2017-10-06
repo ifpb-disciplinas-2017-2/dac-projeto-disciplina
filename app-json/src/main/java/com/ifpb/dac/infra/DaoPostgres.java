@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -158,25 +159,35 @@ public class DaoPostgres {
 
     }
 
-    public boolean inserirAula(Aula a) {
+    public boolean inserirAula(Aula a, int codigo_aula) {
+        int codigoLab = a.getLaboratorio();
+        int codigoSala = a.getSala();
+        if (codigoLab == 0) {
+            codigoLab = 36;
+        }
+        if (codigoSala == 0) {
+            codigoSala = 37;
+        }
         if (verificaProfessor(a.getProf_cod())) {
             return false;
         } else {
             boolean cond = false;
-            String sql = "INSERT INTO aula(dia, codigo_curso, codigo_disc,"
+            String sql = "INSERT INTO aula(cod_aula, dia, codigo_curso, codigo_disc,"
                     + "codigo_hora, codigo_prof, codigo_sala, codigo_lab, codigo_turma)"
-                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try {
                 PreparedStatement stmt = con.prepareStatement(sql);
-                stmt.setString(1, a.getDia_desc());
-                stmt.setInt(2, a.getCur_cod());
-                stmt.setInt(3, a.getDisc_cod());
-                stmt.setInt(4, a.getHor_cod());
-                stmt.setInt(5, a.getProf_cod());
-                stmt.setInt(6, a.getSala());
-                stmt.setInt(7, a.getLaboratorio());
-                stmt.setInt(8, a.getTur_cod());
+                stmt.setInt(1, codigo_aula);
+                stmt.setString(2, a.getDia_desc());
+                stmt.setInt(3, a.getCur_cod());
+                stmt.setInt(4, a.getDisc_cod());
+                stmt.setInt(5, a.getHor_cod());
+                stmt.setInt(6, a.getProf_cod());
+                stmt.setInt(7, codigoSala);
+                stmt.setInt(8, codigoLab);
+                stmt.setInt(9, a.getTur_cod());
                 cond = stmt.executeUpdate() > 0;
+                stmt.close();
                 return cond;
             } catch (SQLException ex) {
                 Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,5 +1,6 @@
 package com.ifpb.dac.main;
 
+import com.ifpb.dac.entidades.Aula;
 import com.ifpb.dac.entidades.Horario;
 import com.ifpb.dac.infra.DaoPostgres;
 import com.ifpb.dac.infra.ReadJSON;
@@ -51,8 +52,13 @@ public class Loader {
                 ex.printStackTrace();
             }
         }
-
-        r.objetosAula().forEach(a -> dao.inserirAula(a));
+        
+        
+        List<Aula> aulas = r.objetosAula();
+        for(int i = 0; i < aulas.size(); i++){
+            int auxiliar = i + 1;
+            dao.inserirAula(aulas.get(i), auxiliar);
+        }
     }
 
 }
