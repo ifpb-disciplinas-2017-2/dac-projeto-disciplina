@@ -22,7 +22,7 @@ public class SalaDaoImpl implements SalaDao {
 
     @Override
     public void remover(Sala sala) {
-        Sala auxiliar = em.find(Sala.class, sala.getCodigo_sala());
+        Sala auxiliar = buscarPorId(sala.getCodigo_sala());
         em.remove(auxiliar);
     }
 
