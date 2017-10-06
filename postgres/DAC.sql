@@ -44,11 +44,11 @@ CREATE TABLE turma(
 	disciplina varchar(50) not null,
 	codigo_curso int,
 	codigo_prof int,
-	foreign key (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_prof) REFERENCES professor(codigo_prof) ON DELETE CASCADE ON UPDATE CASCADE
+	foreign key (codigo_curso) REFERENCES curso(codigo_curso),
+	foreign key (codigo_prof) REFERENCES professor(codigo_prof)
 );
 CREATE TABLE aula (
-	id serial primary key,
+	cod_aula int primary key,
 	dia varchar(15) not null,
 	codigo_curso int,
 	codigo_disc int,
@@ -57,16 +57,16 @@ CREATE TABLE aula (
 	codigo_sala int,
 	codigo_lab int,
 	codigo_turma int,
-	foreign key (codigo_curso) REFERENCES curso(codigo_curso) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_disc) REFERENCES disciplina(codigo_disc) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_hora) REFERENCES horario(codigo_hora) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_sala) REFERENCES sala(codigo_sala) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_lab) REFERENCES laboratorio(codigo_lab) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_turma) REFERENCES turma(codigo_turma) ON DELETE CASCADE ON UPDATE CASCADE,
-	foreign key (codigo_prof) REFERENCES professor(codigo_prof) ON DELETE CASCADE ON UPDATE CASCADE
+	foreign key (codigo_curso) REFERENCES curso(codigo_curso),
+	foreign key (codigo_disc) REFERENCES disciplina(codigo_disc),
+	foreign key (codigo_hora) REFERENCES horario(codigo_hora),
+	foreign key (codigo_sala) REFERENCES sala(codigo_sala),
+	foreign key (codigo_lab) REFERENCES laboratorio(codigo_lab),
+	foreign key (codigo_turma) REFERENCES turma(codigo_turma),
+	foreign key (codigo_prof) REFERENCES professor(codigo_prof)
 );
 
-INSERT INTO laboratorio (codigo_lab, abreviacao, descricao) VALUES(0, '', '');
-INSERT INTO sala(codigo_sala, abreviacao, descricao) VALUES(0, '', '')
+INSERT INTO laboratorio (codigo_lab, abreviacao, descricao) VALUES(36, 'X', 'X');
+INSERT INTO sala(codigo_sala, abreviacao, descricao) VALUES(37, 'X', 'X')
 
 /*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso*/
