@@ -18,7 +18,7 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @SequenceGenerator(name = "minha_seq_aula",
         sequenceName = "seq_aula",
-        initialValue = 1440,
+        initialValue = 1439,
         allocationSize = 1)
 public class Aula implements Serializable {
     
