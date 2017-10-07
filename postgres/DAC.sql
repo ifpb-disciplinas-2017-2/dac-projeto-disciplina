@@ -65,8 +65,19 @@ CREATE TABLE aula (
 	foreign key (codigo_turma) REFERENCES turma(codigo_turma),
 	foreign key (codigo_prof) REFERENCES professor(codigo_prof)
 );
+CREATE TABLE usuario (
+        id int primary key,
+        nome varchar(50) not null,
+        email varchar(50) not null,
+        senha varchar(20) not null,
+        tipo varchar(15) not null,
+        logado boolean
+);
 
+INSERT INTO usuario VALUES (1, 'admin', 'admin@gmail.com', 'admin123', 'Administrador', true);
 INSERT INTO laboratorio (codigo_lab, abreviacao, descricao) VALUES(36, 'X', 'X');
 INSERT INTO sala(codigo_sala, abreviacao, descricao) VALUES(37, 'X', 'X')
 
-/*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso*/
+
+/*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso
+DROP TABLE usuario;*/

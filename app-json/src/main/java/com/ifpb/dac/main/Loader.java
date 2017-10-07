@@ -2,6 +2,7 @@ package com.ifpb.dac.main;
 
 import com.ifpb.dac.entidades.Aula;
 import com.ifpb.dac.entidades.Horario;
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.infra.DaoPostgres;
 import com.ifpb.dac.infra.ReadJSON;
 import java.sql.Time;
@@ -23,9 +24,9 @@ public class Loader {
         r.objetosDisciplina().forEach(d -> dao.inserirDisciplina(d));
         r.objetosLaboratorios().forEach(l -> dao.inserirLaboratorio(l));
         r.objetosSala().forEach(s -> dao.inserirSala(s));
-        r.objetosProfessor().forEach(p -> dao.inserirProf(p));
+        r.objetosProfessor().forEach(p -> dao.inserirProfessores(p));
         r.objetosTurma().forEach(t -> dao.inserirTurma(t));
-
+        
         List<Horario> h = r.objetosHora();
         Set<Integer> cod = new TreeSet<>();
         Set<String> desc = new TreeSet<>();
@@ -37,7 +38,7 @@ public class Loader {
             inicio.add(aux.getHor_inicio());
             fim.add(aux.getHor_fim());
         }
-
+//
         for (int i = 0; i < cod.size(); i++) {
             int c = (int) cod.toArray()[i];
             String d = (String) desc.toArray()[i];
@@ -53,12 +54,18 @@ public class Loader {
             }
         }
         
-        
         List<Aula> aulas = r.objetosAula();
         for(int i = 0; i < aulas.size(); i++){
             int auxiliar = i + 1;
             dao.inserirAula(aulas.get(i), auxiliar);
         }
+        
+        List<Professor> professores = r.objetosProfessor();
+        for(int k = 0; k < professores.size(); k++){
+            int auxiliar = k + 2;
+            dao.inserirUsuarios(professores.get(k), auxiliar);
+        }
+        
     }
 
 }

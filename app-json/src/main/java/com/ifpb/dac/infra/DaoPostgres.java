@@ -11,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +34,7 @@ public class DaoPostgres {
             stmt.setInt(4, c.getPeriodo());
             stmt.setString(5, c.getUnidade());
             cond = stmt.executeUpdate() > 0;
+            stmt.close();
             return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,6 +56,8 @@ public class DaoPostgres {
             stmt.setString(5, d.getDescricao());
             stmt.setInt(6, d.getCurso());
             cond = stmt.executeUpdate() > 0;
+            stmt.close();
+            return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,6 +74,7 @@ public class DaoPostgres {
             stmt.setString(2, l.getDescricao());
             stmt.setString(3, l.getDescricao());
             cond = stmt.executeUpdate() > 0;
+            stmt.close();
             return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,6 +92,7 @@ public class DaoPostgres {
             stmt.setString(2, s.getDescricao());
             stmt.setString(3, s.getDescricao());
             cond = stmt.executeUpdate() > 0;
+            stmt.close();
             return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,6 +111,7 @@ public class DaoPostgres {
             stmt.setTime(3, i);
             stmt.setTime(4, f);
             cond = stmt.executeUpdate() > 0;
+            stmt.close();
             return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,11 +119,10 @@ public class DaoPostgres {
         return cond;
     }
 
-    public boolean inserirProf(Professor p) {
+    public boolean inserirProfessores(Professor p){
+        String sql = "INSERT INTO professor (codigo_prof, email, nome, regime,"
+                + " unidade, vinculo) VALUES (?, ?, ?, ?, ?, ?)";
         boolean cond = false;
-        String sql = "INSERT INTO professor(codigo_prof, email, nome, "
-                + "regime, unidade, vinculo)"
-                + " VALUES(?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, p.getCodigo());
@@ -128,11 +132,12 @@ public class DaoPostgres {
             stmt.setString(5, p.getUnidade());
             stmt.setString(6, p.getVinculo());
             cond = stmt.executeUpdate() > 0;
+            stmt.close();
             return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return cond;
+        return true;
     }
 
     public boolean inserirTurma(Turma t) {
@@ -150,6 +155,7 @@ public class DaoPostgres {
                 stmt.setInt(4, t.getCurso());
                 stmt.setInt(5, t.getProfessor());
                 cond = stmt.executeUpdate() > 0;
+                stmt.close();
                 return cond;
             } catch (SQLException ex) {
                 Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,6 +200,27 @@ public class DaoPostgres {
             }
             return cond;
         }
+    }
+
+    public boolean inserirUsuarios(Professor prof, int id) {
+        boolean cond = false;
+        String sql = "INSERT INTO usuario (id, nome, email, senha, tipo, logado)"
+                + "VALUES (?, ?, ?, ?, ?, ?) ";
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setString(2, prof.getNome());
+            stmt.setString(3, prof.getEmail());
+            stmt.setString(4, "12345");
+            stmt.setString(5, "Professor");;
+            stmt.setBoolean(6, false);
+            cond = stmt.executeUpdate() > 0;
+            stmt.close();
+            return cond;
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cond;
     }
 
     public boolean verificaProfessor(int codigo) {
