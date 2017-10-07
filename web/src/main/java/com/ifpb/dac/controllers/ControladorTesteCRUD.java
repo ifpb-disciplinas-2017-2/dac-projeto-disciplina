@@ -27,7 +27,7 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class ControladorTeste {  
+public class ControladorTesteCRUD {  
     
     @Inject
     private AulaDao aulaDao;

@@ -1,41 +1,43 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Pagina Inicial</title>
+        <title>Cadastro</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <h:form>
-            <h:outputLabel for="email" value="Email: ">
-                <h:inputText id="email"
-                             value="#{controladorUsuario.usuario.email}" 
+            <h:outputLabel for="nome" value="Nome: ">
+                <h:inputText id="nome" 
+                             value="#{controladorUsuario.usuario.nome}"
                              maxlength="50"
                              required="true"
-                             requiredMessage="Informe um email valido">
-                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                </h:inputText>
+                             requiredMessage="Informe um nome valido"/>
             </h:outputLabel>
-            <br></br>
+            <h:outputLabel for="email" value="Email: ">
+                <h:inputText id="email" 
+                             value="#{controladorUsuario.usuario.email}"
+                             maxlength="50"
+                             required="true"
+                             requiredMessage="Informe um email valido"/>
+            </h:outputLabel>
             <h:outputLabel for="senha" value="Senha: ">
-                <h:inputSecret id="senha" 
+                <h:inputText id="senha" 
                              value="#{controladorUsuario.usuario.senha}"
                              maxlength="20"
                              required="true"
                              requiredMessage="Informe uma senha valida"/>
             </h:outputLabel>
-            <br></br>
             <h:selectOneMenu value = "#{controladorUsuario.valorSelect}">
                 <f:selectItems value="#{controladorUsuario.tiposUsuario}" 
                                var="tipo"
                                itemLabel="#{tipo}"
                                itemValue="#{tipo}"/>
             </h:selectOneMenu>
-            <br></br>
-            <h:commandButton value="Login" action="#{controladorUsuario.realizarLogin()}"/>
+            <h:commandButton value="Cadastrar" 
+                             action="#{controladorUsuario.cadastrarUsuario()}"/>
         </h:form>
-        <h:link outcome="cadastro.xhtml" value="Realizar Cadastro" />
     </h:body>
 </html>
-
