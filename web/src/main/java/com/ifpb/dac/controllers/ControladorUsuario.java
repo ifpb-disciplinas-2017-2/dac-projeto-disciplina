@@ -1,7 +1,9 @@
 package com.ifpb.dac.controllers;
 
+import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
+import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -9,11 +11,8 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.FacesConverter;
-import javax.faces.webapp.FacesServlet;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.print.attribute.standard.Severity;
 
 /**
  *
@@ -24,7 +23,9 @@ import javax.print.attribute.standard.Severity;
 public class ControladorUsuario implements Serializable {
 
     @Inject
-    private UsuarioDao dao;
+    private UsuarioDao usuarioDao;
+    @Inject
+    private PedidoDao pedidoDao;
     private String valorSelect;
     private List<String> tiposUsuario = Arrays.asList("Professor", "Publico");
     private Usuario usuario = new Usuario();
@@ -54,22 +55,29 @@ public class ControladorUsuario implements Serializable {
     }
 
     public String cadastrarUsuario() {
-        usuario.setTipo(Enum.valueOf(Tipo.class, valorSelect));
+        Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);
+        usuario.setTipo(tipo);
         usuario.setLogado(false);
-        dao.adicionar(usuario);
+        usuarioDao.adicionar(usuario);
+        Pedido p = new Pedido(usuario.getNome(), usuario.getEmail(), 
+                usuario.getSenha(), tipo, 1);
+        pedidoDao.adicionar(p);
         usuario = new Usuario();
         return "index.xhtml";
     }
 
     public String realizarLogin() {
         Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);
-        Usuario autenticado = dao.autentica(usuario.getEmail(),
+        Usuario autenticado = usuarioDao.autentica(usuario.getEmail(),
                 usuario.getSenha(), tipo);
         usuario = new Usuario();
         if (autenticado != null) {
             if (autenticado.isLogado()) {
                 return "principal.xhtml";
             } else {
+                Pedido p = new Pedido(autenticado.getNome(), 
+                        autenticado.getEmail(), autenticado.getSenha(), tipo, 1);
+                pedidoDao.atualizar(p);
                 FacesMessage message = new FacesMessage("Enviado pedido de acesso para o administrador");
                 message.setSeverity(FacesMessage.SEVERITY_INFO);
                 FacesContext.getCurrentInstance().addMessage("Teste", message);
