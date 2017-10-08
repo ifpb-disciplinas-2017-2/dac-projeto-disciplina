@@ -23,16 +23,6 @@
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc3</version>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>2.5.2</version>
-        </dependency>
     </dependencies>
     <build>
         <finalName>app-json</finalName>

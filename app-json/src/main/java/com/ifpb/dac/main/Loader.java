@@ -32,13 +32,14 @@ public class Loader {
         Set<String> desc = new TreeSet<>();
         Set<String> inicio = new TreeSet<>();
         Set<String> fim = new TreeSet<>();
+        
         for (Horario aux : h) {
             cod.add(aux.getHor_cod());
             desc.add(aux.getHor_desc());
             inicio.add(aux.getHor_inicio());
             fim.add(aux.getHor_fim());
         }
-//
+        
         for (int i = 0; i < cod.size(); i++) {
             int c = (int) cod.toArray()[i];
             String d = (String) desc.toArray()[i];
@@ -61,9 +62,15 @@ public class Loader {
         }
         
         List<Professor> professores = r.objetosProfessor();
-        for(int k = 0; k < professores.size(); k++){
-            int auxiliar = k + 2;
-            dao.inserirUsuarios(professores.get(k), auxiliar);
+        for(int i = 0; i < professores.size(); i++){
+            int auxiliar = i + 2;
+            dao.inserirUsuarios(professores.get(i), auxiliar);
+        }
+        
+        List<Professor> pedidos = r.objetosProfessor();
+        for(int i = 0; i < pedidos.size(); i++){
+            int auxiliar = i + 1;
+            dao.inserirPedidos(pedidos.get(i), auxiliar);
         }
         
     }

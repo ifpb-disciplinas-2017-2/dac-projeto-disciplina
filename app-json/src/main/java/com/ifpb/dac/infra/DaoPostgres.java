@@ -212,10 +212,30 @@ public class DaoPostgres {
             stmt.setString(2, prof.getNome());
             stmt.setString(3, prof.getEmail());
             stmt.setString(4, "12345");
-            stmt.setString(5, "Professor");;
+            stmt.setString(5, "Professor");
             stmt.setBoolean(6, false);
             cond = stmt.executeUpdate() > 0;
             stmt.close();
+            return cond;
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cond;
+    }
+    
+    public boolean inserirPedidos(Professor p, int id){
+        String sql = "INSERT INTO pedido (id, nome, email, senha, tipo, prioridade) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        boolean cond = false;
+        try {
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setString(2, p.getNome());
+            stmt.setString(3, p.getEmail());
+            stmt.setString(4, "12345");
+            stmt.setString(5 , "Professor");
+            stmt.setInt(6, 0);
+            cond = stmt.executeUpdate() > 0;
             return cond;
         } catch (SQLException ex) {
             Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
