@@ -8,7 +8,7 @@ services:
             banco:
                 condition: service_healthy
         links:
-            - "banco:host-banco"      
+            - "banco:host-banco"             
     dac:
         build: .
         image: projeto/dac

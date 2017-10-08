@@ -5,37 +5,43 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Pagina Inicial</title>
+        <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="./bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
     </h:head>
     <h:body>
-        <h:form>
-            <h:outputLabel for="email" value="Email: ">
-                <h:inputText id="email"
-                             value="#{controladorUsuario.usuario.email}" 
-                             maxlength="50"
-                             required="true"
-                             requiredMessage="Informe um email valido">
-                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                </h:inputText>
-            </h:outputLabel>
-            <br></br>
-            <h:outputLabel for="senha" value="Senha: ">
-                <h:inputSecret id="senha" 
-                             value="#{controladorUsuario.usuario.senha}"
-                             maxlength="20"
-                             required="true"
-                             requiredMessage="Informe uma senha valida"/>
-            </h:outputLabel>
-            <br></br>
-            <h:selectOneMenu value = "#{controladorUsuario.valorSelect}">
-                <f:selectItems value="#{controladorUsuario.tiposUsuario}" 
-                               var="tipo"
-                               itemLabel="#{tipo}"
-                               itemValue="#{tipo}"/>
-            </h:selectOneMenu>
-            <br></br>
-            <h:commandButton value="Login" action="#{controladorUsuario.realizarLogin()}"/>
-        </h:form>
-        <h:link outcome="cadastro.xhtml" value="Realizar Cadastro" />
+        <div class="container-fluid">
+            <h:form>
+                <h:outputLabel for="email" value="Email: ">
+                    <h:inputText id="email"
+                                 value="#{controladorUsuario.usuario.email}" 
+                                 maxlength="50"
+                                 required="true"
+                                 requiredMessage="Informe um email valido"/>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel for="senha" value="Senha: ">
+                    <h:inputSecret id="senha" 
+                                   value="#{controladorUsuario.usuario.senha}"
+                                   maxlength="20"
+                                   required="true"
+                                   requiredMessage="Informe uma senha valida"/>
+                </h:outputLabel>
+                <br></br>
+                <h:selectOneMenu value = "#{controladorUsuario.valorSelect}">
+                    <f:selectItems value="#{controladorUsuario.tiposUsuario}" 
+                                   var="tipo"
+                                   itemLabel="#{tipo}"
+                                   itemValue="#{tipo}"/>
+                </h:selectOneMenu>
+                <br></br><br></br>
+                <h:commandButton class="btn btn-primary"
+                                 value="Login" 
+                                 action="#{controladorUsuario.realizarLogin()}"/>
+            </h:form>
+            <h:link outcome="cadastro.xhtml" value="Realizar Cadastro" />
+            <h:link style="margin-left: 10px;" outcome="loginAdmin.xhtml" value="Entrar como administrador" />
+        </div>
     </h:body>
 </html>
 

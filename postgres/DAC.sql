@@ -73,11 +73,18 @@ CREATE TABLE usuario (
         tipo varchar(15) not null,
         logado boolean
 );
+CREATE TABLE pedido(
+        id int primary key,
+        nome varchar(50) not null,
+        email varchar(50) not null,
+        senha varchar(20) not null,
+        tipo varchar(15) not null,
+        prioridade int
+);
 
 INSERT INTO usuario VALUES (1, 'admin', 'admin@gmail.com', 'admin123', 'Administrador', true);
 INSERT INTO laboratorio (codigo_lab, abreviacao, descricao) VALUES(36, 'X', 'X');
 INSERT INTO sala(codigo_sala, abreviacao, descricao) VALUES(37, 'X', 'X')
 
 
-/*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso
-DROP TABLE usuario;*/
+/*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso, usuario;*/
