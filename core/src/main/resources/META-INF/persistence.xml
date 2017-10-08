@@ -11,6 +11,7 @@
     <class>com.ifpb.dac.entidades.Horario</class>
     <class>com.ifpb.dac.entidades.Turma</class>
     <class>com.ifpb.dac.entidades.Usuario</class>
+    <class>com.ifpb.dac.entidades.Pedido</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
