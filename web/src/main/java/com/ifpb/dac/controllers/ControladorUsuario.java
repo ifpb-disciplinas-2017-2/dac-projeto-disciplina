@@ -1,8 +1,10 @@
 package com.ifpb.dac.controllers;
 
+import com.ifpb.dac.entidades.HorarioSalaDTO;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
+import com.ifpb.dac.interfaces.HorariosDao;
 import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
 import java.io.Serializable;
@@ -26,6 +28,9 @@ public class ControladorUsuario implements Serializable {
     private UsuarioDao usuarioDao;
     @Inject
     private PedidoDao pedidoDao;
+    @Inject
+    private HorariosDao horariosDao;
+    
     private String valorSelect;
     private List<String> tiposUsuario = Arrays.asList("Professor", "Publico");
     private Usuario usuario = new Usuario();
@@ -53,6 +58,14 @@ public class ControladorUsuario implements Serializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+//    public String testeHorarios(){
+//        List<HorarioSalaDTO> horarios = horariosDao.listarHorarioSala("Sala 01");
+//        for(HorarioSalaDTO h: horarios){
+//            System.out.println(h.toString());
+//        }
+//        return null;
+//    }
 
     public String cadastrarUsuario() {
         Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);

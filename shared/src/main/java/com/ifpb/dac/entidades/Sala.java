@@ -25,14 +25,20 @@ public class Sala implements Serializable {
     @GeneratedValue(generator = "minha_seq_sala", strategy = GenerationType.SEQUENCE)
     @Column(name = "codigo_sala")
     private int codigo_sala;        
-    @Embedded
-    private Info info;
+//    @Embedded
+//    private Info info;
+    @Column(name = "abreviacao", length = 30)
+    private String abreviacao;
+    @Column(name = "descricao", length = 50)
+    private String descricao;
     @OneToMany(mappedBy = "sala", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Aula> aulas;
 
-    public Sala(Info informacoes) {
+    public Sala(String desc, String abrev) {
         this();
-        this.info = informacoes;
+        this.abreviacao = abrev;
+        this.descricao = desc;
+//        this.info = informacoes;
     }
 
     public Sala() {
@@ -47,12 +53,28 @@ public class Sala implements Serializable {
         this.codigo_sala = codigo_sala;
     }
 
-    public Info getInfo() {
-        return info;
+//    public Info getInfo() {
+//        return info;
+//    }
+//
+//    public void setInfo(Info info) {
+//        this.info = info;
+//    }
+
+    public String getAbreviacao() {
+        return abreviacao;
     }
 
-    public void setInfo(Info info) {
-        this.info = info;
+    public void setAbreviacao(String abreviacao) {
+        this.abreviacao = abreviacao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public List<Aula> getAulas() {

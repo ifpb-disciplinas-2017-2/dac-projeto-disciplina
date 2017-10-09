@@ -48,13 +48,13 @@ public class ControladorTesteCRUD {
     
     private Info info = new Info("TESTE", "TESTE");
     private Info f = new Info("XXX", "XXX");
-    private Sala sala = new Sala(info);
+    private Sala sala = new Sala("TESTE", "TESTE");
     private Laboratorio lab = new Laboratorio(info);
     private Professor prof = new Professor("XXX", "XXX", 
             Regime.DE, Unidade.UNIND, Vinculo.Efetivo);
     private Horario hora = new Horario("XXX", Calendar.getInstance(), Calendar.getInstance());
     private Curso curso = new Curso(info, 9, "TESTE");
-    private Disciplina disc = new Disciplina(info, 2, 5, curso);
+    private Disciplina disc = new Disciplina("TESTE", "TESTE", 2, 5, curso);
     private Turma turma = new Turma("X", "XXX", curso, prof);
     private Aula aula = new Aula();
     
@@ -70,7 +70,8 @@ public class ControladorTesteCRUD {
     
     public String atualizarSala(){
         sala.setCodigo_sala(4);
-        sala.setInfo(f);
+        sala.setAbreviacao("TESTE");
+        sala.setDescricao("TESTE");
         salaDao.atualizar(sala);
         return null;
     }
@@ -162,14 +163,14 @@ public class ControladorTesteCRUD {
         disc.setCodigo_disc(8262);
         disc.setAulas_semana(10);
         disc.setCarga_horaria(10);
-        disc.setInfo(f);
         discDao.atualizar(disc);
         return null;
     }
     
     public String addAula(){
         aula.setDia("XXX");
-        aula.setCod_Aula(1500);
+        aula.setAbrev_dia(1);
+        aula.setCod_aula(1500);
         aula.setCurso(cursoDao.buscarPorId(11));
         aula.setDisciplina(discDao.buscarPorId(8265));
         aula.setHorario(horaDao.buscarPorId(5));
@@ -188,7 +189,7 @@ public class ControladorTesteCRUD {
     
     public String atualizarAula(){
         aula.setDia("XXXXXXX");
-        aula.setCod_Aula(5);
+        aula.setCod_aula(5);
         aulaDao.atualizar(aula);
         return null;
     }

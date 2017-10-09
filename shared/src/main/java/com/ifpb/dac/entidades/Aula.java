@@ -25,6 +25,7 @@ public class Aula implements Serializable {
     @Id
     @GeneratedValue(generator = "minha_seq_aula", strategy = GenerationType.SEQUENCE)
     private int cod_aula;
+    private int abrev_dia;
     @Column(name = "dia", length = 15, nullable = false)
     private String dia;
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -63,12 +64,20 @@ public class Aula implements Serializable {
     public Aula() {
     }
 
-    public int getCod_Aula() {
+    public int getCod_aula() {
         return cod_aula;
     }
 
-    public void setCod_Aula(int id) {
-        this.cod_aula = id;
+    public void setCod_aula(int cod_aula) {
+        this.cod_aula = cod_aula;
+    }
+
+    public int getAbrev_dia() {
+        return abrev_dia;
+    }
+
+    public void setAbrev_dia(int abrev_dia) {
+        this.abrev_dia = abrev_dia;
     }
 
     public String getDia() {
