@@ -49,6 +49,7 @@ CREATE TABLE turma(
 );
 CREATE TABLE aula (
 	cod_aula int primary key,
+        abrev_dia int,
 	dia varchar(15) not null,
 	codigo_curso int,
 	codigo_disc int,
@@ -86,5 +87,4 @@ INSERT INTO usuario VALUES (1, 'admin', 'admin@gmail.com', 'admin123', 'Administ
 INSERT INTO laboratorio (codigo_lab, abreviacao, descricao) VALUES(36, 'X', 'X');
 INSERT INTO sala(codigo_sala, abreviacao, descricao) VALUES(37, 'X', 'X')
 
-
-/*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso, usuario;*/
+/*DROP TABLE disciplina, sala, laboratorio, horario, aula, turma, professor, curso, usuario, pedido;*/
