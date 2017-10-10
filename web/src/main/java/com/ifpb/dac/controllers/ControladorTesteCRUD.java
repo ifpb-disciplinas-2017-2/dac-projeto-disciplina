@@ -49,7 +49,7 @@ public class ControladorTesteCRUD {
     private Info info = new Info("TESTE", "TESTE");
     private Info f = new Info("XXX", "XXX");
     private Sala sala = new Sala("TESTE", "TESTE");
-    private Laboratorio lab = new Laboratorio(info);
+    private Laboratorio lab = new Laboratorio("TESTE", "TESTE");
     private Professor prof = new Professor("XXX", "XXX", 
             Regime.DE, Unidade.UNIND, Vinculo.Efetivo);
     private Horario hora = new Horario("XXX", Calendar.getInstance(), Calendar.getInstance());
@@ -88,7 +88,7 @@ public class ControladorTesteCRUD {
     
     public String atualizarLab(){
         lab.setCodigo_lab(4);
-        lab.setInformacao(f);
+//        lab.setInformacao(f);
         labDao.atualizar(lab);
         return null;
     }

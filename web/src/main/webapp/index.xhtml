@@ -10,7 +10,9 @@
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
     </h:head>
     <h:body>
-        <div class="container-fluid">
+        <div class="container">
+            <h2>Realize login ou cadastre-se</h2>
+            <br></br>
             <h:form>
                 <h:outputLabel for="email" value="Email: ">
                     <h:inputText id="email"
@@ -40,7 +42,7 @@
                                  action="#{controladorUsuario.realizarLogin()}"/>
             </h:form>
             <h:link outcome="cadastro.xhtml" value="Realizar Cadastro" />
-            <h:link style="margin-left: 10px;" outcome="loginAdmin.xhtml" value="Entrar como administrador" />
+            <h:link style="margin-left: 20px;" outcome="loginAdmin.xhtml" value="Entrar como administrador" />
         </div>
     </h:body>
 </html>

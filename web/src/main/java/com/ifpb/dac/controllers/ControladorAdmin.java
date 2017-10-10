@@ -60,9 +60,6 @@ public class ControladorAdmin implements Serializable {
                 , p.getTipo());
         if(usuLiberado != null){
             usuLiberado.setLogado(true);
-            System.out.println(usuLiberado.getEmail());
-            System.out.println(usuLiberado.getNome());
-            System.out.println(usuLiberado.isLogado());
             usuarioDao.atualizar(usuLiberado);
         }
         return null;
