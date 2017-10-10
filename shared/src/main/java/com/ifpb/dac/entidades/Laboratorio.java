@@ -26,8 +26,12 @@ public class Laboratorio implements Serializable {
     @GeneratedValue(generator = "minha_seq_lab", strategy = GenerationType.SEQUENCE)
     @Column(name = "codigo_lab")
     private int codigo_lab;    
-    @Embedded
-    private Info informacao;
+//    @Embedded
+//    private Info informacao;
+    @Column(name = "abreviacao", length = 30)
+    private String abreviacao;
+    @Column(name = "descricao", length = 50)
+    private String descricao;
     @OneToMany(mappedBy = "laboratorio", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Aula> aulas;
 
@@ -35,9 +39,11 @@ public class Laboratorio implements Serializable {
         aulas = new ArrayList<>();
     }
     
-    public Laboratorio(Info informacao) {
+    public Laboratorio(String abrev, String desc) {
         this();
-        this.informacao = informacao;
+        this.abreviacao = abrev;
+        this.descricao = desc;
+//        this.informacao = informacao;
     }    
 
     public int getCodigo_lab() {
@@ -48,13 +54,13 @@ public class Laboratorio implements Serializable {
         this.codigo_lab = codigo_lab;
     }
 
-    public Info getInformacao() {
-        return informacao;
-    }
-
-    public void setInformacao(Info informacao) {
-        this.informacao = informacao;
-    }
+//    public Info getInformacao() {
+//        return informacao;
+//    }
+//
+//    public void setInformacao(Info informacao) {
+//        this.informacao = informacao;
+//    }
 
     public List<Aula> getAulas() {
         return aulas;
@@ -62,6 +68,22 @@ public class Laboratorio implements Serializable {
 
     public void setAulas(List<Aula> aulas) {
         this.aulas = aulas;
+    }
+
+    public String getAbreviacao() {
+        return abreviacao;
+    }
+
+    public void setAbreviacao(String abreviacao) {
+        this.abreviacao = abreviacao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
 }

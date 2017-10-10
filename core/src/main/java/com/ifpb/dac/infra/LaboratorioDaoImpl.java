@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -44,6 +45,14 @@ public class LaboratorioDaoImpl implements LaboratorioDao {
     @Override
     public Laboratorio buscarPorId(int id) {
         return em.find(Laboratorio.class, id);
+    }
+
+    @Override
+    public List<String> listarNomeLaboratorios() {
+        TypedQuery<String> createQuery = em.createQuery("SELECT l.descricao FROM Laboratorio l "
+                + "WHERE l.descricao !=:desc", String.class);
+        createQuery.setParameter("desc", "X");
+        return createQuery.getResultList();
     }
     
 }

@@ -1,6 +1,7 @@
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -8,18 +9,20 @@ import java.util.Objects;
  *
  * @author rodrigobento
  */
-public class HorarioSalaDTO implements Serializable {
+public class HorariosDTO implements Serializable {
     
     private String dia;
     private Calendar inicio;
     private Calendar fim;
     private String descricao;
     private String nome;
+    private String valorInicio;
+    private String valorFim;
 
-    public HorarioSalaDTO() {
+    public HorariosDTO() {
     }
 
-    public HorarioSalaDTO(String dia, String descricao, Calendar inicio, 
+    public HorariosDTO(String dia, String descricao, Calendar inicio, 
             Calendar fim, String nome) {
         this.dia = dia;
         this.descricao = descricao;
@@ -67,6 +70,27 @@ public class HorarioSalaDTO implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    public String retornaHora(Calendar hora){
+        SimpleDateFormat parse = new SimpleDateFormat("HH:mm:ss");
+        return parse.format(hora.getTime());
+    }
+
+    public String getValorInicio() {
+        return retornaHora(inicio);
+    }
+
+    public void setValorInicio(String valorInicio) {
+        this.valorInicio = valorInicio;
+    }
+
+    public String getValorFim() {
+        return retornaHora(fim);
+    }
+
+    public void setValorFim(String valorFim) {
+        this.valorFim = valorFim;
+    }
 
     @Override
     public int hashCode() {
@@ -90,7 +114,7 @@ public class HorarioSalaDTO implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final HorarioSalaDTO other = (HorarioSalaDTO) obj;
+        final HorariosDTO other = (HorariosDTO) obj;
         if (!Objects.equals(this.dia, other.dia)) {
             return false;
         }
