@@ -1,6 +1,6 @@
 package com.ifpb.dac.interfaces;
 
-import com.ifpb.dac.entidades.HorarioSalaDTO;
+import com.ifpb.dac.entidades.HorariosDTO;
 import java.util.List;
 
 /**
@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface HorariosDao {
     
-    List<HorarioSalaDTO> listarHorarioSala(String sala);
+    List<HorariosDTO> listarHorarioSala(String sala);
+    List<HorariosDTO> listarHorarioLab(String local);
     
 }

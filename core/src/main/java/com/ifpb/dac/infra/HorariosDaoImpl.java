@@ -1,6 +1,6 @@
 package com.ifpb.dac.infra;
 
-import com.ifpb.dac.entidades.HorarioSalaDTO;
+import com.ifpb.dac.entidades.HorariosDTO;
 import com.ifpb.dac.interfaces.HorariosDao;
 import java.util.List;
 import javax.ejb.Remote;
@@ -21,8 +21,8 @@ public class HorariosDaoImpl implements HorariosDao {
     private EntityManager em;
     
     @Override
-    public List<HorarioSalaDTO> listarHorarioSala(String sala) {
-        String sql = "SELECT new com.ifpb.dac.entidades.HorarioSalaDTO(a.dia, "
+    public List<HorariosDTO> listarHorarioSala(String sala) {
+        String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
                 + "d.descricao, h.inicio, h.fim, p.nome) "
                 + "FROM Aula a JOIN a.horario h "
                 + "JOIN a.sala s "
@@ -31,9 +31,26 @@ public class HorariosDaoImpl implements HorariosDao {
                 + "WHERE s.codigo_sala != 37 AND s.descricao =:sala "
                 + "GROUP BY a.dia, a.abrev_dia, h.codigo_hora, p.codigo, d.codigo_disc "
                 + "ORDER BY a.abrev_dia, h.inicio";
-        TypedQuery<HorarioSalaDTO> createQuery = em.createQuery(sql, HorarioSalaDTO.class);
+        TypedQuery<HorariosDTO> createQuery = em.createQuery(sql, HorariosDTO.class);
         createQuery.setParameter("sala", sala);
-        List<HorarioSalaDTO> horario = createQuery.getResultList();
+        List<HorariosDTO> horario = createQuery.getResultList();
+        return horario;
+    }
+    
+    @Override
+    public List<HorariosDTO> listarHorarioLab(String local) {
+        String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
+                + "d.descricao, h.inicio, h.fim, p.nome) "
+                + "FROM Aula a JOIN a.horario h "
+                + "JOIN a.laboratorio l "
+                + "JOIN a.disciplina d "
+                + "JOIN a.professor p "
+                + "WHERE l.codigo_lab != 36 AND l.descricao =:local "
+                + "GROUP BY a.dia, a.abrev_dia, h.codigo_hora, p.codigo, d.codigo_disc "
+                + "ORDER BY a.abrev_dia, h.inicio";
+        TypedQuery<HorariosDTO> createQuery = em.createQuery(sql, HorariosDTO.class);
+        createQuery.setParameter("local", local);
+        List<HorariosDTO> horario = createQuery.getResultList();
         return horario;
     }
 

@@ -1,6 +1,5 @@
 package com.ifpb.dac.resources;
 
-import com.ifpb.dac.interfaces.AulaDao;
 import com.ifpb.dac.interfaces.HorariosDao;
 import com.ifpb.dac.servicelocater.ServiceLocator;
 import javax.enterprise.context.ApplicationScoped;

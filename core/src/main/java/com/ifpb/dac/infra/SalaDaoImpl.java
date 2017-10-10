@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(SalaDao.class)
@@ -40,6 +41,14 @@ public class SalaDaoImpl implements SalaDao {
     @Override
     public Sala buscarPorId(int id) {
         return em.find(Sala.class, id);
+    }
+
+    @Override
+    public List<String> listarNomeSalas() {
+        TypedQuery<String> createQuery = em.createQuery("SELECT s.descricao FROM Sala s "
+                + "WHERE s.descricao !=:desc", String.class);
+        createQuery.setParameter("desc", "X");
+        return createQuery.getResultList();
     }
 
 }
