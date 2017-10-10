@@ -34,35 +34,35 @@
                 <div>
                     <h:dataTable rendered="#{controladorSala.visualizar}"
                                  value="#{controladorSala.horario}"
-                                 var="hora">
+                                 var="horaSala">
                         <div>
                             <h:column>
                                 <f:facet name="header">Dia</f:facet>
-                                <h:outputText value="#{hora.dia}"/>
+                                <h:outputText value="#{horaSala.dia}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Inicio</f:facet>
-                                <h:outputText value="#{hora.valorInicio}"/>
+                                <h:outputText value="#{horaSala.valorInicio}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Fim</f:facet>
-                                <h:outputText value="#{hora.valorFim}"/>
+                                <h:outputText value="#{horaSala.valorFim}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Disciplina</f:facet>
-                                <h:outputText value="#{hora.descricao}"/>
+                                <h:outputText value="#{horaSala.descricao}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Professor</f:facet>
-                                <h:outputText value="#{hora.nome}"/>
+                                <h:outputText value="#{horaSala.nome}"/>
                             </h:column>
                         </div>
                     </h:dataTable>

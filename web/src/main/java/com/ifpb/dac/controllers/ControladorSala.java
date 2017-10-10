@@ -18,7 +18,7 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class ControladorSala implements Serializable {
-    
+
     @Inject
     private HorariosDao hDao;
     @Inject
@@ -35,17 +35,17 @@ public class ControladorSala implements Serializable {
     public void setVisualizar(boolean visualizarHorarios) {
         this.visualizar = visualizarHorarios;
     }
-    
+
     public String getValorSelect() {
         return valorSelect;
     }
 
     public void setValorSelect(String valorSelect) {
         this.valorSelect = valorSelect;
-    }  
+    }
 
     public List<HorariosDTO> getHorario() {
-        return hDao.listarHorarioSala("Sala 01");  
+        return hDao.listarHorarioSala(valorSelect);
     }
 
     public void setHorario(List<HorariosDTO> horario) {
@@ -59,15 +59,15 @@ public class ControladorSala implements Serializable {
     public void setSalas(List<String> salas) {
         this.salas = salas;
     }
-    
-    public String visualizarHorarios(){
-        visualizar = true;
+
+    public String visualizarHorarios() {
 //        List<HorarioSalaDTO> segunda = hDao.listarHorarioSala(valorSelect).
 //                stream().filter(h -> "SEGUNDA-FEIRA".equals(h.getDia())).collect(Collectors.toList());
+//        List<HorarioSalaDTO> hora = segunda; 
+        visualizar = true;
         List<HorariosDTO> hora = hDao.listarHorarioSala(valorSelect);
-//        List<HorarioSalaDTO> hora = segunda;
         setHorario(hora);
         return null;
-    }    
-    
+    }
+
 }
