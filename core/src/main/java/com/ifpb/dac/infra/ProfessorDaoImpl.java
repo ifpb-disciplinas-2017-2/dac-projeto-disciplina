@@ -43,4 +43,10 @@ public class ProfessorDaoImpl implements ProfessorDao {
         return em.find(Professor.class, id);
     }
     
+    @Override
+    public List<String> listarNomeProfessores(){
+        return em.createQuery("SELECT p.nome FROM Professor p", 
+                String.class).getResultList();
+    }
+    
 }

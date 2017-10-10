@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Professores</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="./bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <h2 style="text-align: center">Busque os horários do professor informado</h2>
+                <hr></hr>
+                <h:form>
+                    <div>
+                        <h:outputLabel for="nome" value="Nome do Professor">
+                            <h:selectOneMenu id="nome" value = "#{controladorProfessor.valorSelect}">
+                                <f:selectItems value="#{controladorProfessor.professores}" 
+                                               var="profs"
+                                               itemLabel="#{profs}"
+                                               itemValue="#{profs}"/>
+                            </h:selectOneMenu>
+                            <h:commandButton style="margin-left: 20px;"
+                                             value="Buscar horarios"
+                                             action="#{controladorProfessor.visualizarHorarios()}"/>
+                        </h:outputLabel>
+                    </div>
+                    <hr></hr>
+                    <div>
+                        <h:dataTable rendered="#{controladorProfessor.visualizar}"
+                                     value="#{controladorProfessor.horario}"
+                                     var="horaProf">
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Dia</f:facet>
+                                    <h:outputText value="#{horaProf.dia}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Inicio</f:facet>
+                                    <h:outputText value="#{horaProf.valorInicio}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Fim</f:facet>
+                                    <h:outputText value="#{horaProf.valorFim}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Disciplina</f:facet>
+                                    <h:outputText value="#{horaProf.descricao}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Professor</f:facet>
+                                    <h:outputText value="#{horaProf.nome}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Local</f:facet>
+                                    <h:outputText value="#{horaProf.local}"/>
+                                </h:column>
+                            </div>
+                        </h:dataTable>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -11,4 +11,5 @@ public interface ProfessorDao {
     void atualizar(Professor prof);
     List<Professor> listarTodos();
     Professor buscarPorId(int id);
+    List<String> listarNomeProfessores();
 }
