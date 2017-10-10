@@ -14,5 +14,6 @@ public interface PedidoDao {
     void atualizar(Pedido p);
     List<Pedido> listarTodos();
     Pedido buscarPorId(int id);
+    Pedido buscarPorCredenciais(String email, String senha);
     
 }
