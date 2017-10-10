@@ -6,6 +6,7 @@ import com.ifpb.dac.interfaces.LaboratorioDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +16,7 @@ import javax.inject.Named;
  * @author rodrigobento
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class ControladorLaboratorio implements Serializable {
     
     @Inject
@@ -61,8 +62,8 @@ public class ControladorLaboratorio implements Serializable {
     
     public String visualizarHorarios(){
         visualizar = true;
-        List<HorariosDTO> horarios = hDao.listarHorarioLab(valorSelect);
-        setHorario(horarios);
+//        List<HorariosDTO> horarios = hDao.listarHorarioLab(valorSelect);
+//        setHorario(horarios);
         return null;
     }
     
