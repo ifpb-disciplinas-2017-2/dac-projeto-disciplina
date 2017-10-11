@@ -11,5 +11,6 @@ public interface DisciplinaDao {
     void atualizar(Disciplina disc);
     List<Disciplina> listarTodos();
     Disciplina buscarPorId(int id);
+    List<String> listarDisciplinaCurso(String curso);
     
 }

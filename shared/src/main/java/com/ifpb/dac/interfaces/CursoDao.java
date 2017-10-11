@@ -10,5 +10,6 @@ public interface CursoDao {
     void atualizar(Curso curs);
     List<Curso> listarTodos();
     Curso buscarPorId(int id);
+    List<String> listarNomeCursos();
     
 }

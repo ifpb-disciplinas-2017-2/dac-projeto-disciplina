@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(DisciplinaDao.class)
@@ -40,6 +41,16 @@ public class DisciplinaDaoImpl implements DisciplinaDao {
     @Override
     public Disciplina buscarPorId(int id) {
         return em.find(Disciplina.class, id);
+    }
+    
+    @Override
+    public List<String> listarDisciplinaCurso(String curso) {
+        TypedQuery<String> createQuery = em.createQuery("SELECT d.descricao FROM Disciplina d "
+                + "JOIN d.curso c "
+                + "WHERE c.info.descricao =:curso "
+                + "GROUP BY d.descricao", String.class);
+        createQuery.setParameter("curso", curso);
+        return createQuery.getResultList();
     }
     
 }

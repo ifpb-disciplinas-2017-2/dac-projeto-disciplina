@@ -72,5 +72,26 @@ public class HorariosDaoImpl implements HorariosDao {
         List<HorariosDTO> horario = createQuery.getResultList();
         return horario;
     }
+    
+    @Override
+    public List<HorariosDTO> listarHorarioCurso(String curso, String disciplina) {
+        String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
+                + "d.descricao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
+                + "FROM Aula a "
+                + "JOIN a.horario h "
+                + "JOIN a.laboratorio l "
+                + "JOIN a.disciplina d "
+                + "JOIN a.professor p "
+                + "JOIN a.sala s "
+                + "JOIN a.curso c "
+                + "WHERE c.info.descricao =:curso AND d.descricao =:disciplina "
+                + "GROUP BY a.dia, a.abrev_dia, h.codigo_hora, p.codigo, d.codigo_disc, s.codigo_sala, l.codigo_lab "
+                + "ORDER BY a.abrev_dia, h.inicio";
+        TypedQuery<HorariosDTO> createQuery = em.createQuery(sql, HorariosDTO.class);
+        createQuery.setParameter("curso", curso);
+        createQuery.setParameter("disciplina", disciplina);
+        List<HorariosDTO> horario = createQuery.getResultList();
+        return horario;
+    }
 
 }

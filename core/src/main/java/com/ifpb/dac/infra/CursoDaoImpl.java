@@ -40,5 +40,11 @@ public class CursoDaoImpl implements CursoDao {
     public Curso buscarPorId(int id) {
         return em.find(Curso.class, id);
     }
+    
+    @Override
+    public List<String> listarNomeCursos(){
+        return em.createQuery("SELECT c.info.descricao FROM Curso c", 
+                String.class).getResultList();
+    }
 
 }
