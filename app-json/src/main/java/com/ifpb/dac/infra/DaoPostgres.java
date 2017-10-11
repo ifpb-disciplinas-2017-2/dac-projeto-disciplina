@@ -126,7 +126,7 @@ public class DaoPostgres {
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, p.getCodigo());
-            stmt.setString(2, p.getEmail());
+            stmt.setString(2, p.getPrimeiroEmail());
             stmt.setString(3, p.getNome());
             stmt.setString(4, p.getRegime());
             stmt.setString(5, p.getUnidade());
@@ -211,7 +211,7 @@ public class DaoPostgres {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.setString(2, prof.getNome());
-            stmt.setString(3, prof.getEmail());
+            stmt.setString(3, prof.getPrimeiroEmail());
             stmt.setString(4, "12345");
             stmt.setString(5, "Professor");
             stmt.setBoolean(6, false);
@@ -232,7 +232,7 @@ public class DaoPostgres {
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
             stmt.setString(2, p.getNome());
-            stmt.setString(3, p.getEmail());
+            stmt.setString(3, p.getPrimeiroEmail());
             stmt.setString(4, "12345");
             stmt.setString(5 , "Professor");
             stmt.setInt(6, 0);

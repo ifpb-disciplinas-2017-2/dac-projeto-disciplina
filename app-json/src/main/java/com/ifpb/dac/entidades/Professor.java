@@ -8,6 +8,7 @@ public class Professor {
     private String vinculo;
     private String regime;
     private String email;
+    private String primeiroEmail;
 
     public int getCodigo() {
         return codigo;
@@ -55,6 +56,14 @@ public class Professor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPrimeiroEmail() {
+        return email.split(",")[0];
+    }
+
+    public void setPrimeiroEmail(String primeiroEmail) {
+        this.primeiroEmail = primeiroEmail;
     }
 
     @Override
