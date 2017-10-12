@@ -91,17 +91,13 @@ public class ControladorCurso implements Serializable {
     }
     
     public String visualizarDisciplinasCurso(){
-        List<String> listarDisciplinaCurso = dDao.listarDisciplinaCurso(valorCurso);
-//        for(String s: listarDisciplinaCurso){
-//            System.out.println("Valor: " + s);
-//        }
-        setDisciplinasCurso(listarDisciplinaCurso);
         visualizarDisc = true;
+        visualizar = false;
         return null;
     }
     
     public String visualizarHorarios(){
-        List<HorariosDTO> listarHorarioCurso = hDao.listarHorarioCurso(valorCurso, valorDisciplina);
+//        List<HorariosDTO> listarHorarioCurso = hDao.listarHorarioCurso(valorCurso, valorDisciplina);
 //        for (HorariosDTO h: listarHorarioCurso){
 //            System.out.println("Dia: " + h.getDia());
 //            System.out.println("Inicio: " + h.getValorInicio());
@@ -110,9 +106,8 @@ public class ControladorCurso implements Serializable {
 //            System.out.println("Laboratorio: " + h.getDescricaoLab());
 //            System.out.println("Local: " + h.getLocal());
 //        }
-        setHorario(listarHorarioCurso);
+//        setHorario(listarHorarioCurso);
         visualizar = true;
-//        visualizarDisc = false;
         return null;
     }
     

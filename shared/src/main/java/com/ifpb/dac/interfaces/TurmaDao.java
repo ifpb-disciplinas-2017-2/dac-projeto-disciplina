@@ -14,6 +14,7 @@ public interface TurmaDao {
     void remover(Turma t);
     List<Turma> listarTodos();
     Turma buscarPorId(int id);
-    
+    List<String> listarTodasDisciplinas();
+    List<String> professoresDisciplina(String disciplina);
     
 }

@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -44,6 +45,22 @@ public class TurmaDaoImpl implements TurmaDao {
     @Override
     public Turma buscarPorId(int id) {
         return em.find(Turma.class, id);
+    }
+
+    @Override
+    public List<String> listarTodasDisciplinas() {
+        return em.createQuery("SELECT DISTINCT(t.nome_disciplina) FROM Turma t ORDER BY t.nome_disciplina", 
+                String.class).getResultList();
+    }
+
+    @Override
+    public List<String> professoresDisciplina(String disciplina) {
+        TypedQuery<String> createQuery = em.createQuery("SELECT p.nome FROM Turma t "
+                + "JOIN t.professor p "
+                + "WHERE t.nome_disciplina =:disc "
+                + "GROUP BY p.codigo", String.class);
+        createQuery.setParameter("disc", disciplina);
+        return createQuery.getResultList();
     }
     
 }
