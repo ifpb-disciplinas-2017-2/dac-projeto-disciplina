@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cadastro Material</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="./bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>   
+    </h:head>
+    <h:body>
+        <div class="container">
+            <h:form id="form" enctype="multipart/form-data">
+                <h:outputLabel for="desc" value="Informe a descricao do arquivo">
+                    <h:inputText id="desc"
+                                 required="true"
+                                 value="#{controladorMaterial.material.descricao}"/>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel for="arquivo">
+                    <h:inputFile id="arquivo"
+                                 label="Informe o arquivo"
+                                 validator="validator.ValidadorArquivo"
+                                 required="true"
+                                 value="#{controladorMaterial.arquivo}"/>
+                </h:outputLabel>
+                <br></br>
+                <h:commandButton value="Realizar Upload" action="#{controladorMaterial.upload()}"/>
+            </h:form>
+
+            <br></br>
+            <h:form>
+                <h:dataTable var="material" value="#{controladorMaterial.materiais}">
+                    <h:column>
+                        <f:facet name="header">Descricao</f:facet>
+                        <h:outputText value="#{material.descricao}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Arquivo</f:facet>
+                        <h:outputText value="#{material.nomeArquivo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Excluir</f:facet>
+                        <h:commandButton value="Excluir Material" 
+                                         action="#{controladorMaterial.removerMaterial(material)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>

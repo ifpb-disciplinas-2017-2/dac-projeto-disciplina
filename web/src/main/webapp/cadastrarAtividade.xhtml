@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <!--xmlns:a="http://xmlns.jcp.org/jsf/passthrough"-->
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="./bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+        <script type="text/javascript" src="./bootstrap/js/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Adicionar Atividade</h2>
+            <h4>#{controladorAtividade.usuario.nome}</h4>
+            <h4>#{controladorAtividade.usuario.email}</h4>
+            <h:form>
+                <h:outputLabel for="resumo" value="Titulo ">
+                    <h:inputText value="#{controladorAtividade.atividade.resumo}"
+                                 id="resumo"
+                                 required="true"
+                                 requiredMessage="Necessario informar o titulo da atividade"/>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel for="desc" value="Descricao ">
+                    <h:inputText value="#{controladorAtividade.atividade.descricao}"
+                                 id="desc"
+                                 required="true"
+                                 requiredMessage="Necessario informar a descricao da atividade"/>
+                </h:outputLabel>
+                <br></br>
+                <!--h:inputText a:placeholder="dd/mm/yyyy hh:mm"-->
+                <h:outputLabel for="dataInicio" value="Data Inicio">
+                    <h:inputText id="dataInicio" 
+                                 required="true"
+                                 value="#{controladorAtividade.atividade.inicio}">
+                        <f:converter converterId="convert.ConversorData"/>
+                    </h:inputText>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel for="dataFim" value="Data Fim">
+                    <h:inputText id="dataFim" 
+                                 required="true"
+                                 value="#{controladorAtividade.atividade.fim}">
+                        <f:converter converterId="convert.ConversorData" />
+                    </h:inputText>
+                </h:outputLabel>
+                <br></br>
+                <h:commandButton value="Cadastrar Atividade" action="#{controladorAtividade.cadastrarAtividade()}"/>
+            </h:form>
+            <h:form>
+                <h:commandButton value="Visualizar Atividades" immediate="true"
+                                 action="#{controladorAtividade.visualizarAtividade()}"/>
+                <h:dataTable value="#{controladorAtividade.atividades}"
+                             var="atividade"
+                             rendered="#{controladorAtividade.visualizarAtiv}">
+                    <h:column>
+                        <f:facet name="header">Resumo</f:facet>
+                        <h:outputText value="#{atividade.resumo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Descricao</f:facet>
+                        <h:outputText value="#{atividade.descricao}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Inicio</f:facet>
+                        <h:outputText value="#{atividade.inicio}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fim</f:facet>
+                        <h:outputText value="#{atividade.fim}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Remover</f:facet>
+                        <h:commandButton value="Finalizar Atividade" action="#{controladorAtividade.removerAtividade(atividade)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </body>
+</html>
