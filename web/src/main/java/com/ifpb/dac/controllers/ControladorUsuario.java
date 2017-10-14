@@ -1,9 +1,9 @@
 package com.ifpb.dac.controllers;
 
-import com.ifpb.dac.entidades.HorariosDTO;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
+import com.ifpb.dac.interfaces.GoogleAgenda;
 import com.ifpb.dac.interfaces.HorariosDao;
 import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,6 +34,7 @@ public class ControladorUsuario implements Serializable {
     private String valorSelect;
     private List<String> tiposUsuario = Arrays.asList("Professor", "Publico");
     private Usuario usuario = new Usuario();
+    private HttpSession sessao;
 
     public List<String> getTiposUsuario() {
         return tiposUsuario;
@@ -58,18 +60,6 @@ public class ControladorUsuario implements Serializable {
         this.usuario = usuario;
     }
 
-//    public String testeHorarios(){
-//        List<HorariosDTO> horarios = horariosDao.listarHorarioLab("LABORATÓRIO DE INFORMÁTICA 04");
-//        for(HorariosDTO h: horarios){
-//            System.out.println("Dia: " + h.getDia());
-//            System.out.println("Disciplina: " + h.getDescricao());
-//            System.out.println("Hora Inicio: " + h.getValorInicio());
-//            System.out.println("Hora Fim: " + h.getValorFim());
-//            System.out.println("Professor: " + h.getNome());            
-//        }
-//        return null;
-//    }
-    
     public String cadastrarUsuario() {
         Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);
         usuario.setTipo(tipo);
@@ -90,6 +80,9 @@ public class ControladorUsuario implements Serializable {
         usuario = new Usuario();
         if (autenticado != null) {
             if (autenticado.isLogado()) {
+                sessao = (HttpSession) FacesContext.getCurrentInstance().
+                        getExternalContext().getSession(true);
+                sessao.setAttribute("usuario", autenticado);
                 return "principal.xhtml";
             } else {
                 Pedido p = pedidoDao.buscarPorCredenciais(autenticado.getEmail(),
@@ -111,5 +104,5 @@ public class ControladorUsuario implements Serializable {
         message.setSeverity(FacesMessage.SEVERITY_INFO);
         FacesContext.getCurrentInstance().addMessage("Acesso", message);
     }
-
+    
 }
