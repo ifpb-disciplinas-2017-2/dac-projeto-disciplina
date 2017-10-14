@@ -12,6 +12,9 @@
     <class>com.ifpb.dac.entidades.Turma</class>
     <class>com.ifpb.dac.entidades.Usuario</class>
     <class>com.ifpb.dac.entidades.Pedido</class>
+    <class>com.ifpb.dac.entidades.Atividade</class>
+    <class>com.ifpb.dac.conversores.ConversorLocalDateTime</class>
+    <class>com.ifpb.dac.entidades.Material</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
