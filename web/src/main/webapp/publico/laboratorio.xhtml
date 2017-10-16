@@ -4,65 +4,65 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>Horarios Salas</title>
+        <title>Laboratorios</title>
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
-        <script src="./bootstrap/js/bootstrap.js"/>
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/> 
     </head>
     <body>
         <div class="container">
             <div>
-                <h2 style="text-align: center">Busque os horários a partir da sala informada</h2>
+                <h2 style="text-align: center">Busque os horários a partir do laboratório informado</h2>
             </div>
             <hr></hr>
             <h:form>
                 <div>
-                    <h:outputLabel for="nome" value="Nome da Sala">
-                        <h:selectOneMenu id="nome" value = "#{controladorSala.valorSelect}">
-                            <f:selectItems value="#{controladorSala.salas}" 
-                                           var="sala"
-                                           itemLabel="#{sala}"
-                                           itemValue="#{sala}"/>
+                    <h:outputLabel for="nome" value="Nome do Laboratorio">
+                        <h:selectOneMenu id="nome" value = "#{controladorLaboratorio.valorSelect}">
+                            <f:selectItems value="#{controladorLaboratorio.laboratorios}" 
+                                           var="labs"
+                                           itemLabel="#{labs}"
+                                           itemValue="#{labs}"/>
                         </h:selectOneMenu>
                         <h:commandButton style="margin-left: 20px;"
                                          value="Buscar horarios"
-                                         action="#{controladorSala.visualizarHorarios()}"/>
+                                         action="#{controladorLaboratorio.visualizarHorarios()}"/>
                     </h:outputLabel>
                 </div>
                 <hr></hr>
                 <div>
-                    <h:dataTable rendered="#{controladorSala.visualizar}"
-                                 value="#{controladorSala.horario}"
-                                 var="horaSala">
+                    <h:dataTable rendered="#{controladorLaboratorio.visualizar}"
+                                 value="#{controladorLaboratorio.horario}"
+                                 var="hora">
                         <div>
                             <h:column>
                                 <f:facet name="header">Dia</f:facet>
-                                <h:outputText value="#{horaSala.dia}"/>
+                                <h:outputText value="#{hora.dia}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Inicio</f:facet>
-                                <h:outputText value="#{horaSala.valorInicio}"/>
+                                <h:outputText value="#{hora.valorInicio}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Fim</f:facet>
-                                <h:outputText value="#{horaSala.valorFim}"/>
+                                <h:outputText value="#{hora.valorFim}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Disciplina</f:facet>
-                                <h:outputText value="#{horaSala.descricao}"/>
+                                <h:outputText value="#{hora.descricao}"/>
                             </h:column>
                         </div>
                         <div>
                             <h:column>
                                 <f:facet name="header">Professor</f:facet>
-                                <h:outputText value="#{horaSala.nome}"/>
+                                <h:outputText value="#{hora.nome}"/>
                             </h:column>
                         </div>
                     </h:dataTable>
