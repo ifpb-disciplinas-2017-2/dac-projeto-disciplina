@@ -22,6 +22,9 @@ public class GoogleAgendaAPI implements GoogleAPI {
 
     private static final String CALENDAR_ID = "projetodacfinal@projetodac"
             + "-182622.iam.gserviceaccount.com";
+//        private static final String CALENDAR_ID2 = "projeto-dac@projeto-dac.iam.gserviceaccount.com";
+//        private static final String CALENDAR_ID = "dac-project@projeto-dac.iam.gserviceaccount.com";
+
 
     private static Calendar getCalendarClient() {
         try {
@@ -49,6 +52,7 @@ public class GoogleAgendaAPI implements GoogleAPI {
 
     @Override
     public String adicionarEvento(Event evento) {
+        System.out.println(evento.toString());
         Calendar c = getCalendarClient();
         try {
             return c.events().insert(CALENDAR_ID, 

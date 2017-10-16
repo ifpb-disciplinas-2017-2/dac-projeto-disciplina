@@ -14,23 +14,36 @@
         <div class="container-fluid">
             <h2>Menu</h2>
             <br></br>
-            <h:link outcome="sala.xhtml" 
+            <h:link outcome="publico/sala.xhtml" 
                     value="Visualizar Horarios de Salas"/>
             <br></br><br></br>
-            <h:link outcome="laboratorio.xhtml" 
+            <h:link outcome="publico/laboratorio.xhtml" 
                     value="Visualizar Horarios de Laboratorios"/>
             <br></br><br></br>
-            <h:link outcome="professor.xhtml" 
+            <h:link outcome="publico/professor.xhtml" 
                     value="Visualizar Horario de Professores"/>
             <br></br><br></br>
-            <h:link outcome="curso.xhtml" 
+            <h:link outcome="publico/curso.xhtml" 
                     value="Visualizar Horarios de Cursos"/>
             <br></br><br></br>
-            <h:link outcome="turma.xhtml" value="Horarios Turma" />
+            <h:link outcome="publico/turma.xhtml" value="Horarios Turma" />
             <br></br><br></br>
-            <h:link outcome="cadastrarAtividade.xhtml" value="Gerenciar Atividades" />
+            <h:link outcome="aluno/atividade.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq false}"
+                    value="Receber Atividades" />
+            <h:link outcome="professor/gerenciarAtividade.xhtml" 
+                    rendered="#{controladorMenu.credenciais}"
+                    value="Gerenciar Atividades" />
             <br></br><br></br>
-            <h:link outcome="cadastroMaterial.xhtml" value="Gerenciar Materiais" />
+            <h:link outcome="professor/cadastroMaterial.xhtml" 
+                    rendered="#{controladorMenu.credenciais}"
+                    value="Gerenciar Materiais" />
+            <br></br><br></br>
+            <h:form>
+                <h:commandButton value="Logout"
+                                 action="#{controladorMenu.logout()}"
+                                 class="btn btn-danger"/>
+            </h:form>
         </div>
     </h:body>
 </html>

@@ -7,9 +7,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>shared</module>
-    <module>core</module>
-    <module>web</module>
-        <module>jse</module>
+        <module>core</module>
+        <module>web</module>
+        <!--<module>jse</module>-->
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -3,34 +3,25 @@ package com.ifpb.dac.entidades;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author rodrigobento
  */
 @Entity
-//@SequenceGenerator(name = "minha_seq_ativ",
-//        sequenceName = "seq_ativ",
-//        initialValue = 1,
-//        allocationSize = 1)
 public class Atividade implements Serializable {
     
     @Id
-//    @GeneratedValue(generator = "minha_seq_ativ", strategy = GenerationType.SEQUENCE)
     private String id;
     private String resumo;
     // private String localizacao;
     private String descricao;
     private LocalDateTime inicio;
     private LocalDateTime fim;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "turma_id")
     private Turma turma;
 
