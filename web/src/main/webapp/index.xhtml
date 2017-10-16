@@ -40,10 +40,29 @@
                 <h:commandButton class="btn btn-primary"
                                  value="Login" 
                                  action="#{controladorUsuario.realizarLogin()}"/>
+                <h:form>
+                    <h:commandButton class="btn btn-primary"
+                                     immediate="true"
+                                     value="Realizar cadastro"
+                                     style="margin-left: 20px;"
+                                     action="#{controladorUsuario.navegarCadastro()}"/>
+                    <h:commandButton class="btn btn-primary"
+                                     value="Entrar como publico" 
+                                     style="margin-left: 20px;"
+                                     action="#{controladorUsuario.entrarComoPublico()}"/>
+                    <br></br><br></br>
+                    <h:link rendered="#{controladorUsuario.cad}" 
+                            style="margin-left: 40px;"
+                            outcome="cadastros/cadastro.xhtml"
+                            value="Cadastro Aluno" />
+                    <h:link rendered="#{controladorUsuario.cad}" 
+                            style="margin-left: 20px;"
+                            outcome="cadastros/cadastroProf.xhtml"
+                            value="Cadastro Professor" />
+                </h:form>
             </h:form>
-            <h:link outcome="cadastro.xhtml" value="Realizar Cadastro" />
-            <h:link style="margin-left: 20px;" outcome="loginAdmin.xhtml" value="Entrar como administrador" />
-            <h:link style="margin-left: 20px;" outcome="cadastroMaterial.xhtml" value="Material" />
+            <br></br>
+            <h:link style="margin-left: 20px;" outcome="admin/loginAdmin.xhtml" value="Entrar como administrador" />            
         </div>
     </h:body>
 </html>
