@@ -16,5 +16,8 @@ public interface TurmaDao {
     Turma buscarPorId(int id);
     List<String> listarTodasDisciplinas();
     List<String> professoresDisciplina(String disciplina);
+    List<String> disciplinaProfessores(String professor);
+    Turma retornarDiscProf(String disciplina, String professor);
+    int verificarAlunoTurma(int idTurma, int idAluno);
     
 }

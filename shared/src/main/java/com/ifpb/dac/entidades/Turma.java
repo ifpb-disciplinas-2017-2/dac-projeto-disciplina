@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -42,6 +44,24 @@ public class Turma implements Serializable {
     private Professor professor;
     @OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Aula> aulas;
+    @OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Material> material;
+    
+//    @OneToMany(mappedBy = "turma", fetch = FetchType.EAGER)
+//    private List<TurmaAluno> turmaAluno;
+    
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+//    @JoinTable(name = "aluno_turma",
+//            joinColumns =  @JoinColumn(name = "codigo_turma"),
+//            inverseJoinColumns = @JoinColumn(name = "id"))
+//    private List<Usuario> usuarios;
+    
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinTable(name = "aluno_turma",
+            joinColumns =  @JoinColumn(name = "codigo_turma"),
+            inverseJoinColumns = @JoinColumn(name = "id"))
+    private List<Aluno> alunos;
+    
 
     public Turma(String identificacao, String nome_disciplina, Curso curso, Professor professor) {
         this();
@@ -52,7 +72,33 @@ public class Turma implements Serializable {
     }
 
     public Turma() {
-        aulas = new ArrayList<>();
+//        usuarios = new ArrayList<>();
+        this.aulas = new ArrayList<>();
+        this.alunos = new ArrayList<>();
+    }
+    
+//    public boolean add(Usuario u){
+//        return usuarios.add(u);
+//    }
+//    
+//    public boolean rmv(Usuario u){
+//        return usuarios.remove(u);
+//    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Aluno> alunos) {
+        this.alunos = alunos;
+    }
+    
+    public boolean add(Aluno a){
+        return alunos.add(a);
+    }
+    
+    public boolean rmv(Aluno a){
+        return alunos.remove(a);
     }
 
     public int getCodigo_turma() {
@@ -102,5 +148,29 @@ public class Turma implements Serializable {
     public void setAulas(List<Aula> aulas) {
         this.aulas = aulas;
     }
+
+    public List<Material> getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(List<Material> material) {
+        this.material = material;
+    }
+
+//    public List<TurmaAluno> getTurmaAluno() {
+//        return turmaAluno;
+//    }
+//
+//    public void setTurmaAluno(List<TurmaAluno> turmaAluno) {
+//        this.turmaAluno = turmaAluno;
+//    }
+
+//    public List<Usuario> getUsuarios() {
+//        return usuarios;
+//    }
+//
+//    public void setUsuarios(List<Usuario> usuarios) {
+//        this.usuarios = usuarios;
+//    }
 
 }

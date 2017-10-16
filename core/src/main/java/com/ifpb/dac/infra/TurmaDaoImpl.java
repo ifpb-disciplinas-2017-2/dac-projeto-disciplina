@@ -2,11 +2,14 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.interfaces.TurmaDao;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -61,6 +64,51 @@ public class TurmaDaoImpl implements TurmaDao {
                 + "GROUP BY p.codigo", String.class);
         createQuery.setParameter("disc", disciplina);
         return createQuery.getResultList();
+    }
+
+    @Override
+    public List<String> disciplinaProfessores(String professor) {
+        TypedQuery<String> createQuery = em.createQuery("SELECT t.nome_disciplina "
+                + "FROM Turma t "
+                + "JOIN t.professor p "
+                + "WHERE p.nome =:prof "
+                + "GROUP BY t.nome_disciplina", String.class);
+        createQuery.setParameter("prof", professor);
+        List<String> lista = createQuery.getResultList();
+        if(lista.stream().findFirst().isPresent()){
+            return lista;
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public Turma retornarDiscProf(String disciplina, String professor) {
+        TypedQuery<Turma> createQuery = em.createQuery("SELECT t "
+                + "FROM Turma t "
+                + "JOIN t.professor p "
+                + "WHERE p.nome =:prof AND t.nome_disciplina =:disc "
+                + "GROUP BY t.codigo_turma", Turma.class);
+        createQuery.setParameter("disc", disciplina);
+        createQuery.setParameter("prof", professor);
+        Optional<Turma> findFirst = createQuery.getResultList().stream().findFirst();
+        if(findFirst.isPresent()){
+            return findFirst.get();
+        } else {
+            return null;
+        }
+    }
+    
+    @Override
+    public int verificarAlunoTurma(int idTurma, int idAluno){
+        Long resultado;
+        Query createNativeQuery = em.createNativeQuery("SELECT count(*) "
+                + "FROM aluno_turma "
+                + "WHERE codigo_turma = "+ idTurma + " AND id = " + idAluno);
+//        createNativeQuery.setParameter(1, idTurma);
+//        createNativeQuery.setParameter(2, idAluno);
+        resultado = (Long) createNativeQuery.getSingleResult();
+        return resultado.intValue();
     }
     
 }

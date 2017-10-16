@@ -11,5 +11,6 @@ public interface CursoDao {
     List<Curso> listarTodos();
     Curso buscarPorId(int id);
     List<String> listarNomeCursos();
+    Curso retornarPorNome(String curso);
     
 }

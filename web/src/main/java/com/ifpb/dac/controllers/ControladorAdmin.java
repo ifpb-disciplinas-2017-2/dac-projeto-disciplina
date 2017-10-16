@@ -5,10 +5,13 @@ import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -63,6 +66,16 @@ public class ControladorAdmin implements Serializable {
             usuarioDao.atualizar(usuLiberado);
         }
         return null;
+    }
+    
+    public void voltar(){
+        ExternalContext externalContext = FacesContext.getCurrentInstance()
+                .getExternalContext();
+        try {
+            externalContext.redirect("../index.xhtml");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
