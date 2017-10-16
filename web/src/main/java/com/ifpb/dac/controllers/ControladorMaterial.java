@@ -1,16 +1,24 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Material;
+import com.ifpb.dac.entidades.Turma;
+import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.Dropbox;
 import com.ifpb.dac.interfaces.MaterialDao;
+import com.ifpb.dac.interfaces.TurmaDao;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -19,15 +27,30 @@ import javax.servlet.http.Part;
  */
 @Named
 @RequestScoped
-public class ControladorMaterial {
+public class ControladorMaterial implements Serializable {
 
     @Inject
     private Dropbox drop;
     @Inject
     private MaterialDao mDao;
+    @Inject
+    private TurmaDao tDao;
+    private HttpSession sessao;
+    private Usuario usuario = new Usuario();
     private Part arquivo;
     private Material material = new Material();
+    private Turma turma;
     private List<Material> materiais = new ArrayList<>();
+    private List<String> disciplinasProfessores = new ArrayList<>();
+    private boolean escolha = false;
+    private String valorSelect;
+    
+    @PostConstruct
+    public void init(){
+        sessao = (HttpSession) FacesContext.getCurrentInstance().
+                getExternalContext().getSession(false);
+        usuario = (Usuario) sessao.getAttribute("usuario");
+    }
 
     public Part getArquivo() {
         return arquivo;
@@ -53,19 +76,67 @@ public class ControladorMaterial {
         this.materiais = materiais;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<String> getDisciplinasProfessores() {
+        return tDao.disciplinaProfessores(usuario.getNome());
+    }
+
+    public void setDisciplinasProfessores(List<String> disciplinasProfessores) {
+        this.disciplinasProfessores = disciplinasProfessores;
+    }
+
+    public boolean isEscolha() {
+        return escolha;
+    }
+
+    public void setEscolha(boolean escolha) {
+        this.escolha = escolha;
+    }
+
+    public String getValorSelect() {
+        return valorSelect;
+    }
+
+    public void setValorSelect(String valorSelect) {
+        this.valorSelect = valorSelect;
+    }
+
+    public String form() {
+        escolha = true;
+        return null;
+    }
+
     public String upload() {
         try {
-            material.setNomeArquivo(arquivo.getSubmittedFileName());
-            material.setArquivo(convertByteArray(arquivo.getInputStream()));
-            drop.uploadArquivo(material);
+            System.out.println(valorSelect);
+            System.out.println(usuario.getNome());
+            turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
+            if (turma == null) {
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Turma não encontrada", "Turma não encontrada");
+                FacesContext.getCurrentInstance().addMessage("Acesso", msg);
+            } else {
+                System.out.println(turma.getNome_disciplina());
+                material.setNomeArquivo(arquivo.getSubmittedFileName());
+                material.setArquivo(convertByteArray(arquivo.getInputStream()));
+                material.setTurma(turma);
+                drop.uploadArquivo(material);
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         material = new Material();
         return null;
     }
-    
-    public String removerMaterial(Material m){
+
+    public String removerMaterial(Material m) {
         drop.removerArquivo(m);
         return null;
     }

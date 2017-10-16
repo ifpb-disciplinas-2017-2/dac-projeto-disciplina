@@ -1,11 +1,14 @@
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -26,11 +29,15 @@ public class Material implements Serializable {
     private byte[] arquivo;
     private String descricao;
     private String nomeArquivo;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "codigo_turma")
+    private Turma turma;
 
-    public Material(byte[] arquivo, String descricao, String nomeArquivo) {
+    public Material(byte[] arquivo, String descricao, String nomeArquivo, Turma turma) {
         this.arquivo = arquivo;
         this.descricao = descricao;
         this.nomeArquivo = nomeArquivo;
+        this.turma = turma;
     }
 
     public Material() {
@@ -66,6 +73,14 @@ public class Material implements Serializable {
 
     public void setNomeArquivo(String nomeArquivo) {
         this.nomeArquivo = nomeArquivo;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
     
 }
