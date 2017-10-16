@@ -2,13 +2,18 @@ package com.ifpb.dac.entidades;
 
 import com.ifpb.dac.enums.Tipo;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -34,17 +39,35 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
     private boolean logado;
+    
+    // Outro metodo de mapeamento n:m
+//    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+//    private List<TurmaAluno> turmaAluno;
+    
+//    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER, 
+//            cascade = CascadeType.REFRESH)
+//    private List<Turma> turmas;
 
     public Usuario() {
+//        turmas = new ArrayList<>();
     }
 
     public Usuario(String nome, String email, String senha, Tipo tipo, boolean logado) {
+        this();
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.tipo = tipo;
         this.logado = logado;
     }
+    
+//    public boolean add(Turma t){
+//        return turmas.add(t);
+//    }
+//    
+//    public boolean rmv(Turma t){
+//        return turmas.remove(t);
+//    }
 
     public int getId() {
         return id;
@@ -92,6 +115,22 @@ public class Usuario implements Serializable {
 
     public void setLogado(boolean logado) {
         this.logado = logado;
-    }    
+    }   
+    
+//    public List<TurmaAluno> getTurmaAluno() {
+//        return turmaAluno;
+//    }
+//
+//    public void setTurmaAluno(List<TurmaAluno> turmaAluno) {
+//        this.turmaAluno = turmaAluno;
+//    }
+
+//    public List<Turma> getTurmas() {
+//        return turmas;
+//    }
+//
+//    public void setTurmas(List<Turma> turmas) {
+//        this.turmas = turmas;
+//    }
     
 }
