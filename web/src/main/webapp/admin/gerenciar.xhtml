@@ -13,6 +13,8 @@
     <h:body>
         <div class="container-fluid">
             <h:outputText value="Todos os pedidos de acesso" style="text-align: center"/>
+            <br></br>
+            <h:link outcome="menu.xhtml" value="Voltar"/>
             <h:form style="border:1px solid black;">
                 <h:dataTable value="#{controladorAdmin.pedidos}" var="pedido">
                     <h:column>

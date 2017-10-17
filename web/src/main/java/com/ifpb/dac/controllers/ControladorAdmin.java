@@ -50,7 +50,7 @@ public class ControladorAdmin implements Serializable {
         Usuario admin = usuarioDao.autentica(usuario.getEmail(), 
                 usuario.getSenha(), Tipo.Administrador);
         if(admin != null){
-            return "gerenciar.xhtml";
+            return "menu.xhtml";
         } else {
             usuario = new Usuario();
             return null;
@@ -68,9 +68,20 @@ public class ControladorAdmin implements Serializable {
         return null;
     }
     
-    public void voltar(){
+//    public void voltar(){
+//        ExternalContext externalContext = FacesContext.getCurrentInstance()
+//                .getExternalContext();
+//        try {
+//            externalContext.redirect("../index.xhtml");
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+    
+    public void logout() {
         ExternalContext externalContext = FacesContext.getCurrentInstance()
                 .getExternalContext();
+        externalContext.invalidateSession();
         try {
             externalContext.redirect("../index.xhtml");
         } catch (IOException ex) {

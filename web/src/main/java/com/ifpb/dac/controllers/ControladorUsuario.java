@@ -1,15 +1,18 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Aluno;
+import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.AlunoDao;
+import com.ifpb.dac.interfaces.AtividadeDao;
 import com.ifpb.dac.interfaces.CursoDao;
 import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.TurmaDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -85,14 +88,14 @@ public class ControladorUsuario implements Serializable {
             Pedido p = new Pedido(usuario.getNome(), usuario.getEmail(),
                     usuario.getSenha(), tipo, 1);
             pedidoDao.adicionar(p);
-            mostrarMensagem();
+            mostrarMensagem("Enviado pedido de acesso para o administrador");
         }
         usuarioDao.adicionar(usuario);
         usuario = new Usuario();
         return "index.xhtml";
     }
-    
-    public String navegarCadastro(){
+
+    public String navegarCadastro() {
         cad = true;
         return null;
     }
@@ -121,7 +124,7 @@ public class ControladorUsuario implements Serializable {
                     int incrementoPrioridade = p.getPrioridade() + 1;
                     p.setPrioridade(incrementoPrioridade);
                     pedidoDao.atualizar(p);
-                    mostrarMensagem();
+                    mostrarMensagem("Enviado pedido de acesso para o administrador");
                     return null;
                 }
             } else {
@@ -151,9 +154,8 @@ public class ControladorUsuario implements Serializable {
         return "principal.xhtml";
     }
 
-    public void mostrarMensagem() {
-        FacesMessage message = new FacesMessage("Enviado pedido de acesso "
-                + "para o administrador");
+    public void mostrarMensagem(String msg) {
+        FacesMessage message = new FacesMessage(msg);
         message.setSeverity(FacesMessage.SEVERITY_INFO);
         FacesContext.getCurrentInstance().addMessage("Acesso", message);
     }

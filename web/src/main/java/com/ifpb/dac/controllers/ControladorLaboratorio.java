@@ -62,8 +62,6 @@ public class ControladorLaboratorio implements Serializable {
     
     public String visualizarHorarios(){
         visualizar = true;
-//        List<HorariosDTO> horarios = hDao.listarHorarioLab(valorSelect);
-//        setHorario(horarios);
         return null;
     }
     

@@ -97,16 +97,6 @@ public class ControladorCurso implements Serializable {
     }
     
     public String visualizarHorarios(){
-//        List<HorariosDTO> listarHorarioCurso = hDao.listarHorarioCurso(valorCurso, valorDisciplina);
-//        for (HorariosDTO h: listarHorarioCurso){
-//            System.out.println("Dia: " + h.getDia());
-//            System.out.println("Inicio: " + h.getValorInicio());
-//            System.out.println("Fim: " + h.getValorFim());
-//            System.out.println("Sala: " + h.getDescricaoSala());
-//            System.out.println("Laboratorio: " + h.getDescricaoLab());
-//            System.out.println("Local: " + h.getLocal());
-//        }
-//        setHorario(listarHorarioCurso);
         visualizar = true;
         return null;
     }
