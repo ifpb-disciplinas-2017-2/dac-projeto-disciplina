@@ -8,6 +8,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(ProfessorDao.class)
@@ -48,5 +49,14 @@ public class ProfessorDaoImpl implements ProfessorDao {
         return em.createQuery("SELECT p.nome FROM Professor p", 
                 String.class).getResultList();
     }
+
+    @Override
+    public Professor buscarPorNome(String nomeProfessor) {
+        TypedQuery<Professor> createQuery = em.createQuery("select p from Professor p where p.nome like :nomeProfessor", Professor.class);
+        createQuery.setParameter("nomeProfessor", nomeProfessor);
+        return createQuery.getSingleResult();
+    }
+    
+    
     
 }
