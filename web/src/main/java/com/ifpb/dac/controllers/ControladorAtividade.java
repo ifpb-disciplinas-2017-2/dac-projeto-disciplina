@@ -4,6 +4,7 @@ import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.AtividadeDao;
+import com.ifpb.dac.interfaces.EnviarEmail;
 import com.ifpb.dac.interfaces.GoogleAgenda;
 import com.ifpb.dac.interfaces.TurmaDao;
 import java.io.Serializable;
@@ -32,6 +33,8 @@ public class ControladorAtividade implements Serializable {
     private GoogleAgenda gAgenda;
     @Inject
     private AtividadeDao aDao;
+    @Inject
+    private EnviarEmail eEmail;
     private boolean visualizarAtiv = false;
     private String valorSelect;
     private HttpSession sessao;
@@ -109,6 +112,7 @@ public class ControladorAtividade implements Serializable {
         Turma turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
         atividade.setTurma(turma);
         gAgenda.cadastrarEvento(atividade);
+        eEmail.enviar(atividade);
         atividade = new Atividade();
         visualizarAtiv = false;
         return null;
