@@ -1,12 +1,9 @@
 package com.ifpb.dac.controllers;
 
-import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Atividade;
-import com.ifpb.dac.entidades.Curso;
 import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.AtividadeDao;
-import com.ifpb.dac.interfaces.DisciplinaDao;
 import com.ifpb.dac.interfaces.GoogleAgenda;
 import com.ifpb.dac.interfaces.TurmaDao;
 import java.io.Serializable;
@@ -15,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpSession;
  * @author rodrigobento
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class ControladorAtividade implements Serializable {
 
     @Inject
@@ -41,12 +39,14 @@ public class ControladorAtividade implements Serializable {
     private Usuario usuario = new Usuario();
     private List<Atividade> atividades = new ArrayList<>();
     private List<String> disciplinasProfessores = new ArrayList<>();
+//    private List<Atividade> atividadesProfessor = new ArrayList<>();
+    private List<Atividade> atividadesProfessor = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         sessao = (HttpSession) FacesContext.getCurrentInstance().
                 getExternalContext().getSession(false);
-        usuario = (Usuario) sessao.getAttribute("usuario");  
+        usuario = (Usuario) sessao.getAttribute("usuario");
     }
 
     public Atividade getAtividade() {
@@ -58,7 +58,15 @@ public class ControladorAtividade implements Serializable {
     }
 
     public List<Atividade> getAtividades() {
-        return aDao.listarTodos();
+        List<Atividade> atvd = aDao.atividadesProfessor(usuario.getNome());
+        if (atvd == null) {
+            FacesMessage message = new FacesMessage("Nenhuma atividade cadastrada...");
+            message.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage("Acesso", message);
+            return new ArrayList<>();
+        } else {
+            return atvd;
+        }
     }
 
     public void setAtividades(List<Atividade> atividades) {
@@ -102,16 +110,18 @@ public class ControladorAtividade implements Serializable {
         atividade.setTurma(turma);
         gAgenda.cadastrarEvento(atividade);
         atividade = new Atividade();
+        visualizarAtiv = false;
         return null;
     }
 
     public String visualizarAtividade() {
-        setAtividades(aDao.listarTodos());
+//        setAtividades(aDao.listarTodos());
         visualizarAtiv = true;
         return null;
     }
 
     public String removerAtividade(Atividade a) {
+        System.out.println("Removendo atividade...");
         gAgenda.removerEvento(a);
         return null;
     }

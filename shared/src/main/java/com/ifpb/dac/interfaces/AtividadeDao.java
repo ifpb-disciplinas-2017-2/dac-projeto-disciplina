@@ -14,5 +14,6 @@ public interface AtividadeDao {
     void atualizar(Atividade ativ);
     List<Atividade> listarTodos();
     Atividade buscarPorId(String id);
+    List<Atividade> atividadesProfessor(String professor);
     
 }
