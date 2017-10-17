@@ -1,6 +1,7 @@
 
 package com.ifpb.dac.infra;
 
+import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.entidades.Material;
 import com.ifpb.dac.interfaces.MaterialDao;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -46,6 +48,17 @@ public class MaterialDaoImpl implements MaterialDao {
         return em.find(Material.class, id);
     }
     
-    
+    @Override
+    public List<Material> materiaisProfessor(String professor){
+        TypedQuery<Material> createQuery
+                = em.createQuery("SELECT m FROM Material m "
+                        + "WHERE m.turma = ANY "
+                        + "(SELECT t FROM Turma t "
+                        + "JOIN t.professor p "
+                        + "WHERE p.nome =:prof "
+                        + "GROUP BY t.codigo_turma)", Material.class);
+        createQuery.setParameter("prof", professor);
+        return createQuery.getResultList();
+    }
         
 }

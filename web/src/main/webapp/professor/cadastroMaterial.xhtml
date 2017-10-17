@@ -44,7 +44,11 @@
             </h:form>
             <br></br>
             <h:form>
-                <h:dataTable var="material" value="#{controladorMaterial.materiais}">
+                <h:commandButton value="Carregar minha lista de materiais"
+                                 action="#{controladorMaterial.listar()}"/>
+                <h:dataTable var="material"
+                             rendered="#{controladorMaterial.visualizar}"
+                             value="#{controladorMaterial.materiaisProf}">
                     <h:column>
                         <f:facet name="header">Descricao</f:facet>
                         <h:outputText value="#{material.descricao}"/>

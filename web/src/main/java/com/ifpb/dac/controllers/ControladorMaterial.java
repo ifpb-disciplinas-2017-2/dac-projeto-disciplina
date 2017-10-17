@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -26,7 +27,7 @@ import javax.servlet.http.Part;
  * @author rodrigobento
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class ControladorMaterial implements Serializable {
 
     @Inject
@@ -40,9 +41,10 @@ public class ControladorMaterial implements Serializable {
     private Part arquivo;
     private Material material = new Material();
     private Turma turma;
-    private List<Material> materiais = new ArrayList<>();
+    private List<Material> materiaisProf = new ArrayList<>();
     private List<String> disciplinasProfessores = new ArrayList<>();
-    private boolean escolha = false;
+//    private boolean escolha = false;
+    private boolean visualizar = false;
     private String valorSelect;
     
     @PostConstruct
@@ -68,12 +70,17 @@ public class ControladorMaterial implements Serializable {
         this.material = material;
     }
 
-    public List<Material> getMateriais() {
-        return mDao.listarTodos();
+    public List<Material> getMateriaisProf() {
+        List<Material> materiaisProfessor = mDao.materiaisProfessor(usuario.getNome());
+        if(materiaisProfessor == null){
+            return new ArrayList<>();
+        } else {
+            return materiaisProfessor;
+        }
     }
 
-    public void setMateriais(List<Material> materiais) {
-        this.materiais = materiais;
+    public void setMateriaisProf(List<Material> materiaisProf) {
+        this.materiaisProf = materiaisProf;
     }
 
     public Usuario getUsuario() {
@@ -92,12 +99,20 @@ public class ControladorMaterial implements Serializable {
         this.disciplinasProfessores = disciplinasProfessores;
     }
 
-    public boolean isEscolha() {
-        return escolha;
+//    public boolean isEscolha() {
+//        return escolha;
+//    }
+//
+//    public void setEscolha(boolean escolha) {
+//        this.escolha = escolha;
+//    }
+
+    public boolean isVisualizar() {
+        return visualizar;
     }
 
-    public void setEscolha(boolean escolha) {
-        this.escolha = escolha;
+    public void setVisualizar(boolean visualizar) {
+        this.visualizar = visualizar;
     }
 
     public String getValorSelect() {
@@ -108,9 +123,14 @@ public class ControladorMaterial implements Serializable {
         this.valorSelect = valorSelect;
     }
 
-    public String form() {
-        escolha = true;
-        return null;
+//    public String form() {
+//        escolha = true;
+//        return null;
+//    }
+    
+    public void listar(){
+        setMateriaisProf(mDao.materiaisProfessor(usuario.getNome()));
+        visualizar = true;
     }
 
     public String upload() {
