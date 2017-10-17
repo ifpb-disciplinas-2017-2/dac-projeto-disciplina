@@ -9,15 +9,18 @@ import com.ifpb.dac.entidades.Duvida;
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.interfaces.DuvidaDao;
 import java.util.List;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
  *
  * @author natan
  */
+@Remote(DuvidaDao.class)
+@Stateless
 public class DuvidaDaoImpl implements DuvidaDao {
 
     @PersistenceContext

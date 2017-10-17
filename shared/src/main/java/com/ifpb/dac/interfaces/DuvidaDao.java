@@ -14,7 +14,7 @@ import java.util.List;
  * @author natan
  */
 public interface DuvidaDao {
-    void adicionar(Duvida duavida);
+    void adicionar(Duvida duvida);
     void remover(Duvida duvida);
     List<Duvida> listarTodos();
     Duvida buscarPorId(int id);
