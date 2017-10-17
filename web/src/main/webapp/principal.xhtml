@@ -39,6 +39,12 @@
                     rendered="#{controladorMenu.credenciais}"
                     value="Gerenciar Materiais" />
             <br></br><br></br>
+            <h:link outcome="aluno/cadastrarDuvida.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq false}"
+                    value="Cadastrar Dúvidas" />
+            <h:link outcome="professor/responderDuvida.xhtml" 
+                    rendered="#{controladorMenu.credenciais}"
+                    value="Responder Dúvidas" />
             <h:form>
                 <h:commandButton value="Logout"
                                  action="#{controladorMenu.logout()}"
