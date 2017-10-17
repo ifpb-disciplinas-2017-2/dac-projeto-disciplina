@@ -12,4 +12,5 @@ public interface ProfessorDao {
     List<Professor> listarTodos();
     Professor buscarPorId(int id);
     List<String> listarNomeProfessores();
+    Professor buscarPorNome(String nomeProfessor);
 }
