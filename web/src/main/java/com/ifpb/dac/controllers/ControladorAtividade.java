@@ -126,6 +126,7 @@ public class ControladorAtividade implements Serializable {
 
     public String removerAtividade(Atividade a) {
         System.out.println("Removendo atividade...");
+        aDao.remover(a);
         gAgenda.removerEvento(a);
         return null;
     }
