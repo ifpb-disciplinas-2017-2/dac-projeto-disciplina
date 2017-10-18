@@ -27,21 +27,21 @@
                     </h:selectOneMenu>
                 </h:outputLabel>
                 <br></br>
-                <h:outputLabel for="resumo" value="Titulo ">
+                <h:outputLabel for="resumo" value="Titulo: ">
                     <h:inputText value="#{controladorAtividade.atividade.resumo}"
                                  id="resumo"
                                  required="true"
                                  requiredMessage="Necessario informar o titulo da atividade"/>
                 </h:outputLabel>
                 <br></br>
-                <h:outputLabel for="desc" value="Descricao ">
+                <h:outputLabel for="desc" value="Descricao: ">
                     <h:inputText value="#{controladorAtividade.atividade.descricao}"
                                  id="desc"
                                  required="true"
                                  requiredMessage="Necessario informar a descricao da atividade"/>
                 </h:outputLabel>
                 <br></br>
-                <h:outputLabel for="dataInicio" value="Data Inicio">
+                <h:outputLabel for="dataInicio" value="Data Inicio: ">
                     <h:inputText id="dataInicio" 
                                  required="true"
                                  value="#{controladorAtividade.atividade.inicio}">
@@ -49,7 +49,7 @@
                     </h:inputText>
                 </h:outputLabel>
                 <br></br>
-                <h:outputLabel for="dataFim" value="Data Fim">
+                <h:outputLabel for="dataFim" value="Data Fim: ">
                     <h:inputText id="dataFim" 
                                  required="true"
                                  value="#{controladorAtividade.atividade.fim}">
@@ -89,6 +89,9 @@
                                          action="#{controladorAtividade.removerAtividade(atividade)}"/>
                     </h:column>
                 </h:dataTable>
+            </h:form>
+            <h:form>
+                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
             </h:form>
         </div>
     </body>
