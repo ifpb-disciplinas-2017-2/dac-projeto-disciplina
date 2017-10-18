@@ -12,7 +12,7 @@ import javax.servlet.http.Part;
 @FacesValidator("validator.ValidadorArquivo")
 public class Validadador implements Validator {
 
-    private static final int TAMANHO_MAX = 2 * 1024 * 1024;
+    private static final int TAMANHO_MAX = 6 * 1024 * 1024;
     
     @Override
     public void validate(FacesContext context, UIComponent component, 
@@ -22,11 +22,12 @@ public class Validadador implements Validator {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
                     "Arquivo muito grande", "Não é possivel fazer o upload");
             throw new ValidatorException(msg);
-        } else if(!arq.getContentType().equals("text/plain") && !arq.getContentType().equals("application/pdf")){
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-                    "Arquivo não suportado", "Informe um arquivo do tipo de texto");
-            throw new ValidatorException(msg);
-        }
+        } 
+//        else if(!arq.getContentType().equals("text/plain") && !arq.getContentType().equals("application/pdf")){
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+//                    "Arquivo não suportado", "Informe um arquivo do tipo de texto");
+//            throw new ValidatorException(msg);
+//        }
     }
     
 }
