@@ -16,7 +16,9 @@ import java.util.List;
 public interface DuvidaDao {
     void adicionar(Duvida duvida);
     void remover(Duvida duvida);
+    void atualizar(Duvida duvida);
     List<Duvida> listarTodos();
     Duvida buscarPorId(int id);
     List<Duvida> buscarPorProfessor(Professor professor);
+    List<Duvida> buscarPorProfessorEDuvidaNaoRespondida(int codigoProfessor);
 }
