@@ -9,6 +9,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -59,6 +60,20 @@ public class MaterialDaoImpl implements MaterialDao {
                         + "GROUP BY t.codigo_turma)", Material.class);
         createQuery.setParameter("prof", professor);
         return createQuery.getResultList();
+    }
+    
+//    SELECT descricao, codigo_turma FROM material m WHERE m.codigo_turma = ANY (SELECT at.codigo_turma FROM aluno_turma at INNER JOIN turma t on at.codigo_turma = t.codigo_turma WHERE at.id = 2 GROUP BY at.codigo_turma);
+
+    @Override
+    public List<Material> materiaisAluno(int id){
+        Query createNativeQuery = em.createNativeQuery("SELECT * FROM material m "
+                + "WHERE m.codigo_turma = ANY "
+                + "(SELECT at.codigo_turma FROM aluno_turma at "
+                + "INNER JOIN turma t on at.codigo_turma = t.codigo_turma "
+                + "WHERE at.id = " + id + " "
+                + "GROUP BY at.codigo_turma)", Material.class);
+        List<Material> list = createNativeQuery.getResultList();
+        return list;
     }
         
 }

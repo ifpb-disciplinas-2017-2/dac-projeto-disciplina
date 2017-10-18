@@ -99,14 +99,6 @@ public class ControladorMaterial implements Serializable {
         this.disciplinasProfessores = disciplinasProfessores;
     }
 
-//    public boolean isEscolha() {
-//        return escolha;
-//    }
-//
-//    public void setEscolha(boolean escolha) {
-//        this.escolha = escolha;
-//    }
-
     public boolean isVisualizar() {
         return visualizar;
     }
@@ -122,11 +114,6 @@ public class ControladorMaterial implements Serializable {
     public void setValorSelect(String valorSelect) {
         this.valorSelect = valorSelect;
     }
-
-//    public String form() {
-//        escolha = true;
-//        return null;
-//    }
     
     public void listar(){
         setMateriaisProf(mDao.materiaisProfessor(usuario.getNome()));
@@ -157,6 +144,7 @@ public class ControladorMaterial implements Serializable {
     }
 
     public String removerMaterial(Material m) {
+        mDao.remover(m);
         drop.removerArquivo(m);
         return null;
     }

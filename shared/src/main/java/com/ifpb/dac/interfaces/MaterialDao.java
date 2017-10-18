@@ -15,5 +15,6 @@ public interface MaterialDao {
     List<Material> listarTodos();
     Material buscaPorId(int id);
     List<Material> materiaisProfessor(String professor);
+    List<Material> materiaisAluno(int id);
     
 }

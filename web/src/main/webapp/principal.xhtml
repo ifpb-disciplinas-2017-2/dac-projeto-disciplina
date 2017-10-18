@@ -28,22 +28,35 @@
             <br></br><br></br>
             <h:link outcome="publico/turma.xhtml" value="Horarios Turma" />
             <br></br><br></br>
-            <h:link outcome="aluno/atividade.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq false}"
-                    value="Receber Atividades" />
+            <h:link outcome="aluno/cadastroTurma.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                    value="Cadastrar em turmas" />
+            <br></br><br></br>
+            <h:link outcome="aluno/materiais.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                    value="Visualizar materiais recebidos" />
+            <br></br><br></br>
+            <h:link outcome="aluno/atividades.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                    value="Visualizar atividades enviadas" />
+            <br></br><br></br>
+            <h:link outcome="aluno/cadastrarDuvida.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                    value="Cadastrar Dúvidas" />
             <h:link outcome="professor/gerenciarAtividade.xhtml" 
                     rendered="#{controladorMenu.credenciais}"
                     value="Gerenciar Atividades" />
             <br></br><br></br>
             <h:link outcome="professor/cadastroMaterial.xhtml" 
-                    rendered="#{controladorMenu.credenciais}"
+                    rendered="#{controladorMenu.credenciais eq 'prof'}"
                     value="Gerenciar Materiais" />
-            <br/><br/>
+            <br></br><br></br>
             <h:link outcome="aluno/cadastrarDuvida.xhtml" 
                     rendered="#{controladorMenu.credenciais eq false}"
                     value="Cadastrar Dúvidas" />
+            <br></br><br></br>
             <h:link outcome="professor/responderDuvida.xhtml" 
-                    rendered="#{controladorMenu.credenciais}"
+                    rendered="#{controladorMenu.credenciais eq 'prof'}"
                     value="Responder Dúvidas" />
             <h:form>
                 <h:commandButton value="Logout"

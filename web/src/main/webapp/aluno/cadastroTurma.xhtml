@@ -5,7 +5,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <!--xmlns:a="http://xmlns.jcp.org/jsf/passthrough"-->
     <head>
-        <title>TODO supply a title</title>
+        <title>Cadastro Turma</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
@@ -15,7 +15,7 @@
     <body>
         <div class="container">
             <h:form>
-                <h:outputText value="Informe a disciplina que voce deseja receber as notificações de atividades no seu calendario: "/>
+                <h3>Informe a disciplina que voce deseja receber as notificações de atividades no seu calendario e material no dropbox</h3>
                 <br></br>
                 <h:outputLabel for="discp" value="Disciplinas: ">
                     <h:selectOneMenu id="discp" value = "#{ctrlAtividadAluno.valorDisciplina}">
@@ -39,7 +39,12 @@
                     <h:commandButton style="margin-left: 20px;"
                                      value="Se cadastrar na disciplina"
                                      action="#{ctrlAtividadAluno.cadastrar()}"/>
+                    
                 </h:outputLabel>
+            </h:form>
+            <br></br>
+            <h:form>
+                <h:commandButton style="margin-left: 20px;" value="Voltar" action="#{controladorMenu.voltar()}"/>
             </h:form>
         </div>
     </body>

@@ -26,7 +26,7 @@
                     </h:selectOneMenu>
                 </h:outputLabel>
                 <br></br>
-                <h:outputLabel for="desc" value="Informe a descricao do arquivo">
+                <h:outputLabel for="desc" value="Informe a descricao do arquivo: ">
                     <h:inputText id="desc"
                                  required="true"
                                  value="#{controladorMaterial.material.descricao}"/>
@@ -63,6 +63,9 @@
                                          action="#{controladorMaterial.removerMaterial(material)}"/>
                     </h:column>
                 </h:dataTable>
+            </h:form>
+            <h:form>
+                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
             </h:form>
         </div>
     </h:body>

@@ -29,7 +29,7 @@ public class GoogleAgendaRemover implements MessageListener {
         try {
             Atividade a = message.getBody(Atividade.class);
             api.removerEvento(a.getId());
-            aDao.remover(a);
+//            aDao.remover(a);
             System.out.println("Evento removido...");
         } catch (JMSException ex) {
             ex.printStackTrace();

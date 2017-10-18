@@ -31,7 +31,7 @@ public class DropboxRemove implements MessageListener {
         try {
             Material material = message.getBody(Material.class);
             dropbox.removerArquivo(material);
-            mDao.remover(material);
+//            mDao.remover(material);
         } catch (JMSException ex) {
             ex.printStackTrace();
         }

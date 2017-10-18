@@ -116,7 +116,7 @@ public class ControladorUsuario implements Serializable {
                 if (autenticado.isLogado()) {
                     iniciarSessao();
                     sessao.setAttribute("usuario", autenticado);
-                    sessao.setAttribute("credenciais", true);
+                    sessao.setAttribute("credenciais", "prof");
                     return "principal.xhtml";
                 } else {
                     Pedido p = pedidoDao.buscarPorCredenciais(autenticado.getEmail(),
@@ -139,7 +139,7 @@ public class ControladorUsuario implements Serializable {
             } else {
                 iniciarSessao();
                 sessao.setAttribute("aluno", autenticado);
-                sessao.setAttribute("credenciais", false);
+                sessao.setAttribute("credenciais", "aluno");
                 return "principal.xhtml";
             }
         }
@@ -150,7 +150,7 @@ public class ControladorUsuario implements Serializable {
         usu.setTipo(Tipo.Publico);
         iniciarSessao();
         sessao.setAttribute("usuario", usu);
-        sessao.setAttribute("credenciais", false);
+        sessao.setAttribute("credenciais", "publico");
         return "principal.xhtml";
     }
 
