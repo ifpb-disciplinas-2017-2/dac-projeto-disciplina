@@ -38,7 +38,8 @@ public class DuvidaDaoImpl implements DuvidaDao {
     
     @Override
     public void atualizar(Duvida duvida) {
-        em.merge(duvida);
+        Duvida d = em.find(Duvida.class, duvida.getId());
+        d.setResposta(duvida.getResposta());
     }
 
     @Override
@@ -61,7 +62,8 @@ public class DuvidaDaoImpl implements DuvidaDao {
 
     @Override
     public List<Duvida> buscarPorProfessorEDuvidaNaoRespondida(int codigoProfessor) {
-        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.professor.codigo = :codigo_professor", Duvida.class);
+        System.out.println("Codigo professor: " + codigoProfessor);
+        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.resposta is null and d.professor.codigo = :codigo_professor", Duvida.class);
         createQuery.setParameter("codigo_professor", codigoProfessor);
         
         return createQuery.getResultList();

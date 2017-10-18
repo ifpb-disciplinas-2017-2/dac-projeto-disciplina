@@ -44,7 +44,6 @@ public class ControladorDuvida implements Serializable {
     private List<Duvida> duvidas = new ArrayList<>();
     private boolean mostrarResponderDuvida = false;
     private Duvida editarDuvida = new Duvida();
-    private Duvida d = new Duvida();
     
     private HttpSession sessao;
     
@@ -109,22 +108,18 @@ public class ControladorDuvida implements Serializable {
     public List<Duvida> getDuvidas() {
         Usuario usuario = (Usuario) sessao.getAttribute("usuario");
 //        System.out.println("USUARIO:::::::::::: " + usuario.toString());
-        duvidaDao.buscarPorProfessorEDuvidaNaoRespondida(usuario.getId()).stream().forEach(d -> {
-            System.out.println("AQUIIIIII::::::::: " + d.toString());
-        });
-        return duvidaDao.buscarPorProfessorEDuvidaNaoRespondida(usuario.getId());
+//        System.out.println("Nome professor/ussuario: -------------- " + usuario.getNome());
+        Professor professor = professorDao.buscarPorNome(usuario.getNome());
+//        System.out.println("Codigo professor: ----------- " + professor.getCodigo());
+
+        return duvidaDao.buscarPorProfessorEDuvidaNaoRespondida(professor.getCodigo());
+//        return duvidas;
     }
 
     public void setDuvidas(List<Duvida> duvidas) {
         this.duvidas = duvidas;
     }
     
-    public String mostrar(Duvida duvida) {
-        this.mostrarResponderDuvida = true;
-        System.out.println("OBJETO QUANDO MOSTRAR::: " + duvida.toString());
-        return null;
-    }
-
     public boolean isMostrarResponderDuvida() {
         return mostrarResponderDuvida;
     }
@@ -133,8 +128,23 @@ public class ControladorDuvida implements Serializable {
         this.mostrarResponderDuvida = mostrarResponderDuvida;
     }
     
+    
+    // Actions
+    public String mostrar(Duvida duvida) {
+        this.mostrarResponderDuvida = true;
+        this.editarDuvida = duvida;
+        System.out.println("OBJETO QUANDO MOSTRAR::: " + duvida.toString());
+        return null;
+    }
+    
+    // Actions
     public void responderDuvida() {
         System.out.println("DUVIDA RESPONDIDA:: " + editarDuvida.toString());
+        
+        duvidaDao.atualizar(editarDuvida);
+        
+        this.editarDuvida = null;
+        this.mostrarResponderDuvida = false;
     }
 
     public Duvida getEditarDuvida() {
@@ -144,15 +154,5 @@ public class ControladorDuvida implements Serializable {
     public void setEditarDuvida(Duvida editarDuvida) {
         this.editarDuvida = editarDuvida;
     }
-    
-    public Duvida getD() {
-        return d;
-    }
-
-    public void setD(Duvida d) {
-        this.d = d;
-    }
-    
-    
     
 }

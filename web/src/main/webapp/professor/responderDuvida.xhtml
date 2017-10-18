@@ -51,12 +51,12 @@ and open the template in the editor.
                         <h:outputText value="#{controladorDuvida.editarDuvida.aluno.nome}" />
                         <h:outputText value="#{controladorDuvida.editarDuvida.pergunta}" />
                         <h:inputTextarea id="resposta"
-                                         value="#{duvida.resposta}" 
+                                         value="#{controladorDuvida.editarDuvida.resposta}" 
                                          required="true" 
                                          requiredMessage="É necessário que a resposta seja passada!"
                                          cols="30" 
                                          rows="10" />
-                        <h:commandButton value="Responder Dúvida" action="#{controladorDuvida.responderDuvida()}" >
+                        <h:commandButton value="Responder Dúvida" action="#{controladorDuvida.responderDuvida()}" />
                     </h:outputLabel>
                 </h:form>
             </div>
