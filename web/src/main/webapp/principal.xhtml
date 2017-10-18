@@ -51,6 +51,10 @@
                     rendered="#{controladorMenu.credenciais eq 'prof'}"
                     value="Gerenciar Materiais" />
             <br></br><br></br>
+            <h:link outcome="aluno/cadastrarDuvida.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq false}"
+                    value="Cadastrar Dúvidas" />
+            <br></br><br></br>
             <h:link outcome="professor/responderDuvida.xhtml" 
                     rendered="#{controladorMenu.credenciais eq 'prof'}"
                     value="Responder Dúvidas" />
