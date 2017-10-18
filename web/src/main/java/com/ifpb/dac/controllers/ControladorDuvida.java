@@ -42,6 +42,8 @@ public class ControladorDuvida implements Serializable {
     
     // Atributos para resposta
     private List<Duvida> duvidas = new ArrayList<>();
+    private boolean mostrarResponderDuvida = false;
+    private Duvida editarDuvida = new Duvida();
     private Duvida d = new Duvida();
     
     private HttpSession sessao;
@@ -117,13 +119,32 @@ public class ControladorDuvida implements Serializable {
         this.duvidas = duvidas;
     }
     
-    public String responderDuvida(Duvida duvida) {
-        this.setD(duvida);
-        
-        System.out.println("DDDDD: " + this.getD());
+    public String mostrar(Duvida duvida) {
+        this.mostrarResponderDuvida = true;
+        System.out.println("OBJETO QUANDO MOSTRAR::: " + duvida.toString());
         return null;
     }
 
+    public boolean isMostrarResponderDuvida() {
+        return mostrarResponderDuvida;
+    }
+
+    public void setMostrarResponderDuvida(boolean mostrarResponderDuvida) {
+        this.mostrarResponderDuvida = mostrarResponderDuvida;
+    }
+    
+    public void responderDuvida() {
+        System.out.println("DUVIDA RESPONDIDA:: " + editarDuvida.toString());
+    }
+
+    public Duvida getEditarDuvida() {
+        return editarDuvida;
+    }
+
+    public void setEditarDuvida(Duvida editarDuvida) {
+        this.editarDuvida = editarDuvida;
+    }
+    
     public Duvida getD() {
         return d;
     }

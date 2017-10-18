@@ -20,6 +20,9 @@ and open the template in the editor.
             <div>
                 <h2 style="text-align: center">Responda as dúvidas dos seus alunos</h2>
                 
+                <h:form>
+                    
+                    <!-- Tabela com as duvidas -->
                     <h:dataTable value="#{controladorDuvida.duvidas}" var="duvida">
                         <div>
                             <h:column>
@@ -35,27 +38,27 @@ and open the template in the editor.
                         </div>
                         <div>
                             <h:column>
-                                <f:facet name="header">Resposta</f:facet>
-                                <h:inputTextarea id="resposta"
-                                                 value="#{duvida.resposta}" 
-                                                 required="true" 
-                                                 requiredMessage="É necessário que a resposta seja passada!"
-                                                 cols="30" 
-                                                 rows="10" />
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <h:form>
-                                    <f:facet name="header"></f:facet>
-                                    <h:commandButton style="margin-left: 20px;"
-                                                     value="Responder Dúvida"
-                                                     action="#{controladorDuvida.responderDuvida(duvida)}" />
-                                </h:form>
+                                <h:commandButton style="margin-left: 20px;"
+                                                     value="Visualizar"
+                                                     action="#{controladorDuvida.mostrar(duvida)}" />
                             </h:column>
                         </div>
                     </h:dataTable>
-                    <h:outputText value="#{controladorDuvida.d}" />
+                    
+                    <hr />
+                    
+                    <h:outputLabel rendered="#{controladorDuvida.mostrarResponderDuvida}">
+                        <h:outputText value="#{controladorDuvida.editarDuvida.aluno.nome}" />
+                        <h:outputText value="#{controladorDuvida.editarDuvida.pergunta}" />
+                        <h:inputTextarea id="resposta"
+                                         value="#{duvida.resposta}" 
+                                         required="true" 
+                                         requiredMessage="É necessário que a resposta seja passada!"
+                                         cols="30" 
+                                         rows="10" />
+                        <h:commandButton value="Responder Dúvida" action="#{controladorDuvida.responderDuvida()}" >
+                    </h:outputLabel>
+                </h:form>
             </div>
         </div>
     </body>
