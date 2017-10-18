@@ -15,5 +15,6 @@ public interface AtividadeDao {
     List<Atividade> listarTodos();
     Atividade buscarPorId(String id);
     List<Atividade> atividadesProfessor(String professor);
+    List<Atividade> atividadesAluno(int id);
     
 }
