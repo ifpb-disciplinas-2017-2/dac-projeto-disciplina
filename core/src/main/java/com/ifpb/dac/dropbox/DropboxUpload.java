@@ -31,7 +31,8 @@ public class DropboxUpload implements MessageListener{
     public void onMessage(Message message) {
         try {
             Material material = message.getBody(Material.class);
-            dropbox.uploadArquivo(material);
+            String id = dropbox.uploadArquivo(material);
+            material.setId(id);
             mDao.adicionar(material);
         } catch (JMSException ex) {
             ex.printStackTrace();
