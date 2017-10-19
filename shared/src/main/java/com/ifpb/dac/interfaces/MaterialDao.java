@@ -13,7 +13,7 @@ public interface MaterialDao {
     void remover(Material m);
     void atualizar(Material m);
     List<Material> listarTodos();
-    Material buscaPorId(int id);
+    Material buscaPorId(String id);
     List<Material> materiaisProfessor(String professor);
     List<Material> materiaisAluno(int id);
     
