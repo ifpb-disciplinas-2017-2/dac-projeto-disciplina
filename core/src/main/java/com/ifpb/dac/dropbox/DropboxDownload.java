@@ -1,10 +1,6 @@
-
 package com.ifpb.dac.dropbox;
 
 import com.ifpb.dac.entidades.Material;
-import com.ifpb.dac.interfaces.MaterialDao;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -18,22 +14,18 @@ import javax.jms.MessageListener;
  */
 @MessageDriven(activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:global/jms/queueDropboxUpload")
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:global/jms/queueDropboxDownload")
 })
-public class DropboxUpload implements MessageListener{
+public class DropboxDownload implements MessageListener {
 
     @EJB
     private DropboxAPI dropbox;
-    @EJB
-    private MaterialDao mDao;
     
     @Override
     public void onMessage(Message message) {
         try {
             Material material = message.getBody(Material.class);
-            String id = dropbox.uploadArquivo(material);
-            material.setId(id);
-            mDao.adicionar(material);
+            dropbox.downloadArquivo(material);
         } catch (JMSException ex) {
             ex.printStackTrace();
         }

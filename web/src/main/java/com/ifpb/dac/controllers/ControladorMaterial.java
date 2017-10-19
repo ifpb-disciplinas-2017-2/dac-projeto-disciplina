@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -46,9 +48,9 @@ public class ControladorMaterial implements Serializable {
 //    private boolean escolha = false;
     private boolean visualizar = false;
     private String valorSelect;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         sessao = (HttpSession) FacesContext.getCurrentInstance().
                 getExternalContext().getSession(false);
         usuario = (Usuario) sessao.getAttribute("usuario");
@@ -72,7 +74,7 @@ public class ControladorMaterial implements Serializable {
 
     public List<Material> getMateriaisProf() {
         List<Material> materiaisProfessor = mDao.materiaisProfessor(usuario.getNome());
-        if(materiaisProfessor == null){
+        if (materiaisProfessor == null) {
             return new ArrayList<>();
         } else {
             return materiaisProfessor;
@@ -114,31 +116,32 @@ public class ControladorMaterial implements Serializable {
     public void setValorSelect(String valorSelect) {
         this.valorSelect = valorSelect;
     }
-    
-    public void listar(){
+
+    public void listar() {
         setMateriaisProf(mDao.materiaisProfessor(usuario.getNome()));
         visualizar = true;
     }
 
     public String upload() {
-        try {
-            System.out.println(valorSelect);
-            System.out.println(usuario.getNome());
-            turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
-            if (turma == null) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Turma não encontrada", "Turma não encontrada");
-                FacesContext.getCurrentInstance().addMessage("Acesso", msg);
-            } else {
+        System.out.println(valorSelect);
+        System.out.println(usuario.getNome());
+        turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
+        if (turma == null) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Turma não encontrada", "Turma não encontrada");
+            FacesContext.getCurrentInstance().addMessage("Acesso", msg);
+        } else {
+            try {
                 System.out.println(turma.getNome_disciplina());
                 material.setNomeArquivo(arquivo.getSubmittedFileName());
                 material.setArquivo(convertByteArray(arquivo.getInputStream()));
                 material.setTurma(turma);
                 drop.uploadArquivo(material);
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorMaterial.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
+
         material = new Material();
         return null;
     }
@@ -162,5 +165,4 @@ public class ControladorMaterial implements Serializable {
         }
         return saida.toByteArray();
     }
-
 }

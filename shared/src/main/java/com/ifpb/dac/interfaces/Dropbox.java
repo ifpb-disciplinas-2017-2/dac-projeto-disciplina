@@ -10,5 +10,6 @@ public interface Dropbox {
 
     void uploadArquivo(Material material);
     void removerArquivo(Material material);
+    void downloadArquivo(Material material);
 
 }

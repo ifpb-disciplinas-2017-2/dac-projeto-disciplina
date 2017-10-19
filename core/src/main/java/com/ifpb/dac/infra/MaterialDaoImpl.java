@@ -1,7 +1,5 @@
-
 package com.ifpb.dac.infra;
 
-import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.entidades.Material;
 import com.ifpb.dac.interfaces.MaterialDao;
 import java.util.List;
@@ -45,7 +43,7 @@ public class MaterialDaoImpl implements MaterialDao {
     }
 
     @Override
-    public Material buscaPorId(int id) {
+    public Material buscaPorId(String id) {
         return em.find(Material.class, id);
     }
     

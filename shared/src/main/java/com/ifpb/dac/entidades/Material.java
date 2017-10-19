@@ -16,15 +16,15 @@ import javax.persistence.SequenceGenerator;
  * @author rodrigobento
  */
 @Entity
-@SequenceGenerator(name = "minha_seq_material",
-        sequenceName = "seq_material",
-        initialValue = 1,
-        allocationSize = 1)
+//@SequenceGenerator(name = "minha_seq_material",
+//        sequenceName = "seq_material",
+//        initialValue = 1,
+//        allocationSize = 1)
 public class Material implements Serializable {
     
     @Id
-    @GeneratedValue(generator = "minha_seq_material", strategy = GenerationType.SEQUENCE)
-    private int id;
+//    @GeneratedValue(generator = "minha_seq_material", strategy = GenerationType.SEQUENCE)
+    private String id;
     @Lob
     private byte[] arquivo;
     private String descricao;
@@ -43,13 +43,13 @@ public class Material implements Serializable {
     public Material() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public byte[] getArquivo() {
         return arquivo;
@@ -57,6 +57,14 @@ public class Material implements Serializable {
 
     public void setArquivo(byte[] arquivo) {
         this.arquivo = arquivo;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDescricao() {

@@ -15,24 +15,31 @@
             <h:outputText value="Não possui nenhum material associado as disciplinas que você se cadastrou..."
                           rendered="#{empty controladorMaterialAluno.materiaisAluno}"/>
             <br></br>
-            <h:dataTable var="material" value="#{controladorMaterialAluno.materiaisAluno}">
-                <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                    <f:facet name="header">Descricao</f:facet>
-                    <h:outputText value="#{material.descricao}"/>
-                </h:column>
-                <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                    <f:facet name="header">Arquivo</f:facet>
-                    <h:outputText value="#{material.nomeArquivo}"/>
-                </h:column>
-                <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                    <f:facet name="header">Disciplina</f:facet>
-                    <h:outputText value="#{material.turma.nome_disciplina}"/>
-                </h:column>
-                <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                    <f:facet name="header">Professor</f:facet>
-                    <h:outputText value="#{material.turma.professor.nome}"/>
-                </h:column>
-            </h:dataTable>
+            <h:form>
+                <h:dataTable var="material" value="#{controladorMaterialAluno.materiaisAluno}">
+                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                        <f:facet name="header">Descricao</f:facet>
+                        <h:outputText value="#{material.descricao}"/>
+                    </h:column>
+                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                        <f:facet name="header">Arquivo</f:facet>
+                        <h:outputText value="#{material.nomeArquivo}"/>
+                    </h:column>
+                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                        <f:facet name="header">Disciplina</f:facet>
+                        <h:outputText value="#{material.turma.nome_disciplina}"/>
+                    </h:column>
+                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                        <f:facet name="header">Professor</f:facet>
+                        <h:outputText value="#{material.turma.professor.nome}"/>
+                    </h:column>
+                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                        <f:facet name="header">Download</f:facet>
+                        <h:commandButton value="Baixar" 
+                                         action="#{controladorMaterialAluno.downloadArquivo(material)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
             <br></br>
             <h:form>
                 <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
