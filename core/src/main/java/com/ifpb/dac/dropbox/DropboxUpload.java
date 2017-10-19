@@ -1,6 +1,7 @@
 
 package com.ifpb.dac.dropbox;
 
+import com.ifpb.dac.interfaces.DropboxAPI;
 import com.ifpb.dac.entidades.Material;
 import com.ifpb.dac.interfaces.MaterialDao;
 import java.util.logging.Level;

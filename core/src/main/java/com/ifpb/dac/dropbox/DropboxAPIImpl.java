@@ -1,5 +1,6 @@
 package com.ifpb.dac.dropbox;
 
+import com.ifpb.dac.interfaces.DropboxAPI;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
@@ -55,31 +56,16 @@ public class DropboxAPIImpl implements DropboxAPI {
             ex.printStackTrace();
         }
     }
-
+    
     @Override
-    public void downloadArquivo(Material material) {
-        FileOutputStream downloadFile = null;
+    public String link(String path){
+        DbxClientV2 cliente = cliente();
         try {
-            DbxClientV2 cliente = cliente();
-            String caminho = System.getProperty("user.home");
-            System.out.println(caminho);
-//            downloadFile = new FileOutputStream(caminho + "/Downloads/" + 
-//                    material.getNomeArquivo());
-            downloadFile = new FileOutputStream(caminho + "/" +material.getNomeArquivo());
-            cliente.files().download(material.getId()).download(downloadFile);
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
+            return cliente.files().getTemporaryLink(path).getLink();
         } catch (DbxException ex) {
             ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                downloadFile.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
         }
+        return null;
     }
 
 }

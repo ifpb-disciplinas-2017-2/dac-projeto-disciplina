@@ -9,18 +9,31 @@ services:
                 condition: service_healthy
         links:
             - "banco:host-banco"             
-    dac:
+    web:
         build: .
-        image: projeto/dac
-        container_name: dac
+        image: projeto/web
+        container_name: web
         ports:
           - "8081:8080"
+        depends_on:
+            core:
+                condition: service_healthy
+        links:
+            - "core:host-core"
+    core:
+        build: ./core
+        image: projeto/core
+        container_name: core
+        ports:
           - "3700:3700"
+          - "8082:8080"
         depends_on:
             banco:
                 condition: service_healthy
         links:
             - "banco:host-banco"
+        healthcheck:
+            test: "exit 0"
     banco:
         build: ./postgres
         image: projeto/banco

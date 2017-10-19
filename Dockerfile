@@ -5,4 +5,4 @@ ENV DEPLOY ${PAYARA_PATH}/glassfish/domains/${DOMAIN}/autodeploy/
 ADD web/target/web/WEB-INF/lib/ ${LIB}
 ENTRYPOINT $PAYARA_PATH/bin/asadmin start-domain --verbose ${DOMAIN}
 ADD web/target/web.war  ${DEPLOY}
-ADD core/target/core.war  ${DEPLOY}
+#ADD core/target/core.war  ${DEPLOY}
