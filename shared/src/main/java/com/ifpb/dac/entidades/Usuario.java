@@ -132,5 +132,11 @@ public class Usuario implements Serializable {
 //    public void setTurmas(List<Turma> turmas) {
 //        this.turmas = turmas;
 //    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", tipo=" + tipo + ", logado=" + logado + '}';
+    }
+    
     
 }

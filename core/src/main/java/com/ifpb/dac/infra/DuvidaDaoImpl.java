@@ -35,6 +35,12 @@ public class DuvidaDaoImpl implements DuvidaDao {
     public void remover(Duvida duvida) {
         em.remove(duvida);
     }
+    
+    @Override
+    public void atualizar(Duvida duvida) {
+        Duvida d = em.find(Duvida.class, duvida.getId());
+        d.setResposta(duvida.getResposta());
+    }
 
     @Override
     public List<Duvida> listarTodos() {
@@ -51,6 +57,15 @@ public class DuvidaDaoImpl implements DuvidaDao {
     public List<Duvida> buscarPorProfessor(Professor professor) {
         TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.professor.codigo = :codigo_professor", Duvida.class);
         createQuery.setParameter("codigo_professor", professor.getCodigo());
+        return createQuery.getResultList();
+    }
+
+    @Override
+    public List<Duvida> buscarPorProfessorEDuvidaNaoRespondida(int codigoProfessor) {
+        System.out.println("Codigo professor: " + codigoProfessor);
+        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.resposta is null and d.professor.codigo = :codigo_professor", Duvida.class);
+        createQuery.setParameter("codigo_professor", codigoProfessor);
+        
         return createQuery.getResultList();
     }
     

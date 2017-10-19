@@ -5,15 +5,53 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Cadastrar Pergunta</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
     </head>
     <body>
-        <h1>Cadastrar duvida</h1>
+        <div class="container">
+            <div>
+                <h2 style="text-align: center">Cadastre um Dúvida</h2>
+                <h:form>
+                    <div>
+                        <h:outputLabel for="nomeProfessor" value="Nome do Professor">
+                            <h:selectOneMenu id="nomeProfessor" value="#{controladorDuvida.nomeProfessor}">
+                                <f:selectItems value="#{controladorDuvida.professores}"
+                                               var="professor"
+                                               itemLabel="#{professor}"
+                                               itemValue="#{professor}" />
+                            </h:selectOneMenu>
+                            <h:commandButton style="margin-left: 20px;"
+                                            value="Selecionar Professor"
+                                            action="#{controladorDuvida.visualizarRealizarPergunta()}"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <hr />
+                    
+                    <div>
+                        <h:outputLabel for="realizarPergunta" value="Realizar Perguntar" rendered="#{controladorDuvida.visualizarCampoPergunta}">
+                            <h:inputTextarea id="pergunta"
+                                             cols="50"
+                                             rows="10"
+                                             value="#{controladorDuvida.pergunta}"
+                                             required="true"
+                                             requiredMessage="Informe sua pergunta"/>
+                            <h:commandButton style="margin-left: 20px;"
+                                             value="Cadastrar Pergunta"
+                                             action="#{controladorDuvida.cadastrarPergunta()}" />
+                        </h:outputLabel>
+                    </div>
+                    
+                </h:form>
+            </div>
+        </div>
     </body>
 </html>

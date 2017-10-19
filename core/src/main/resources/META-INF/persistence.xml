@@ -17,6 +17,7 @@
     <class>com.ifpb.dac.entidades.Material</class>
     <class>com.ifpb.dac.entidades.TurmaAluno</class>
     <class>com.ifpb.dac.entidades.Aluno</class>
+    <class>com.ifpb.dac.entidades.Duvida</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>

@@ -5,15 +5,61 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Responder Dúvida</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
     </head>
     <body>
-        <h1>Responder Duvida</h1>
+        <div class="container">
+            <div>
+                <h2 style="text-align: center">Responda as dúvidas dos seus alunos</h2>
+                
+                <h:form>
+                    
+                    <!-- Tabela com as duvidas -->
+                    <h:dataTable value="#{controladorDuvida.duvidas}" var="duvida">
+                        <div>
+                            <h:column>
+                                <f:facet name="header">Nome do Aluno</f:facet>
+                                <h:outputText value="#{duvida.aluno.nome}"></h:outputText>
+                            </h:column>
+                        </div>
+                        <div>
+                            <h:column>
+                                <f:facet name="header">Pergunta</f:facet>
+                                <h:outputText value="${duvida.pergunta}"></h:outputText>
+                            </h:column>
+                        </div>
+                        <div>
+                            <h:column>
+                                <h:commandButton style="margin-left: 20px;"
+                                                     value="Visualizar"
+                                                     action="#{controladorDuvida.mostrar(duvida)}" />
+                            </h:column>
+                        </div>
+                    </h:dataTable>
+                    
+                    <hr />
+                    
+                    <h:outputLabel rendered="#{controladorDuvida.mostrarResponderDuvida}">
+                        <h:outputText value="#{controladorDuvida.editarDuvida.aluno.nome}" />
+                        <h:outputText value="#{controladorDuvida.editarDuvida.pergunta}" />
+                        <h:inputTextarea id="resposta"
+                                         value="#{controladorDuvida.editarDuvida.resposta}" 
+                                         required="true" 
+                                         requiredMessage="É necessário que a resposta seja passada!"
+                                         cols="30" 
+                                         rows="10" />
+                        <h:commandButton value="Responder Dúvida" action="#{controladorDuvida.responderDuvida()}" />
+                    </h:outputLabel>
+                </h:form>
+            </div>
+        </div>
     </body>
 </html>

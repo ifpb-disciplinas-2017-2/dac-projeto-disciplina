@@ -36,12 +36,12 @@ public class Duvida implements Serializable {
     private Professor professor;
     
     public Duvida() {
-        this.resposta = null;
+        
     }
     
     public Duvida(String pergunta, Aluno aluno, Professor professor) {
-        this();
         this.pergunta = pergunta;
+        this.resposta = null;
         this.aluno = aluno;
         this.professor = professor;
     }
@@ -84,6 +84,11 @@ public class Duvida implements Serializable {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    @Override
+    public String toString() {
+        return "Duvida{" + "id=" + id + ", pergunta=" + pergunta + ", resposta=" + resposta + ", aluno=" + aluno + ", professor=" + professor + '}';
     }
     
     
