@@ -44,7 +44,13 @@ import javax.jms.Queue;
                     resourceAdapter = "jmsra",
                     interfaceName = "javax.jms.Queue",
                     destinationName = "queueEnviarEmail",
-                    description = "Utilizada para enviar email ao adicionar uma atividade")
+                    description = "Utilizada para enviar email ao adicionar uma atividade"),
+        @JMSDestinationDefinition(
+                    name = "java:global/jms/queueDropboxDownload",
+                    resourceAdapter = "jmsra",
+                    interfaceName = "javax.jms.Queue",
+                    destinationName = "queueDropboxDownload",
+                    description = "Utilizada para o download de arquivo")
         }
 )
 @Singleton
@@ -59,6 +65,8 @@ public class IniciarQueues {
     private Queue queueUpload;
     @Resource(lookup = "java:global/jms/queueDropboxRemove")
     private Queue queueRemove;    
+    @Resource(lookup = "java:global/jms/queueDropboxDownload")
+    private Queue queueDownload; 
     @Resource(lookup = "java:global/jms/queueEnviarEmail")
     private Queue queueEmail;
 
@@ -84,6 +92,11 @@ public class IniciarQueues {
     @Produces @QueueRemove
     public Queue getQueueRemove() {
         return this.queueRemove;
+    }
+    
+    @Produces @QueueDownload
+    public Queue getQueueDownload() {
+        return this.queueDownload;
     }
     
     @Produces @QueueEmail
