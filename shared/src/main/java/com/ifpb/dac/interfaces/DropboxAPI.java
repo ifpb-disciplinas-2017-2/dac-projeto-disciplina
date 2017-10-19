@@ -1,15 +1,17 @@
 package com.ifpb.dac.interfaces;
 
 import com.ifpb.dac.entidades.Material;
-import java.io.InputStream;
 
 /**
  *
  * @author rodrigobento
  */
-public interface Dropbox {
+public interface DropboxAPI {
 
-    void uploadArquivo(Material material);
+    String uploadArquivo(Material material);
+
     void removerArquivo(Material material);
+    
+    String link(String path);
 
 }

@@ -3,7 +3,6 @@ package com.ifpb.dac.dropbox;
 
 import com.ifpb.dac.entidades.Material;
 import com.ifpb.dac.interfaces.Dropbox;
-import com.ifpb.dac.jms.QueueDownload;
 import com.ifpb.dac.jms.QueueRemove;
 import com.ifpb.dac.jms.QueueUpload;
 import javax.ejb.Remote;
@@ -27,9 +26,6 @@ public class DropboxJMS implements Dropbox {
     @Inject @QueueRemove
     private Queue queueRemove;
     
-    @Inject @QueueDownload
-    private Queue queueDownload;
-    
     @Inject
     private JMSContext contexto;
     
@@ -44,12 +40,6 @@ public class DropboxJMS implements Dropbox {
     public void removerArquivo(Material material) {
         ObjectMessage mensagem = contexto.createObjectMessage(material);
         contexto.createProducer().send(queueRemove, mensagem);
-    }
-    
-    @Override
-    public void downloadArquivo(Material material) {
-        ObjectMessage mensagem = contexto.createObjectMessage(material);
-        contexto.createProducer().send(queueDownload, mensagem);
     }
     
 }

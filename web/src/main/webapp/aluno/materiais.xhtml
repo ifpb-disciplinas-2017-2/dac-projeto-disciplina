@@ -35,8 +35,7 @@
                     </h:column>
                     <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
                         <f:facet name="header">Download</f:facet>
-                        <h:commandButton value="Baixar" 
-                                         action="#{controladorMaterialAluno.downloadArquivo(material)}"/>
+                        <a href="#{controladorMaterialAluno.downloadArquivo(material)}" download="#{material.nomeArquivo}">Baixar</a>
                     </h:column>
                 </h:dataTable>
             </h:form>
