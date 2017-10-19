@@ -23,11 +23,6 @@ public class Validadador implements Validator {
                     "Arquivo muito grande", "Não é possivel fazer o upload");
             throw new ValidatorException(msg);
         } 
-//        else if(!arq.getContentType().equals("text/plain") && !arq.getContentType().equals("application/pdf")){
-//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-//                    "Arquivo não suportado", "Informe um arquivo do tipo de texto");
-//            throw new ValidatorException(msg);
-//        }
     }
     
 }
