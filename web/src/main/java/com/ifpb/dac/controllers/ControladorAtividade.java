@@ -111,6 +111,7 @@ public class ControladorAtividade implements Serializable {
     public String cadastrarAtividade() {
         Turma turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
         atividade.setTurma(turma);
+        atividade.setNotDiaAnterior(false);
         gAgenda.cadastrarEvento(atividade);
         eEmail.enviar(atividade);
         atividade = new Atividade();
@@ -119,13 +120,11 @@ public class ControladorAtividade implements Serializable {
     }
 
     public String visualizarAtividade() {
-//        setAtividades(aDao.listarTodos());
         visualizarAtiv = true;
         return null;
     }
 
     public String removerAtividade(Atividade a) {
-        System.out.println("Removendo atividade...");
         aDao.remover(a);
         gAgenda.removerEvento(a);
         return null;

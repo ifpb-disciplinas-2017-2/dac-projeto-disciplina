@@ -111,8 +111,6 @@ public class CtrlAtividadAluno implements Serializable {
     }
 
     public String visualizarProfessores() {
-        System.out.println(valorDisciplina);
-//        setProfessoresDisciplina(tDao.professoresDisciplina(valorDisciplina));
         visualizarProf = true;
         return null;
     }
@@ -136,7 +134,6 @@ public class CtrlAtividadAluno implements Serializable {
             FacesContext.getCurrentInstance().addMessage("Acesso", message);
         } else {
             tDao.atualizar(auxiliar);
-            System.out.println("Atualizado...");
         }
         visualizarProf = false;
         return null;
