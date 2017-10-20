@@ -88,7 +88,6 @@ public class ControladorTesteCRUD {
     
     public String atualizarLab(){
         lab.setCodigo_lab(4);
-//        lab.setInformacao(f);
         labDao.atualizar(lab);
         return null;
     }

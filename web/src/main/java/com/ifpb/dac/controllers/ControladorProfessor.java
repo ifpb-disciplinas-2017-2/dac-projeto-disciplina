@@ -1,15 +1,12 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.HorariosDTO;
-import com.ifpb.dac.entidades.Usuario;
-import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.HorariosDao;
 import com.ifpb.dac.interfaces.ProfessorDao;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;

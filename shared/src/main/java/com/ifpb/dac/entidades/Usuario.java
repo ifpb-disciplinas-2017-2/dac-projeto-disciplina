@@ -39,17 +39,8 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private Tipo tipo;
     private boolean logado;
-    
-    // Outro metodo de mapeamento n:m
-//    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-//    private List<TurmaAluno> turmaAluno;
-    
-//    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER, 
-//            cascade = CascadeType.REFRESH)
-//    private List<Turma> turmas;
 
     public Usuario() {
-//        turmas = new ArrayList<>();
     }
 
     public Usuario(String nome, String email, String senha, Tipo tipo, boolean logado) {
@@ -60,14 +51,6 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
         this.logado = logado;
     }
-    
-//    public boolean add(Turma t){
-//        return turmas.add(t);
-//    }
-//    
-//    public boolean rmv(Turma t){
-//        return turmas.remove(t);
-//    }
 
     public int getId() {
         return id;
@@ -116,22 +99,6 @@ public class Usuario implements Serializable {
     public void setLogado(boolean logado) {
         this.logado = logado;
     }   
-    
-//    public List<TurmaAluno> getTurmaAluno() {
-//        return turmaAluno;
-//    }
-//
-//    public void setTurmaAluno(List<TurmaAluno> turmaAluno) {
-//        this.turmaAluno = turmaAluno;
-//    }
-
-//    public List<Turma> getTurmas() {
-//        return turmas;
-//    }
-//
-//    public void setTurmas(List<Turma> turmas) {
-//        this.turmas = turmas;
-//    }
 
     @Override
     public String toString() {

@@ -102,7 +102,7 @@ public class GoogleAgendaAdicionar implements MessageListener {
                 cont++;
             }
         }
-        event.setColorId("5");
+        event.setColorId("2");
         event.setAttendees(Arrays.asList(attendees));
         System.out.println(event.getHtmlLink());
         return event;

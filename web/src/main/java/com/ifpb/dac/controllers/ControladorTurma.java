@@ -87,16 +87,12 @@ public class ControladorTurma implements Serializable {
     }
     
     public String visualizarProfessoresDiscTurma(){
-//        List<String> profs = tDao.professoresDisciplina(valorDisciplina);
-//        setProfessores(profs);
         visualizarProfessor = true;
         visualizar = false;
         return null;
     }
     
     public String visualizarHorarios(){
-//        List<HorariosDTO> h = hDao.listarHorarioTurma(valorDisciplina, valorProfessor);
-//        setHorario(h);
         visualizar = true;
         return null;
     }

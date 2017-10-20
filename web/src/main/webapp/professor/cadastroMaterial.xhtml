@@ -12,7 +12,10 @@
     </h:head>
     <h:body>
         <div class="container">
-            <h:form id="form" enctype="multipart/form-data">
+            <h:outputText rendered="#{empty controladorAtividade.disciplinasProfessores}"
+                          value="O professor não esta cadastrado a nenhuma disciplina, é necessário que ele esteja para que o material seja vinculado"/>
+            <h:form rendered="#{not empty controladorAtividade.disciplinasProfessores}"
+                    id="form" enctype="multipart/form-data">
                 <h:outputLabel for="prof" value="Nome: ">
                     <h:outputText id="prof" value="#{controladorMaterial.usuario.nome}"/>
                 </h:outputLabel>
@@ -42,28 +45,7 @@
                 <br></br>
                 <h:commandButton value="Realizar Upload" action="#{controladorMaterial.upload()}"/>
             </h:form>
-            <br></br>
-            <h:form>
-                <h:commandButton value="Carregar minha lista de materiais"
-                                 action="#{controladorMaterial.listar()}"/>
-                <h:dataTable var="material"
-                             rendered="#{controladorMaterial.visualizar}"
-                             value="#{controladorMaterial.materiaisProf}">
-                    <h:column>
-                        <f:facet name="header">Descricao</f:facet>
-                        <h:outputText value="#{material.descricao}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Arquivo</f:facet>
-                        <h:outputText value="#{material.nomeArquivo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Excluir</f:facet>
-                        <h:commandButton value="Excluir Material" 
-                                         action="#{controladorMaterial.removerMaterial(material)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
+            <br></br>                
             <h:form>
                 <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
             </h:form>

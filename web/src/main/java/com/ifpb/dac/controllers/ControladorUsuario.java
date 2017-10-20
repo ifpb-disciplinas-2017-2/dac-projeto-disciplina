@@ -100,11 +100,6 @@ public class ControladorUsuario implements Serializable {
         return null;
     }
 
-    private void iniciarSessao() {
-        sessao = (HttpSession) FacesContext.getCurrentInstance().
-                getExternalContext().getSession(true);
-    }
-
     public String realizarLogin() {
         Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);
         // Caso seja login de professor
@@ -119,12 +114,7 @@ public class ControladorUsuario implements Serializable {
                     sessao.setAttribute("credenciais", "prof");
                     return "principal.xhtml";
                 } else {
-                    Pedido p = pedidoDao.buscarPorCredenciais(autenticado.getEmail(),
-                            autenticado.getSenha());
-                    int incrementoPrioridade = p.getPrioridade() + 1;
-                    p.setPrioridade(incrementoPrioridade);
-                    pedidoDao.atualizar(p);
-                    mostrarMensagem("Enviado pedido de acesso para o administrador");
+                    atualizarPedido(autenticado.getEmail(), autenticado.getSenha());
                     return null;
                 }
             } else {
@@ -137,19 +127,24 @@ public class ControladorUsuario implements Serializable {
             if (autenticado == null) {
                 return null;
             } else {
-                iniciarSessao();
-                sessao.setAttribute("aluno", autenticado);
-                sessao.setAttribute("credenciais", "aluno");
-                return "principal.xhtml";
+                if (autenticado.isLogado()) {
+                    iniciarSessao();
+                    sessao.setAttribute("aluno", autenticado);
+                    sessao.setAttribute("credenciais", "aluno");
+                    return "principal.xhtml";
+                } else {
+                    atualizarPedido(autenticado.getEmail(), autenticado.getSenha());
+                    return null;
+                }
             }
         }
     }
 
     public String entrarComoPublico() {
-        Usuario usu = new Usuario();
-        usu.setTipo(Tipo.Publico);
+//        Usuario usu = new Usuario();
+//        usu.setTipo(Tipo.Publico);
         iniciarSessao();
-        sessao.setAttribute("usuario", usu);
+//        sessao.setAttribute("usuario", usu);
         sessao.setAttribute("credenciais", "publico");
         return "principal.xhtml";
     }
@@ -160,15 +155,18 @@ public class ControladorUsuario implements Serializable {
         FacesContext.getCurrentInstance().addMessage("Acesso", message);
     }
 
-//    public String addAlunoTurma() {
-//        Curso curso = cursoDao.buscarPorId(5);
-//        Aluno usu = new Aluno("Rodrigo Rodrigues", "rodrigobentorodrigues@gmail.com",
-//                "123", curso);
-//        Turma turma = dao.buscarPorId(21213);
-//        System.out.println(turma.getNome_disciplina());
-//        usu.add(turma);
-//        turma.add(usu);
-//        dao.atualizar(turma);
-//        return null;     
-//    }
+    private void iniciarSessao() {
+        sessao = (HttpSession) FacesContext.getCurrentInstance().
+                getExternalContext().getSession(true);
+    }
+
+    private void atualizarPedido(String email, String senha) {
+        Pedido p = pedidoDao.buscarPorCredenciais(email,
+                senha);
+        int incrementoPrioridade = p.getPrioridade() + 1;
+        p.setPrioridade(incrementoPrioridade);
+        pedidoDao.atualizar(p);
+        mostrarMensagem("Enviado pedido de acesso para o administrador");
+    }
+
 }

@@ -16,5 +16,6 @@ public interface UsuarioDao {
     List<Usuario> listarTodos();
     Usuario buscarPorId(int id);
     Usuario autentica(String email, String senha, Tipo tipo);
+    boolean verificarEmail(String email);
     
 }

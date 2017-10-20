@@ -19,9 +19,8 @@ and open the template in the editor.
         <div class="container">
             <div>
                 <h2 style="text-align: center">Responda as dúvidas dos seus alunos</h2>
-                
+
                 <h:form>
-                    
                     <!-- Tabela com as duvidas -->
                     <h:dataTable value="#{controladorDuvida.duvidas}" var="duvida">
                         <div>
@@ -39,14 +38,14 @@ and open the template in the editor.
                         <div>
                             <h:column>
                                 <h:commandButton style="margin-left: 20px;"
-                                                     value="Visualizar"
-                                                     action="#{controladorDuvida.mostrar(duvida)}" />
+                                                 value="Visualizar"
+                                                 action="#{controladorDuvida.mostrar(duvida)}" />
                             </h:column>
                         </div>
                     </h:dataTable>
-                    
+
                     <hr />
-                    
+
                     <h:outputLabel rendered="#{controladorDuvida.mostrarResponderDuvida}">
                         <h:outputText value="#{controladorDuvida.editarDuvida.aluno.nome}" />
                         <h:outputText value="#{controladorDuvida.editarDuvida.pergunta}" />
@@ -59,6 +58,10 @@ and open the template in the editor.
                         <h:commandButton value="Responder Dúvida" action="#{controladorDuvida.responderDuvida()}" />
                     </h:outputLabel>
                 </h:form>
+                <br></br>
+                <h:form>
+                    <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
+                </h:form> 
             </div>
         </div>
     </body>

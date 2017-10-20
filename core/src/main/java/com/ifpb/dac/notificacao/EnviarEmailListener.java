@@ -46,7 +46,6 @@ public class EnviarEmailListener implements MessageListener {
             email.setAuthenticator(new DefaultAuthenticator(EMAIL, SENHA));
             email.setTLS(true);
             email.setSSL(true);
-            System.out.println("Boolean: " + ativ.isNotDiaAnterior());
             Turma turmaVinculada = ativ.getTurma();
             String nomeProf = turmaVinculada.getProfessor().getNome();
             if (!ativ.isNotDiaAnterior()) {

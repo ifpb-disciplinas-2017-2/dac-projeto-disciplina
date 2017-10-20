@@ -43,17 +43,21 @@
             <h:link outcome="aluno/cadastrarDuvida.xhtml" 
                     rendered="#{controladorMenu.credenciais eq 'aluno'}"
                     value="Cadastrar Dúvidas" />
-            <h:link outcome="professor/gerenciarAtividade.xhtml" 
+            <h:link outcome="professor/adicionarAtividade.xhtml" 
                     rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Gerenciar Atividades" />
+                    value="Adicionar Atividades" />
+            <br></br><br></br>
+            <h:link outcome="professor/removerAtividade.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq 'prof'}"
+                    value="Remover Atividades" />
             <br></br><br></br>
             <h:link outcome="professor/cadastroMaterial.xhtml" 
                     rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Gerenciar Materiais" />
+                    value="Adicionar Materiais" />
             <br></br><br></br>
-            <h:link outcome="aluno/cadastrarDuvida.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq false}"
-                    value="Cadastrar Dúvidas" />
+            <h:link outcome="professor/removerMaterial.xhtml" 
+                    rendered="#{controladorMenu.credenciais eq 'prof'}"
+                    value="Remover Materiais" />
             <br></br><br></br>
             <h:link outcome="professor/responderDuvida.xhtml" 
                     rendered="#{controladorMenu.credenciais eq 'prof'}"

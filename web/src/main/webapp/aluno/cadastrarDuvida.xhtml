@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -29,13 +24,13 @@ and open the template in the editor.
                                                itemValue="#{professor}" />
                             </h:selectOneMenu>
                             <h:commandButton style="margin-left: 20px;"
-                                            value="Selecionar Professor"
-                                            action="#{controladorDuvida.visualizarRealizarPergunta()}"/>
+                                             value="Selecionar Professor"
+                                             action="#{controladorDuvida.visualizarRealizarPergunta()}"/>
                         </h:outputLabel>
                     </div>
-                    
+
                     <hr />
-                    
+
                     <div>
                         <h:outputLabel for="realizarPergunta" value="Realizar Perguntar" rendered="#{controladorDuvida.visualizarCampoPergunta}">
                             <h:inputTextarea id="pergunta"
@@ -49,8 +44,11 @@ and open the template in the editor.
                                              action="#{controladorDuvida.cadastrarPergunta()}" />
                         </h:outputLabel>
                     </div>
-                    
                 </h:form>
+                <br></br>
+                <h:form>
+                    <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
+                </h:form> 
             </div>
         </div>
     </body>
