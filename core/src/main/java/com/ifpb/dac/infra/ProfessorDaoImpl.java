@@ -2,8 +2,10 @@
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Professor;
+import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.ProfessorDao;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -54,9 +56,13 @@ public class ProfessorDaoImpl implements ProfessorDao {
     public Professor buscarPorNome(String nomeProfessor) {
         TypedQuery<Professor> createQuery = em.createQuery("select p from Professor p where p.nome like :nomeProfessor", Professor.class);
         createQuery.setParameter("nomeProfessor", nomeProfessor);
-        return createQuery.getSingleResult();
+        Optional<Professor> resultado = createQuery.getResultList().stream().findFirst();
+        if(resultado.isPresent()){
+            Professor prof = resultado.get();
+            return prof;
+        } else {
+            return null;
+        }
     }
-    
-    
     
 }

@@ -63,4 +63,17 @@ public class AlunoDaoImpl implements AlunoDao {
         }
     }
     
+    @Override
+    public boolean verificarEmail(String email) {
+        TypedQuery<Aluno> createQuery = em.createQuery("SELECT a FROM "
+                + "Aluno a WHERE a.email =:email", Aluno.class);
+        createQuery.setParameter("email", email);
+        Optional<Aluno> findFirst = createQuery.getResultList().stream().findFirst();
+        if (findFirst.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }

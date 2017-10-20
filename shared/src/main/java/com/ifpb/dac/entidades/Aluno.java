@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,9 +29,11 @@ public class Aluno implements Serializable {
     @Id
     @GeneratedValue(generator = "minha_seq_aluno", strategy = GenerationType.SEQUENCE)
     private int id;
+    @Column(length = 50, nullable = false)
     private String nome;
     private String email;
     private String senha; 
+    private boolean logado;
     @ManyToMany(mappedBy = "alunos", fetch = FetchType.EAGER)
     private List<Turma> turmas;
     @ManyToOne
@@ -40,12 +43,13 @@ public class Aluno implements Serializable {
         this.turmas = new ArrayList<>();
     }
 
-    public Aluno(String nome, String email, String senha, Curso curso) {
+    public Aluno(String nome, String email, String senha, Curso curso, boolean logado) {
         this();
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.curso = curso;
+        this.logado = logado;
     }
     
     public boolean add(Turma turma){
@@ -103,6 +107,13 @@ public class Aluno implements Serializable {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-    
+
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
+    }    
     
 }
