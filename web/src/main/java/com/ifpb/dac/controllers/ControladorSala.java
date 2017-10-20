@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -61,12 +60,7 @@ public class ControladorSala implements Serializable {
     }
 
     public String visualizarHorarios() {
-//        List<HorarioSalaDTO> segunda = hDao.listarHorarioSala(valorSelect).
-//                stream().filter(h -> "SEGUNDA-FEIRA".equals(h.getDia())).collect(Collectors.toList());
-//        List<HorarioSalaDTO> hora = segunda; 
         visualizar = true;
-//        List<HorariosDTO> hora = hDao.listarHorarioSala(valorSelect);
-//        setHorario(hora);
         return null;
     }
 

@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Adicionar Atividade</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
@@ -12,7 +12,9 @@
     </head>
     <body>
         <div class="container">
-            <h:form>
+            <h:outputText rendered="#{empty controladorAtividade.disciplinasProfessores}"
+                value="O professor não esta cadastrado a nenhuma disciplina, é necessário que ele esteja para que a atividade seja vinculada"/>
+            <h:form rendered="#{not empty controladorAtividade.disciplinasProfessores}">
                 <h2>Adicionar Atividade</h2>
                 <h:outputLabel for="prof" value="Nome: ">
                     <h:outputText id="prof" value="#{controladorAtividade.usuario.nome}"/>
@@ -44,6 +46,7 @@
                 <h:outputLabel for="dataInicio" value="Data Inicio: ">
                     <h:inputText id="dataInicio" 
                                  required="true"
+                                 requiredMessage="Necessario informar a data de inicio"
                                  value="#{controladorAtividade.atividade.inicio}">
                         <f:converter converterId="convert.ConversorData"/>
                     </h:inputText>
@@ -52,6 +55,7 @@
                 <h:outputLabel for="dataFim" value="Data Fim: ">
                     <h:inputText id="dataFim" 
                                  required="true"
+                                 requiredMessage="Necessario informar a data de fim"
                                  value="#{controladorAtividade.atividade.fim}">
                         <f:converter converterId="convert.ConversorData" />
                     </h:inputText>
@@ -61,35 +65,6 @@
                                  action="#{controladorAtividade.cadastrarAtividade()}"/>
             </h:form>
             <br></br>
-            <h:form>
-                <h:commandButton value="Visualizar Atividades" immediate="true"
-                                 action="#{controladorAtividade.visualizarAtividade()}"/>
-                <h:dataTable value="#{controladorAtividade.atividades}"
-                             var="atividade"
-                             rendered="#{controladorAtividade.visualizarAtiv}">
-                    <h:column>
-                        <f:facet name="header">Resumo</f:facet>
-                        <h:outputText value="#{atividade.resumo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Descricao</f:facet>
-                        <h:outputText value="#{atividade.descricao}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Inicio</f:facet>
-                        <h:outputText value="#{atividade.inicio}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Fim</f:facet>
-                        <h:outputText value="#{atividade.fim}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Remover</f:facet>
-                        <h:commandButton value="Finalizar Atividade" 
-                                         action="#{controladorAtividade.removerAtividade(atividade)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
             <h:form>
                 <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
             </h:form>

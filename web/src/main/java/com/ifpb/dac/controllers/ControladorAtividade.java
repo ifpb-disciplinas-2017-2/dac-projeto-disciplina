@@ -65,7 +65,7 @@ public class ControladorAtividade implements Serializable {
         if (atvd == null) {
             FacesMessage message = new FacesMessage("Nenhuma atividade cadastrada...");
             message.setSeverity(FacesMessage.SEVERITY_INFO);
-            FacesContext.getCurrentInstance().addMessage("Acesso", message);
+            FacesContext.getCurrentInstance().addMessage("Atividade", message);
             return new ArrayList<>();
         } else {
             return atvd;

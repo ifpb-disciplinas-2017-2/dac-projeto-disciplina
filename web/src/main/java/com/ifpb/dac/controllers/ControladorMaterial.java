@@ -129,7 +129,7 @@ public class ControladorMaterial implements Serializable {
         if (turma == null) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Turma não encontrada", "Turma não encontrada");
-            FacesContext.getCurrentInstance().addMessage("Acesso", msg);
+            FacesContext.getCurrentInstance().addMessage("Material", msg);
         } else {
             try {
                 System.out.println(turma.getNome_disciplina());

@@ -88,18 +88,38 @@ public class ControladorCadastro implements Serializable {
         if (curso == null) {
             mostrarMensagem("Curso não encontrado");
         } else {
-            Aluno aln = new Aluno(nome, email, senha, curso);
-            alunoDao.adicionar(aln);
-            mostrarMensagem("Aluno cadastrado");
+            boolean verificarEmail = alunoDao.verificarEmail(email);
+            if (verificarEmail) {
+                mostrarMensagem("Esse email ja esta cadastado na base de dados");
+            } else {
+                Aluno aln = new Aluno(nome, email, senha, curso, false);
+                Pedido p = new Pedido(nome, email, senha, Tipo.Aluno, 1);
+                pedidoDao.adicionar(p);
+                alunoDao.adicionar(aln);
+                redirecionar();
+            }
         }
-        limparCampos();
-        redirecionar();
-    }
-    
-    public void voltar(){
-        redirecionar();
+        limparCampos();        
     }
 
+    public void voltar() {
+        redirecionar();
+    }    
+
+    public void cadastrarProfessor() {
+        boolean verificarEmail = usuarioDao.verificarEmail(email);
+        if (verificarEmail) {
+            mostrarMensagem("Esse email ja esta cadastado na base de dados");
+        } else {
+            Usuario usuario = new Usuario(nome, email, senha, Tipo.Professor, false);
+            Pedido p = new Pedido(nome, email, senha, Tipo.Professor, 1);
+            pedidoDao.adicionar(p);
+            usuarioDao.adicionar(usuario);
+            limparCampos();
+            redirecionar();
+        }
+    }
+    
     private void redirecionar() {
         ExternalContext externalContext = FacesContext.getCurrentInstance()
                 .getExternalContext();
@@ -110,20 +130,10 @@ public class ControladorCadastro implements Serializable {
         }
     }
 
-    public void cadastrarProfessor() {
-        Usuario usuario = new Usuario(nome, email, senha, Tipo.Professor, false);
-        Pedido p = new Pedido(nome, email, senha, Tipo.Professor, 1);
-        pedidoDao.adicionar(p);
-        usuarioDao.adicionar(usuario);
-        mostrarMensagem("Enviado pedido de acesso para o administrador");
-        limparCampos();
-        redirecionar();
-    }
-
     private void mostrarMensagem(String titulo) {
         FacesMessage message = new FacesMessage(titulo);
         message.setSeverity(FacesMessage.SEVERITY_INFO);
-        FacesContext.getCurrentInstance().addMessage("Acesso", message);
+        FacesContext.getCurrentInstance().addMessage("Cadastro", message);
     }
 
     private void limparCampos() {

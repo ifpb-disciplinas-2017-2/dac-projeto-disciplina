@@ -1,8 +1,10 @@
 package com.ifpb.dac.controllers;
 
+import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
+import com.ifpb.dac.interfaces.AlunoDao;
 import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
 import java.io.IOException;
@@ -22,12 +24,15 @@ import javax.inject.Named;
 @Named
 @RequestScoped
 public class ControladorAdmin implements Serializable {
-    
+
     @Inject
     private UsuarioDao usuarioDao;
     @Inject
+    private AlunoDao alunoDao;
+    @Inject
     private PedidoDao pedidoDao;
     private Usuario usuario = new Usuario();
+    private Aluno aluno = new Aluno();
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Usuario getUsuario() {
@@ -45,39 +50,38 @@ public class ControladorAdmin implements Serializable {
     public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
-    
-    public String realizarLogin(){
-        Usuario admin = usuarioDao.autentica(usuario.getEmail(), 
+
+    public String realizarLogin() {
+        Usuario admin = usuarioDao.autentica(usuario.getEmail(),
                 usuario.getSenha(), Tipo.Administrador);
-        if(admin != null){
+        if (admin != null) {
             return "menu.xhtml";
         } else {
             usuario = new Usuario();
             return null;
-        }        
+        }
     }
 
-    public String liberarAcesso(Pedido p){
-        pedidoDao.remover(p);
-        Usuario usuLiberado = usuarioDao.autentica(p.getEmail(), p.getSenha()
-                , p.getTipo());
-        if(usuLiberado != null){
-            usuLiberado.setLogado(true);
-            usuarioDao.atualizar(usuLiberado);
-        }
+    public String liberarAcesso(Pedido p) {
+        if (p.getTipo().equals(Tipo.Aluno)) {
+            Aluno alunoLib = alunoDao.autentica(p.getEmail(), p.getSenha());
+            if (alunoLib != null) {
+                alunoLib.setLogado(true);
+                alunoDao.atualizar(alunoLib);
+                pedidoDao.remover(p);
+            }
+        } else {
+            Usuario usuLiberado = usuarioDao.autentica(p.getEmail(), p.getSenha(),
+                    p.getTipo());
+            if (usuLiberado != null) {
+                usuLiberado.setLogado(true);
+                usuarioDao.atualizar(usuLiberado);
+                pedidoDao.remover(p);
+            }
+        }        
         return null;
     }
-    
-//    public void voltar(){
-//        ExternalContext externalContext = FacesContext.getCurrentInstance()
-//                .getExternalContext();
-//        try {
-//            externalContext.redirect("../index.xhtml");
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-    
+
     public void logout() {
         ExternalContext externalContext = FacesContext.getCurrentInstance()
                 .getExternalContext();
@@ -88,5 +92,5 @@ public class ControladorAdmin implements Serializable {
             ex.printStackTrace();
         }
     }
-    
+
 }
