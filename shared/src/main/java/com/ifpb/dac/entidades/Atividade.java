@@ -17,24 +17,25 @@ public class Atividade implements Serializable {
     @Id
     private String id;
     private String resumo;
-    // private String localizacao;
     private String descricao;
     private LocalDateTime inicio;
     private LocalDateTime fim;
     @ManyToOne
     @JoinColumn(name = "turma_id")
     private Turma turma;
+    private boolean notDiaAnterior;
 
     public Atividade() {
     }
 
     public Atividade(String resumo, String descricao, 
-            LocalDateTime inicio, LocalDateTime fim, Turma turma) {
+            LocalDateTime inicio, LocalDateTime fim, Turma turma, boolean notific) {
         this.resumo = resumo;
         this.descricao = descricao;
         this.inicio = inicio;
         this.fim = fim;
         this.turma = turma;
+        this.notDiaAnterior = notific;
     }
 
     public String getId() {
@@ -85,9 +86,17 @@ public class Atividade implements Serializable {
         this.turma = turma;
     }
 
+    public boolean isNotDiaAnterior() {
+        return notDiaAnterior;
+    }
+
+    public void setNotDiaAnterior(boolean notDiaAnterior) {
+        this.notDiaAnterior = notDiaAnterior;
+    }
+
     @Override
     public String toString() {
-        return "Atividade{" + "id=" + id + ", resumo=" + resumo + ", descricao=" + descricao + ", inicio=" + inicio + ", fim=" + fim + '}';
-    }    
+        return "Atividade{" + "id=" + id + ", resumo=" + resumo + ", descricao=" + descricao + ", inicio=" + inicio + ", fim=" + fim + ", turma=" + turma + ", notDiaAnterior=" + notDiaAnterior + '}';
+    }  
     
 }

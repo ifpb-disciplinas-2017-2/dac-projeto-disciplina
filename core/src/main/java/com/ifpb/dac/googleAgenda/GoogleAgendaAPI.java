@@ -5,11 +5,20 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
+import com.ifpb.dac.entidades.Atividade;
+import com.ifpb.dac.interfaces.AtividadeDao;
+import com.ifpb.dac.interfaces.EnviarEmail;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Remote;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 
 /**
@@ -20,11 +29,13 @@ import javax.ejb.Stateless;
 @Remote(GoogleAPI.class)
 public class GoogleAgendaAPI implements GoogleAPI {
 
+    @EJB
+    private AtividadeDao atividadeDao;
+    @EJB
+    private EnviarEmail email;
+    
     private static final String CALENDAR_ID = "projetodacfinal@projetodac"
             + "-182622.iam.gserviceaccount.com";
-//        private static final String CALENDAR_ID2 = "projeto-dac@projeto-dac.iam.gserviceaccount.com";
-//        private static final String CALENDAR_ID = "dac-project@projeto-dac.iam.gserviceaccount.com";
-
 
     private static Calendar getCalendarClient() {
         try {
@@ -55,7 +66,7 @@ public class GoogleAgendaAPI implements GoogleAPI {
         System.out.println(evento.toString());
         Calendar c = getCalendarClient();
         try {
-            return c.events().insert(CALENDAR_ID, 
+            return c.events().insert(CALENDAR_ID,
                     evento).execute().getId();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -70,6 +81,23 @@ public class GoogleAgendaAPI implements GoogleAPI {
             c.events().delete(CALENDAR_ID, idEvento).execute();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @Schedule(hour = "23", minute = "59", second = "59")
+//    @Schedule(hour = "*", minute = "*", second = "*/30")
+    public void notificarDiaAnteriorEvento() {
+        System.out.println("Executando o agendador...");
+        List<Atividade> atividades = atividadeDao.listarTodos();
+        LocalDate dataPosterior = LocalDate.now().plusDays(1);
+        for (Atividade auxiliar : atividades) {
+            System.out.println("Buscando atividades com data de entrega");
+            LocalDate dataFimBanco = auxiliar.getFim().toLocalDate();
+            if (dataPosterior.equals(dataFimBanco)) {
+                auxiliar.setNotDiaAnterior(true);
+                email.enviar(auxiliar);
+                System.out.println("Email enviado...");
+            }
         }
     }
 

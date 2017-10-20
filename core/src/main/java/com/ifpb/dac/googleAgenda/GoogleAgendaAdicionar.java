@@ -7,7 +7,6 @@ import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.EventReminder;
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Atividade;
-import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.AtividadeDao;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -2,8 +2,6 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.interfaces.AtividadeDao;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -59,18 +57,8 @@ public class AtividadeDaoImpl implements AtividadeDao {
                         + "GROUP BY t.codigo_turma)", Atividade.class);
         createQuery.setParameter("prof", professor);
         List<Atividade> resultList = createQuery.getResultList();
-//        if (resultList.stream().findFirst().isPresent()) {
-//            return resultList;
-//        } else {
-//            return null;
-//        }
         return resultList;
     }
-
-//    SELECT * FROM atividade a WHERE a.turma_id = ANY 
-//    (SELECT at.codigo_turma FROM aluno_turma at 
-//    INNER JOIN turma t on at.codigo_turma = t.codigo_turma 
-//    WHERE at.id = 1 GROUP BY at.codigo_turma);
     @Override
     public List<Atividade> atividadesAluno(int id) {
         Query createNativeQuery = em.createNativeQuery("SELECT * FROM atividade a "
@@ -82,16 +70,5 @@ public class AtividadeDaoImpl implements AtividadeDao {
         List<Atividade> list = createNativeQuery.getResultList();
         return list;
     }
-//     resultList.forEach((tupla) -> {
-//            String nome = (String) tupla[0];
-//            Long quantidade = (Long) tupla[1];
-//            System.out.println(String.format("Nome:%s e quantidade: %d", nome, quantidade));
-//        });
-
-//    SELECT * FROM atividade a WHERE a.turma_id = ANY (SELECT t.codigo_turma FROM turma t INNER JOIN professor p ON t.codigo_prof = t.codigo_prof WHERE p.nome = 'ADRIANO MARQUES DA SILVA' GROUP BY t.codigo_turma;
-//    SELECT * FROM atividade a WHERE a.turma_id = 
-//    ANY(SELECT t.codigo_turma FROM turma t INNER JOIN professor p ON 
-//    t.codigo_prof  = p.codigo_prof WHERE p.nome = 
-//    'ADRIANO MARQUES DA SILVA' GROUP BY t.codigo_turma
-//    );
+    
 }

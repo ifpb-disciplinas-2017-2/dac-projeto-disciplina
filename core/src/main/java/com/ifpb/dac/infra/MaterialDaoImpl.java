@@ -59,8 +59,6 @@ public class MaterialDaoImpl implements MaterialDao {
         createQuery.setParameter("prof", professor);
         return createQuery.getResultList();
     }
-    
-//    SELECT descricao, codigo_turma FROM material m WHERE m.codigo_turma = ANY (SELECT at.codigo_turma FROM aluno_turma at INNER JOIN turma t on at.codigo_turma = t.codigo_turma WHERE at.id = 2 GROUP BY at.codigo_turma);
 
     @Override
     public List<Material> materiaisAluno(int id){
