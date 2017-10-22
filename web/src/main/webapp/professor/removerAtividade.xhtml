@@ -6,45 +6,61 @@
     <head>
         <title>Remover Atividade</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
-        <script src="./bootstrap/js/bootstrap.js"/>
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>     
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/> 
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container">
-            <h:outputText value="Nenhuma atividade adicionada até o momento..."
-                          rendered="#{empty controladorAtividade.atividades}"/>
+            <div class="row text-center">
+                <h2>
+                    <h:outputText value="Nenhuma atividade adicionada até o momento..."
+                                  rendered="#{empty controladorAtividade.atividades}"/>
+                </h2>
+            </div>
+            
             <br></br>
-            <h:form rendered="#{not empty controladorAtividade.atividades}">
-                <h:dataTable value="#{controladorAtividade.atividades}"
-                             var="atividade">
-                    <h:column>
-                        <f:facet name="header">Resumo</f:facet>
-                        <h:outputText value="#{atividade.resumo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Descricao</f:facet>
-                        <h:outputText value="#{atividade.descricao}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Inicio</f:facet>
-                        <h:outputText value="#{atividade.inicio}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Fim</f:facet>
-                        <h:outputText value="#{atividade.fim}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Remover</f:facet>
-                        <h:commandButton value="Finalizar Atividade" 
-                                         action="#{controladorAtividade.removerAtividade(atividade)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
+            
+            <div class="row text-center">
+                
+                <h:form rendered="#{not empty controladorAtividade.atividades}">
+                    <h:dataTable value="#{controladorAtividade.atividades}"
+                                 class="table table-hover col-md-12"
+                                 var="atividade">
+                        <h:column>
+                            <f:facet name="header">Resumo</f:facet>
+                            <h:outputText value="#{atividade.resumo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Descricao</f:facet>
+                            <h:outputText value="#{atividade.descricao}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Inicio</f:facet>
+                            <h:outputText value="#{atividade.inicio}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fim</f:facet>
+                            <h:outputText value="#{atividade.fim}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Remover</f:facet>
+                            <h:commandButton value="Finalizar Atividade"
+                                             class="btn btn-danger"
+                                             action="#{controladorAtividade.removerAtividade(atividade)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+            
             <br></br>
-            <h:form>
-                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
-            </h:form>            
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                </h:form>            
+            </div>
         </div>
     </body>
 </html>
