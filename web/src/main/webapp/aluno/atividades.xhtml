@@ -12,40 +12,63 @@
     </head>
     <body>
         <div class="container">
-            <h:outputText value="Não possui nenhuma atividade adicionada as disciplinas que você se cadastrou..."
-                          rendered="#{empty ctrlAtividadAluno.atividadesAluno}"/>
+            <div class="row text-center">
+                <h2>
+                    <h:outputText value="Não possui nenhuma atividade adicionada as disciplinas que você se cadastrou..."
+                              rendered="#{empty ctrlAtividadAluno.atividadesAluno}"/>
+                </h2>
+                <hr />
+            </div>
             <br></br>
-            <h:dataTable var="atividade"
-                         value="#{ctrlAtividadAluno.atividadesAluno}">
-                <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
-                    <f:facet name="header">Resumo</f:facet>
-                    <h:outputText value="#{atividade.resumo}"/>
-                </h:column>
-                <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
-                    <f:facet name="header">Descricao</f:facet>
-                    <h:outputText value="#{atividade.descricao}"/>
-                </h:column>
-                <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
-                    <f:facet name="header">Inicio</f:facet>
-                    <h:outputText value="#{atividade.inicio}"/>
-                </h:column>
-                <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
-                    <f:facet name="header">Fim</f:facet>
-                    <h:outputText value="#{atividade.fim}"/>
-                </h:column>
-                <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
-                    <f:facet name="header">Disciplina</f:facet>
-                    <h:outputText value="#{atividade.turma.nome_disciplina}"/>
-                </h:column>
-                <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
-                    <f:facet name="header">Professor</f:facet>
-                    <h:outputText value="#{atividade.turma.professor.nome}"/>
-                </h:column>
-            </h:dataTable>
+            
+            <div class="row text-center">
+                
+                <h:dataTable var="atividade"
+                             class="table table-hover col-md-12"
+                             value="#{ctrlAtividadAluno.atividadesAluno}">
+
+                    <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
+                        <f:facet name="header">Resumo</f:facet>
+                        <h:outputText value="#{atividade.resumo}"/>
+                    </h:column>
+
+                    <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
+                        <f:facet name="header">Descricao</f:facet>
+                        <h:outputText value="#{atividade.descricao}"/>
+                    </h:column>
+
+                    <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
+                        <f:facet name="header">Inicio</f:facet>
+                        <h:outputText value="#{atividade.inicio}"/>
+                    </h:column>
+
+                    <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
+                        <f:facet name="header">Fim</f:facet>
+                        <h:outputText value="#{atividade.fim}"/>
+                    </h:column>
+
+                    <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
+                        <f:facet name="header">Disciplina</f:facet>
+                        <h:outputText value="#{atividade.turma.nome_disciplina}"/>
+                    </h:column>
+
+                    <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
+                        <f:facet name="header">Professor</f:facet>
+                        <h:outputText value="#{atividade.turma.professor.nome}"/>
+                    </h:column>
+
+                </h:dataTable>
+                
+            </div>
+            
+            
             <br></br>
-            <h:form>
-                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
-            </h:form>
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton class="btn btn-warning" value="Voltar" action="#{controladorMenu.voltar()}"/>
+                </h:form>
+            </div>
         </div>
     </body>
 </html>

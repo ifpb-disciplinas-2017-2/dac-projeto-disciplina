@@ -9,65 +9,96 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container">
-            <h:outputText rendered="#{empty controladorAtividade.disciplinasProfessores}"
-                value="O professor não esta cadastrado a nenhuma disciplina, é necessário que ele esteja para que a atividade seja vinculada"/>
-            <h:form rendered="#{not empty controladorAtividade.disciplinasProfessores}">
-                <h2>Adicionar Atividade</h2>
-                <h:outputLabel for="prof" value="Nome: ">
-                    <h:outputText id="prof" value="#{controladorAtividade.usuario.nome}"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="disc" value="Informe a disciplina: ">
-                    <h:selectOneMenu id="disc" value = "#{controladorAtividade.valorSelect}">
-                        <f:selectItems value="#{controladorAtividade.disciplinasProfessores}" 
-                                       var="disciplina"
-                                       itemLabel="#{disciplina}"
-                                       itemValue="#{disciplina}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="resumo" value="Titulo: ">
-                    <h:inputText value="#{controladorAtividade.atividade.resumo}"
-                                 id="resumo"
-                                 required="true"
-                                 requiredMessage="Necessario informar o titulo da atividade"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="desc" value="Descricao: ">
-                    <h:inputText value="#{controladorAtividade.atividade.descricao}"
-                                 id="desc"
-                                 required="true"
-                                 requiredMessage="Necessario informar a descricao da atividade"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="dataInicio" value="Data Inicio: ">
-                    <h:inputText id="dataInicio" 
-                                 required="true"
-                                 requiredMessage="Necessario informar a data de inicio"
-                                 value="#{controladorAtividade.atividade.inicio}">
-                        <f:converter converterId="convert.ConversorData"/>
-                    </h:inputText>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="dataFim" value="Data Fim: ">
-                    <h:inputText id="dataFim" 
-                                 required="true"
-                                 requiredMessage="Necessario informar a data de fim"
-                                 value="#{controladorAtividade.atividade.fim}">
-                        <f:converter converterId="convert.ConversorData" />
-                    </h:inputText>
-                </h:outputLabel>
-                <br></br>
-                <h:commandButton value="Cadastrar Atividade" 
-                                 action="#{controladorAtividade.cadastrarAtividade()}"/>
-            </h:form>
+            <div class="row text-center">
+                <h2>
+                    <h:outputText rendered="#{empty controladorAtividade.disciplinasProfessores}"
+                        value="O professor não esta cadastrado a nenhuma disciplina, é necessário que ele esteja para que a atividade seja vinculada"/>
+                </h2>
+            </div>
+            
+            <div class="row text-center">
+                <h:form rendered="#{not empty controladorAtividade.disciplinasProfessores}">
+                    <h2>Adicionar Atividade</h2>
+                    <div class="form-group">
+                        <h:outputLabel for="prof" class="text-left" value="Nome: ">
+                            <h:outputText id="prof" value="#{controladorAtividade.usuario.nome}"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="disc" class="text-left col-md-12" value="Informe a disciplina: ">
+                            <h:selectOneMenu id="disc" class="form-control" value = "#{controladorAtividade.valorSelect}">
+                                <f:selectItems value="#{controladorAtividade.disciplinasProfessores}" 
+                                               var="disciplina"
+                                               itemLabel="#{disciplina}"
+                                               itemValue="#{disciplina}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="resumo" class="text-left col-md-12" value="Titulo: ">
+                            <h:inputText value="#{controladorAtividade.atividade.resumo}"
+                                         id="resumo"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         requiredMessage="Necessario informar o titulo da atividade"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="desc" class="text-left col-md-12" value="Descricao: ">
+                            <h:inputText value="#{controladorAtividade.atividade.descricao}"
+                                         id="desc"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         requiredMessage="Necessario informar a descricao da atividade"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="dataInicio" class="text-left col-md-12" value="Data Inicio: ">
+                            <h:inputText id="dataInicio" 
+                                         required="true"
+                                         class="form-control col-md-12"
+                                         requiredMessage="Necessario informar a data de inicio"
+                                         value="#{controladorAtividade.atividade.inicio}">
+                                <f:converter converterId="convert.ConversorData"/>
+                            </h:inputText>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="dataFim" class="text-left col-md-12" value="Data Fim: ">
+                            <h:inputText id="dataFim" 
+                                         required="true"
+                                         class="form-control col-md-12"
+                                         requiredMessage="Necessario informar a data de fim"
+                                         value="#{controladorAtividade.atividade.fim}">
+                                <f:converter converterId="convert.ConversorData" />
+                            </h:inputText>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <br></br>
+                    <h:commandButton value="Cadastrar Atividade"
+                                     class="btn btn-success"
+                                     action="#{controladorAtividade.cadastrarAtividade()}"/>
+                </h:form>  
+            </div>
+            
+            
             <br></br>
-            <h:form>
-                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
-            </h:form>
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                </h:form>
+            </div>
         </div>
     </body>
 </html>

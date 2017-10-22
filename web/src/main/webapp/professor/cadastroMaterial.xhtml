@@ -8,47 +8,72 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
-        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>   
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
     </h:head>
     <h:body>
         <div class="container">
-            <h:outputText rendered="#{empty controladorAtividade.disciplinasProfessores}"
-                          value="O professor não esta cadastrado a nenhuma disciplina, é necessário que ele esteja para que o material seja vinculado"/>
-            <h:form rendered="#{not empty controladorAtividade.disciplinasProfessores}"
-                    id="form" enctype="multipart/form-data">
-                <h:outputLabel for="prof" value="Nome: ">
-                    <h:outputText id="prof" value="#{controladorMaterial.usuario.nome}"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="disc" value="Informe a disciplina: ">
-                    <h:selectOneMenu id="disc" value = "#{controladorMaterial.valorSelect}">
-                        <f:selectItems value="#{controladorMaterial.disciplinasProfessores}" 
-                                       var="disciplina"
-                                       itemLabel="#{disciplina}"
-                                       itemValue="#{disciplina}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="desc" value="Informe a descricao do arquivo: ">
-                    <h:inputText id="desc"
-                                 required="true"
-                                 value="#{controladorMaterial.material.descricao}"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="arquivo">
-                    <h:inputFile id="arquivo"
-                                 label="Informe o arquivo"
-                                 validator="validator.ValidadorArquivo"
-                                 required="true"
-                                 value="#{controladorMaterial.arquivo}"/>
-                </h:outputLabel>
-                <br></br>
-                <h:commandButton value="Realizar Upload" action="#{controladorMaterial.upload()}"/>
-            </h:form>
+            <div class="row text-center">
+                <h2>
+                    <h:outputText rendered="#{empty controladorAtividade.disciplinasProfessores}"
+                                  value="O professor não esta cadastrado a nenhuma disciplina, é necessário que ele esteja para que o material seja vinculado"/>
+                </h2>
+            </div>
+            
+            <br /><br /><br /><br />
+            
+            <div class="row text-center">
+                <h:form rendered="#{not empty controladorAtividade.disciplinasProfessores}"
+                        id="form" enctype="multipart/form-data">
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="prof" value="Nome: ">
+                            <h:outputText id="prof" value="#{controladorMaterial.usuario.nome}"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="disc" class="text-left col-md-12" value="Informe a disciplina: ">
+                            <h:selectOneMenu id="disc" class="form-control" value = "#{controladorMaterial.valorSelect}">
+                                <f:selectItems value="#{controladorMaterial.disciplinasProfessores}" 
+                                               var="disciplina"
+                                               itemLabel="#{disciplina}"
+                                               itemValue="#{disciplina}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="desc" class="text-left col-md-12" value="Informe a descricao do arquivo: ">
+                            <h:inputText id="desc"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         value="#{controladorMaterial.material.descricao}"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    
+                    <h:outputLabel for="arquivo" class="text-left col-md-12">
+                        <h:inputFile id="arquivo"
+                                     class="form-control col-md-12"
+                                     label="Informe o arquivo"
+                                     validator="validator.ValidadorArquivo"
+                                     required="true"
+                                     value="#{controladorMaterial.arquivo}"/>
+                    </h:outputLabel>
+                    
+                    <br></br>
+                    <h:commandButton value="Realizar Upload" class="btn btn-success" action="#{controladorMaterial.upload()}"/>
+                </h:form>
+            </div>
+            
             <br></br>                
-            <h:form>
-                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
-            </h:form>
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                </h:form>
+            </div>
         </div>
     </h:body>
 </html>
