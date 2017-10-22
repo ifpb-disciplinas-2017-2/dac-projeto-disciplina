@@ -9,56 +9,72 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="./css/style.css" />
     </h:head>
     <h:body>
-        <div class="container-fluid">
-            <h:form>
-                <h:outputLabel for="nome" value="Nome: ">
-                    <h:inputText id="nome" 
-                                 value="#{controladorCadastro.nome}"
-                                 maxlength="50"
-                                 required="true"
-                                 requiredMessage="Informe um nome valido"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="email" value="Email: ">
-                    <h:inputText id="email" 
-                                 value="#{controladorCadastro.email}"
-                                 maxlength="50"
-                                 required="true"
-                                 requiredMessage="Informe um email valido">
-                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                    </h:inputText>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="senha" value="Senha: ">
-                    <h:inputSecret id="senha" 
-                                   value="#{controladorCadastro.senha}"
-                                   maxlength="20"
-                                   required="true"
-                                   requiredMessage="Informe uma senha valida"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="curso" value="Informe seu curso: ">                        
-                    <h:selectOneMenu id="curso" 
-                                     value="#{controladorCadastro.valorSelect}">
-                        <f:selectItems value="#{controladorCadastro.cursos}" 
-                                       var="cur"
-                                       itemLabel="#{cur}"
-                                       itemValue="#{cur}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <br></br><br></br>
-                <h:commandButton value="Cadastrar"
-                                 class="btn btn-primary"
-                                 action="#{controladorCadastro.cadastrar()}"/>
-                <h:form>
-                    <h:commandButton value="Voltar"
-                                     immediate="true"
+        <div class="container">
+            <div class="row text-center">
+                <h1>Cadastro de Aluno</h1>
+                <hr />
+            </div>
+            <div class="row text-center">
+                <h:form class="form-horizontal box-main-login">
+                    <div class="form-group">
+                        <h:outputLabel for="nome" class="text-left col-md-12" value="Nome: ">
+                            <h:inputText id="nome" 
+                                         value="#{controladorCadastro.nome}"
+                                         maxlength="50"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         requiredMessage="Informe um nome valido"/>
+                        </h:outputLabel>         
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="email" class="text-left col-md-12" value="Email: ">
+                            <h:inputText id="email" 
+                                         value="#{controladorCadastro.email}"
+                                         maxlength="50"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         requiredMessage="Informe um email valido">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </h:outputLabel>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="senha" class="text-left col-md-12" value="Senha: ">
+                            <h:inputSecret id="senha" 
+                                           value="#{controladorCadastro.senha}"
+                                           maxlength="20"
+                                           class="form-control col-md-12"
+                                           required="true"
+                                           requiredMessage="Informe uma senha valida"/>
+                        </h:outputLabel>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="curso" class="text-left col-md-12" value="Informe seu curso: ">                        
+                            <h:selectOneMenu class="form-control" id="curso" 
+                                             value="#{controladorCadastro.valorSelect}">
+                                <f:selectItems value="#{controladorCadastro.cursos}" 
+                                               var="cur"
+                                               itemLabel="#{cur}"
+                                               itemValue="#{cur}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    <br></br>
+                    <h:commandButton value="Cadastrar"
                                      class="btn btn-primary"
-                                     action="#{controladorCadastro.voltar()}"/>
+                                     action="#{controladorCadastro.cadastrar()}"/>
+                    <h:form>
+                        <h:commandButton value="Voltar"
+                                         immediate="true"
+                                         class="btn btn-primary"
+                                         action="#{controladorCadastro.voltar()}"/>
+                    </h:form>
                 </h:form>
-            </h:form>
+                
+            </div>
         </div>
     </h:body>
 </html>

@@ -11,41 +11,60 @@
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
         <!--<script type="text/javascript" src="./bootstrap/js/jquery-3.2.1.min.js"></script>-->
+        <link rel="stylesheet" href="./css/style.css" />
     </head>
     <body>
         <div class="container">
-            <h:form>
-                <h3>Informe a disciplina que voce deseja receber as notificações de atividades no seu calendario e material no dropbox</h3>
-                <br></br>
-                <h:outputLabel for="discp" value="Disciplinas: ">
-                    <h:selectOneMenu id="discp" value = "#{ctrlAtividadAluno.valorDisciplina}">
-                        <f:selectItems value="#{ctrlAtividadAluno.disciplinasCurso}"
-                                       var="dis"
-                                       itemLabel="#{dis}"
-                                       itemValue="#{dis}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <h:commandButton value="Buscar professores da disciplina"
-                                 action="#{ctrlAtividadAluno.visualizarProfessores()}"/>
-                <br></br>
-                <h:outputLabel for="nomeProf" value="Turma de: " 
-                               rendered="#{ctrlAtividadAluno.visualizarProf}">
-                    <h:selectOneMenu id="nomeProf" value = "#{ctrlAtividadAluno.valorProf}">
-                        <f:selectItems value="#{ctrlAtividadAluno.professoresDisciplina}" 
-                                       var="prof"
-                                       itemLabel="#{prof}"
-                                       itemValue="#{prof}"/>
-                    </h:selectOneMenu>
-                    <h:commandButton style="margin-left: 20px;"
-                                     value="Se cadastrar na disciplina"
-                                     action="#{ctrlAtividadAluno.cadastrar()}"/>
-                    
-                </h:outputLabel>
-            </h:form>
+            
+                <div class="row text-center">
+                    <h3>Informe a disciplina que voce deseja receber as notificações de atividades no seu calendario e material no dropbox</h3>
+                    <hr />
+                </div>
+                
+                <div class="row text-center">
+                    <h:form>
+                        <div class="form-group">
+                            <h:outputLabel class="text-left" for="discp" value="Disciplinas: ">
+                                <h:selectOneMenu class="form-control" id="discp" value = "#{ctrlAtividadAluno.valorDisciplina}">
+                                    <f:selectItems value="#{ctrlAtividadAluno.disciplinasCurso}"
+                                                   var="dis"
+                                                   itemLabel="#{dis}"
+                                                   itemValue="#{dis}"/>
+                                </h:selectOneMenu>
+                            </h:outputLabel>
+                            <h:commandButton value="Buscar professores da disciplina"
+                                             class="btn btn-success col-md-12"
+                                             action="#{ctrlAtividadAluno.visualizarProfessores()}"/>
+                        </div>
+                        <hr />
+                        
+                        <br /><br />
+                        
+                        <div class="form-group">
+                            <h:outputLabel for="nomeProf" value="Turma de: " 
+                                           rendered="#{ctrlAtividadAluno.visualizarProf}">
+                                <h:selectOneMenu class="form-control" id="nomeProf" value = "#{ctrlAtividadAluno.valorProf}">
+                                    <f:selectItems value="#{ctrlAtividadAluno.professoresDisciplina}" 
+                                                   var="prof"
+                                                   itemLabel="#{prof}"
+                                                   itemValue="#{prof}"/>
+                                </h:selectOneMenu>
+                                <h:commandButton value="Se cadastrar na disciplina"
+                                                 class="btn btn-success col-md-12"
+                                                 action="#{ctrlAtividadAluno.cadastrar()}"/>
+
+                            </h:outputLabel>
+                        </div>
+                    </h:form>
+                </div> 
+            
             <br></br>
-            <h:form>
-                <h:commandButton style="margin-left: 20px;" value="Voltar" action="#{controladorMenu.voltar()}"/>
-            </h:form>
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton class="btn btn-warning" value="Voltar" action="#{controladorMenu.voltar()}"/>
+                </h:form>
+            </div>
         </div>
     </body>
 </html>

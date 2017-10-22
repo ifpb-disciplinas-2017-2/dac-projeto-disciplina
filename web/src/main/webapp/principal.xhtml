@@ -8,60 +8,86 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="./bootstrap/js/bootstrap.js"/>
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>        
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="./css/style.css" />
     </h:head>
     <h:body>
         <div class="container-fluid">
-            <h2>Menu</h2>
-            <br></br>
-            <h:link outcome="publico/sala.xhtml" 
-                    value="Visualizar Horarios de Salas"/>
-            <br></br><br></br>
-            <h:link outcome="publico/laboratorio.xhtml" 
-                    value="Visualizar Horarios de Laboratorios"/>
-            <br></br><br></br>
-            <h:link outcome="publico/professor.xhtml" 
-                    value="Visualizar Horario de Professores"/>
-            <br></br><br></br>
-            <h:link outcome="publico/curso.xhtml" 
-                    value="Visualizar Horarios de Cursos"/>
-            <br></br><br></br>
-            <h:link outcome="publico/turma.xhtml" value="Horarios Turma" />
-            <br></br><br></br>
-            <h:link outcome="aluno/cadastroTurma.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                    value="Cadastrar em turmas" />
-            <br></br><br></br>
-            <h:link outcome="aluno/materiais.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                    value="Visualizar materiais recebidos" />
-            <br></br><br></br>
-            <h:link outcome="aluno/atividades.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                    value="Visualizar atividades enviadas" />
-            <br></br><br></br>
-            <h:link outcome="aluno/cadastrarDuvida.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                    value="Cadastrar Dúvidas" />
-            <h:link outcome="professor/adicionarAtividade.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Adicionar Atividades" />
-            <br></br><br></br>
-            <h:link outcome="professor/removerAtividade.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Remover Atividades" />
-            <br></br><br></br>
-            <h:link outcome="professor/cadastroMaterial.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Adicionar Materiais" />
-            <br></br><br></br>
-            <h:link outcome="professor/removerMaterial.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Remover Materiais" />
-            <br></br><br></br>
-            <h:link outcome="professor/responderDuvida.xhtml" 
-                    rendered="#{controladorMenu.credenciais eq 'prof'}"
-                    value="Responder Dúvidas" />
+            <div class="row text-center">
+                <h1>Menu</h1>
+                <hr />
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h:link outcome="publico/sala.xhtml" 
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Visualizar Horarios de Salas"/>            
+
+                    <h:link outcome="publico/laboratorio.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Visualizar Horarios de Laboratorios"/>
+
+                    <h:link outcome="publico/professor.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Visualizar Horario de Professores"/>
+
+                    <h:link outcome="publico/curso.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Visualizar Horarios de Cursos"/>
+
+                    <h:link outcome="publico/turma.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Horarios Turma" />
+
+                    <h:link outcome="aluno/cadastroTurma.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Cadastrar em turmas" />
+
+                    <h:link outcome="aluno/materiais.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Visualizar materiais recebidos" />
+
+                    <h:link outcome="aluno/atividades.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Visualizar atividades enviadas" />
+
+                    <h:link outcome="aluno/cadastrarDuvida.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Cadastrar Dúvidas" />
+
+                    <h:link outcome="professor/adicionarAtividade.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Adicionar Atividades" />
+
+                    <h:link outcome="professor/removerAtividade.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Remover Atividades" />
+
+                    <h:link outcome="professor/cadastroMaterial.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Adicionar Materiais" />
+
+                    <h:link outcome="professor/removerMaterial.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Remover Materiais" />
+
+                    <h:link outcome="professor/responderDuvida.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Responder Dúvidas" />
+                
+                </div> <!-- .col-md-12 -->    
+            </div> <!-- .row -->
+            
             <h:form>
                 <h:commandButton value="Logout"
                                  action="#{controladorMenu.logout()}"
