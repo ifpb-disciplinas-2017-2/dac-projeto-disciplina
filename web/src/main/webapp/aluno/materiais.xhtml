@@ -13,8 +13,10 @@
     <body>
         <div class="container">
             <div class="row text-center">
-                <h:outputText value="Não possui nenhum material associado as disciplinas que você se cadastrou..."
-                              rendered="#{empty controladorMaterialAluno.materiaisAluno}"/>
+                <h2>
+                    <h:outputText value="Não possui nenhum material associado as disciplinas que você se cadastrou..."
+                                  rendered="#{empty controladorMaterialAluno.materiaisAluno}"/>
+                </h2>
                 <hr />
             </div>
             
@@ -25,7 +27,7 @@
                 <h:form>
                     
                     <h:dataTable var="material"
-                                 class="table-hover col-md-12"
+                                 class="table table-hover col-md-12"
                                  value="#{controladorMaterialAluno.materiaisAluno}">
                         
                         <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">

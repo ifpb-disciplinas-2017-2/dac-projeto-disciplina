@@ -13,8 +13,10 @@
     <body>
         <div class="container">
             <div class="row text-center">
-                <h:outputText value="Não possui nenhuma atividade adicionada as disciplinas que você se cadastrou..."
-                          rendered="#{empty ctrlAtividadAluno.atividadesAluno}"/>
+                <h2>
+                    <h:outputText value="Não possui nenhuma atividade adicionada as disciplinas que você se cadastrou..."
+                              rendered="#{empty ctrlAtividadAluno.atividadesAluno}"/>
+                </h2>
                 <hr />
             </div>
             <br></br>
@@ -22,7 +24,7 @@
             <div class="row text-center">
                 
                 <h:dataTable var="atividade"
-                             class="table-hover col-md-12"
+                             class="table table-hover col-md-12"
                              value="#{ctrlAtividadAluno.atividadesAluno}">
 
                     <h:column rendered="#{not empty ctrlAtividadAluno.atividadesAluno}">
