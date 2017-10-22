@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"      
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Menu - ADMIN</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
@@ -18,10 +13,27 @@ and open the template in the editor.
     <body>
         <div class="container-fluid">
             <h2>Menu</h2>
-            <!--Outros links-->
             <br></br>
             <h:link outcome="gerenciar.xhtml" 
                     value="Gerenciar Pedidos de Acesso"/>
+            <br></br><br></br>
+            <h:link outcome="gerenciarProfessor.xhtml" 
+                    value="CRUD de Professor"/>
+            <br></br><br></br>
+            <h:link outcome="gerenciarCurso.xhtml" 
+                    value="CRUD de Curso"/>
+            <br></br><br></br>
+            <h:link outcome="gerenciarDisciplina.xhtml" 
+                    value="CRUD de Disciplina"/>
+            <br></br><br></br>
+            <h:link outcome="gerenciarLaboratorio.xhtml" 
+                    value="CRUD de Laboratorio"/>
+            <br></br><br></br>
+            <h:link outcome="gerenciarSala.xhtml" 
+                    value="CRUD de Sala"/>
+            <br></br><br></br>
+            <h:link outcome="gerenciarTurma.xhtml" 
+                    value="Adicionar Turma"/>
             <br></br><br></br>
             <h:form>
                 <h:commandButton value="Logout"

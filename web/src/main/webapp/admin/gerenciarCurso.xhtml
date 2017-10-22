@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>CRUD - CURSO</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <h:link outcome="menu.xhtml" value="Voltar"/>
+            <h3 style="text-align: center;">Gerenciador de Cursos</h3>
+            <br></br>
+            <h:form>
+                <h:outputLabel value="Unidade: " for="unidade">
+                    <h:inputText id="unidade"
+                                 value="#{controladorCRUDCurso.curso.unidade}"
+                                 maxlength="50"
+                                 required="true"
+                                 requiredMessage="Informe uma unidade para o curso"/>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel value="Descricao: " for="descricao" rendered="#{controladorCRUDCurso.editando eq false}">
+                    <h:inputText id="descricao"
+                                 value="#{controladorCRUDCurso.descricao}"
+                                 maxlength="40"
+                                 required="true"
+                                 requiredMessage="Informe uma descricao para o curso"/>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel value="Abreviacao " for="abrev">
+                    <h:inputText id="abrev"
+                                 value="#{controladorCRUDCurso.abreviacao}"
+                                 maxlength="15"
+                                 required="true"
+                                 requiredMessage="Informe uma abreviação para o curso"/>
+                </h:outputLabel>
+                <br></br>
+                <h:outputLabel value="Periodos: " for="per">
+                    <h:inputText id="per"
+                                 value="#{controladorCRUDCurso.curso.periodo}"
+                                 required="true"
+                                 requiredMessage="Informe o numero total de periodos para o curso"/>
+                </h:outputLabel>
+                <br></br>
+                <h:commandButton value="Adicionar"
+                                 rendered="#{controladorCRUDCurso.editando eq false}"
+                                 action="#{controladorCRUDCurso.cadastrar()}"/>
+                <h:commandButton value="Atualizar"
+                                 rendered="#{controladorCRUDCurso.editando}"
+                                 action="#{controladorCRUDCurso.atualizar()}"/>
+                <br></br>
+            </h:form>
+            <h:form>
+                <h3 style="text-align: center;">Lista de Cursos</h3>
+                <h:dataTable value="#{controladorCRUDCurso.cursos}"
+                             var="c">
+                    <h:column>
+                        <f:facet name="header">Unidade</f:facet>
+                        <h:outputText value="#{c.unidade}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Descricao</f:facet>
+                        <h:outputText value="#{c.info.descricao}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Abreviacao</f:facet>
+                        <h:outputText value="#{c.info.abreviacao}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Periodo</f:facet>
+                        <h:outputText value="#{c.periodo}"/>
+                    </h:column>                       
+                    <h:column>
+                        <f:facet name="header">Editar</f:facet>
+                        <h:commandButton value="Editar" 
+                                         immediate="true"
+                                         action="#{controladorCRUDCurso.editar(c)}"/>
+                    </h:column> 
+                </h:dataTable>
+            </h:form>
+        </div>
+    </body>
+</html>
