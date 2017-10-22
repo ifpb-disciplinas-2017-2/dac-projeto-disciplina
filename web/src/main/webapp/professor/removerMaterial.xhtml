@@ -9,30 +9,49 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container">
-            <h:outputText value="Nenhum material adicionado até o momento..."
-                          rendered="#{empty controladorMaterial.materiaisProf}"/>
+            <div class="row text-center">
+                <h2>
+                    <h:outputText value="Nenhum material adicionado até o momento..."
+                                  rendered="#{empty controladorMaterial.materiaisProf}"/>
+                </h2>
+            </div>
+            
             <br></br>
-            <h:form rendered="#{not empty controladorMaterial.materiaisProf}">
-                <h:dataTable var="material"
-                             value="#{controladorMaterial.materiaisProf}">
-                    <h:column>
-                        <f:facet name="header">Descricao</f:facet>
-                        <h:outputText value="#{material.descricao}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Arquivo</f:facet>
-                        <h:outputText value="#{material.nomeArquivo}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Excluir</f:facet>
-                        <h:commandButton value="Excluir Material" 
-                                         action="#{controladorMaterial.removerMaterial(material)}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
+            
+            <div class="row text-center">
+                <h:form rendered="#{not empty controladorMaterial.materiaisProf}">
+                    <h:dataTable var="material"
+                                 class="table table-hover col-md-12"
+                                 value="#{controladorMaterial.materiaisProf}">
+                        <h:column>
+                            <f:facet name="header">Descricao</f:facet>
+                            <h:outputText value="#{material.descricao}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Arquivo</f:facet>
+                            <h:outputText value="#{material.nomeArquivo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Excluir</f:facet>
+                            <h:commandButton value="Excluir Material"
+                                             class="btn btn-danger"
+                                             action="#{controladorMaterial.removerMaterial(material)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+            
+            <br /><br />
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                </h:form>            
+            </div>
         </div>
     </body>
 </html>
