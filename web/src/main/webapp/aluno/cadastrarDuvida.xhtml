@@ -13,42 +13,52 @@
     <body>
         <div class="container">
             <div>
-                <h2 style="text-align: center">Cadastre um Dúvida</h2>
-                <h:form>
-                    <div>
-                        <h:outputLabel for="nomeProfessor" value="Nome do Professor">
-                            <h:selectOneMenu id="nomeProfessor" value="#{controladorDuvida.nomeProfessor}">
-                                <f:selectItems value="#{controladorDuvida.professores}"
-                                               var="professor"
-                                               itemLabel="#{professor}"
-                                               itemValue="#{professor}" />
-                            </h:selectOneMenu>
-                            <h:commandButton style="margin-left: 20px;"
-                                             value="Selecionar Professor"
-                                             action="#{controladorDuvida.visualizarRealizarPergunta()}"/>
-                        </h:outputLabel>
-                    </div>
-
+                <div class="row text-center">
+                    <h2>Cadastre um Dúvida</h2>
                     <hr />
+                </div>
+                
+                <div class="row text-center">
+                    <h:form>
+                        <div class="form-group">
+                            <h:outputLabel class="text-left" for="nomeProfessor" value="Nome do Professor">
+                                <h:selectOneMenu class="form-control" id="nomeProfessor" value="#{controladorDuvida.nomeProfessor}">
+                                    <f:selectItems value="#{controladorDuvida.professores}"
+                                                   var="professor"
+                                                   itemLabel="#{professor}"
+                                                   itemValue="#{professor}" />
+                                </h:selectOneMenu>
+                                <h:commandButton class="btn btn-success col-md-12"
+                                                 value="Selecionar Professor"
+                                                 action="#{controladorDuvida.visualizarRealizarPergunta()}"/>
+                            </h:outputLabel>
+                        </div>
 
-                    <div>
-                        <h:outputLabel for="realizarPergunta" value="Realizar Perguntar" rendered="#{controladorDuvida.visualizarCampoPergunta}">
-                            <h:inputTextarea id="pergunta"
-                                             cols="50"
-                                             rows="10"
-                                             value="#{controladorDuvida.pergunta}"
-                                             required="true"
-                                             requiredMessage="Informe sua pergunta"/>
-                            <h:commandButton style="margin-left: 20px;"
-                                             value="Cadastrar Pergunta"
-                                             action="#{controladorDuvida.cadastrarPergunta()}" />
-                        </h:outputLabel>
-                    </div>
-                </h:form>
+                        <hr />
+
+                        <div class="form-group">
+                            <h:outputLabel for="realizarPergunta" class="text-left" value="Realizar Perguntar" rendered="#{controladorDuvida.visualizarCampoPergunta}">
+                                <h:inputTextarea id="pergunta"
+                                                 cols="50"
+                                                 rows="10"
+                                                 class="form-control col-md-12 format-textarea"
+                                                 value="#{controladorDuvida.pergunta}"
+                                                 required="true"
+                                                 requiredMessage="Informe sua pergunta"/>
+                                <h:commandButton class="btn btn-success col-md-12"
+                                                 value="Cadastrar Pergunta"
+                                                 action="#{controladorDuvida.cadastrarPergunta()}" />
+                            </h:outputLabel>
+                        </div>
+                    </h:form>                    
+                </div> <!-- .row -->
                 <br></br>
-                <h:form>
-                    <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
-                </h:form> 
+                
+                <div class="row">
+                    <h:form>
+                        <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                    </h:form> 
+                </div>
             </div>
         </div>
     </body>
