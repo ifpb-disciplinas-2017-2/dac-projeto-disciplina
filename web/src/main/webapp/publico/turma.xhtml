@@ -9,82 +9,90 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container">
-            <div>
-                <h2 style="text-align: center">Busque os horários a partir da turma informada</h2>
+            <div class="row text-center">
+                <h2>Busque os horários a partir da turma informada</h2>
             </div>
             <hr></hr>
-            <h:form>
-                <div>
-                    <h:outputLabel for="nomeDisc" value="Nome da disciplina da turma: ">
-                        <h:selectOneMenu id="nomeDisc" value = "#{controladorTurma.valorDisciplina}">
-                            <f:selectItems value="#{controladorTurma.disciplinas}" 
-                                           var="disc"
-                                           itemLabel="#{disc}"
-                                           itemValue="#{disc}"/>
-                        </h:selectOneMenu>
-                        <h:commandButton style="margin-left: 20px;"
-                                         value="Visualizar professores da disciplina"
-                                         action="#{controladorTurma.visualizarProfessoresDiscTurma()}"/>
-                    </h:outputLabel>
-                </div>
-                <hr></hr>
-                <div>
-                    <h:outputLabel for="nomeProf" value="Turma de: " 
-                                   rendered="#{controladorTurma.visualizarProfessor}">
-                        <h:selectOneMenu id="nomeProf" value = "#{controladorTurma.valorProfessor}">
-                            <f:selectItems value="#{controladorTurma.professores}" 
-                                           var="prof"
-                                           itemLabel="#{prof}"
-                                           itemValue="#{prof}"/>
-                        </h:selectOneMenu>
-                        <h:commandButton style="margin-left: 20px;"
-                                         value="Buscar Horário"
-                                         action="#{controladorTurma.visualizarHorarios()}"/>
-                        <h:commandButton style="margin-left: 20px;" value="Voltar" 
-                                         action="#{controladorMenu.voltar()}"/>
-                    </h:outputLabel>
-                </div>
-                <hr></hr>
-                <div>
-                    <h:dataTable rendered="#{controladorTurma.visualizar}"
-                                 value="#{controladorTurma.horario}"
-                                 var="hora">
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Dia</f:facet>
-                                <h:outputText value="#{hora.dia}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Inicio</f:facet>
-                                <h:outputText value="#{hora.valorInicio}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Fim</f:facet>
-                                <h:outputText value="#{hora.valorFim}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Disciplina</f:facet>
-                                <h:outputText value="#{hora.descricao}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Professor</f:facet>
-                                <h:outputText value="#{hora.nome}"/>
-                            </h:column>
-                        </div>
-                    </h:dataTable>
-                </div>
-            </h:form>
+            <div class="row text-left">
+                <h:form>
+                    <div class="form-group">
+                        <h:outputLabel for="nomeDisc" class="col-md-12" value="Nome da disciplina da turma: ">
+                            <h:selectOneMenu id="nomeDisc" class="form-control" value = "#{controladorTurma.valorDisciplina}">
+                                <f:selectItems value="#{controladorTurma.disciplinas}" 
+                                               var="disc"
+                                               itemLabel="#{disc}"
+                                               itemValue="#{disc}"/>
+                            </h:selectOneMenu>
+                            <br />
+                            <h:commandButton class="btn btn-success col-md-12"
+                                             value="Visualizar professores da disciplina"
+                                             action="#{controladorTurma.visualizarProfessoresDiscTurma()}"/>
+                        </h:outputLabel>
+                    </div>
+                    <br /> <br />
+                    <hr></hr>
+                    <div class="form-group">
+                        <h:outputLabel for="nomeProf" class="col-md-12" value="Turma de: " 
+                                       rendered="#{controladorTurma.visualizarProfessor}">
+                            <h:selectOneMenu id="nomeProf" class="form-control" value = "#{controladorTurma.valorProfessor}">
+                                <f:selectItems value="#{controladorTurma.professores}" 
+                                               var="prof"
+                                               itemLabel="#{prof}"
+                                               itemValue="#{prof}"/>
+                            </h:selectOneMenu>
+                            <br />
+                            <h:commandButton class="btn btn-success col-md-6"
+                                             value="Buscar Horário"
+                                             action="#{controladorTurma.visualizarHorarios()}"/>
+                            <h:commandButton class="btn btn-warning col-md-6" value="Voltar" 
+                                             action="#{controladorMenu.voltar()}"/>
+                        </h:outputLabel>
+                    </div>
+                    <hr></hr>
+                    <div>
+                        <h:dataTable rendered="#{controladorTurma.visualizar}"
+                                     class="table table-hover"
+                                     value="#{controladorTurma.horario}"
+                                     var="hora">
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Dia</f:facet>
+                                    <h:outputText value="#{hora.dia}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Inicio</f:facet>
+                                    <h:outputText value="#{hora.valorInicio}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Fim</f:facet>
+                                    <h:outputText value="#{hora.valorFim}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Disciplina</f:facet>
+                                    <h:outputText value="#{hora.descricao}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Professor</f:facet>
+                                    <h:outputText value="#{hora.nome}"/>
+                                </h:column>
+                            </div>
+                        </h:dataTable>
+                    </div>
+                </h:form>
+                
+            </div>
         </div>
     </body>
 </html>
