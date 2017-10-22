@@ -9,67 +9,77 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/> 
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container">
-            <div>
-                <h2 style="text-align: center">Busque os horários a partir da sala informada</h2>
+            <div class="row text-center">
+                <h2>Busque os horários a partir da sala informada</h2>
             </div>
             <hr></hr>
-            <h:form>
-                <div>
-                    <h:outputLabel for="nome" value="Nome da Sala">
-                        <h:selectOneMenu id="nome" value = "#{controladorSala.valorSelect}">
-                            <f:selectItems value="#{controladorSala.salas}" 
-                                           var="sala"
-                                           itemLabel="#{sala}"
-                                           itemValue="#{sala}"/>
-                        </h:selectOneMenu>
-                        <h:commandButton style="margin-left: 20px;"
-                                         value="Buscar horarios"
-                                         action="#{controladorSala.visualizarHorarios()}"/>
-                        <h:commandButton style="margin-left: 20px;" value="Voltar" 
-                                         action="#{controladorMenu.voltar()}"/>
-                    </h:outputLabel>
-                </div>
-                <hr></hr>
-                <div>
-                    <h:dataTable rendered="#{controladorSala.visualizar}"
-                                 value="#{controladorSala.horario}"
-                                 var="horaSala">
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Dia</f:facet>
-                                <h:outputText value="#{horaSala.dia}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Inicio</f:facet>
-                                <h:outputText value="#{horaSala.valorInicio}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Fim</f:facet>
-                                <h:outputText value="#{horaSala.valorFim}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Disciplina</f:facet>
-                                <h:outputText value="#{horaSala.descricao}"/>
-                            </h:column>
-                        </div>
-                        <div>
-                            <h:column>
-                                <f:facet name="header">Professor</f:facet>
-                                <h:outputText value="#{horaSala.nome}"/>
-                            </h:column>
-                        </div>
-                    </h:dataTable>
-                </div>
-            </h:form>
+            
+            <div class="row text-left">
+                <h:form>
+                    <div class="form-group">
+                        <h:outputLabel for="nome" class="text-left col-md-12" value="Nome da Sala">
+                            <h:selectOneMenu id="nome" class="form-control" value = "#{controladorSala.valorSelect}">
+                                <f:selectItems value="#{controladorSala.salas}" 
+                                               var="sala"
+                                               itemLabel="#{sala}"
+                                               itemValue="#{sala}"/>
+                            </h:selectOneMenu>
+                            <br/>
+                            <h:commandButton value="Buscar horarios"
+                                             class="btn btn-success col-md-6"
+                                             action="#{controladorSala.visualizarHorarios()}"/>
+                            <h:commandButton value="Voltar" 
+                                             class="btn btn-warning col-md-6"
+                                             action="#{controladorMenu.voltar()}"/>
+                        </h:outputLabel>
+                    </div>
+                    <br />
+                    <hr></hr>
+                    <div>
+                        <h:dataTable rendered="#{controladorSala.visualizar}"
+                                     class="table table-hover"
+                                     value="#{controladorSala.horario}"
+                                     var="horaSala">
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Dia</f:facet>
+                                    <h:outputText value="#{horaSala.dia}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Inicio</f:facet>
+                                    <h:outputText value="#{horaSala.valorInicio}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Fim</f:facet>
+                                    <h:outputText value="#{horaSala.valorFim}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Disciplina</f:facet>
+                                    <h:outputText value="#{horaSala.descricao}"/>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Professor</f:facet>
+                                    <h:outputText value="#{horaSala.nome}"/>
+                                </h:column>
+                            </div>
+                        </h:dataTable>
+                    </div>
+                </h:form>
+                
+            </div>
+        
         </div>
     </body>
 </html>
