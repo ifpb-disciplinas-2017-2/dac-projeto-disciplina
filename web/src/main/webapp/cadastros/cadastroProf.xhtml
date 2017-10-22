@@ -13,44 +13,58 @@
     </head>
     <body>
         <div class="container">
-            <h3>Cadastro de Professores</h3>
-            <h:form>
-                <h:outputLabel for="nome" value="Nome: ">
-                    <h:inputText id="nome" 
-                                 value="#{controladorCadastro.nome}"
-                                 maxlength="50"
-                                 required="true"
-                                 requiredMessage="Informe um nome valido"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="email" value="Email: ">
-                    <h:inputText id="email" 
-                                 value="#{controladorCadastro.email}"
-                                 maxlength="50"
-                                 required="true"
-                                 requiredMessage="Informe um email valido">
-                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                    </h:inputText>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="senha" value="Senha: ">
-                    <h:inputSecret id="senha" 
-                                   value="#{controladorCadastro.senha}"
-                                   maxlength="20"
-                                   required="true"
-                                   requiredMessage="Informe uma senha valida"/>
-                </h:outputLabel>
-                <br></br><br></br>
-                <h:commandButton value="Cadastrar"
-                                 class="btn btn-primary"
-                                 action="#{controladorCadastro.cadastrarProfessor()}"/>
-                <h:form>
-                    <h:commandButton value="Voltar"
+            <div class="row text-center">
+                <h3>Cadastro de Professores</h3>
+                <hr />
+            </div>
+            <div class="row text-center">
+                <h:form class="form-horizontal box-main-login">
+                    <div class="form-group">
+                        <h:outputLabel for="nome" class="text-left col-md-12" value="Nome: ">
+                            <h:inputText id="nome" 
+                                         value="#{controladorCadastro.nome}"
+                                         maxlength="50"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         requiredMessage="Informe um nome valido"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="email" class="text-left col-md-12" value="Email: ">
+                            <h:inputText id="email" 
+                                         value="#{controladorCadastro.email}"
+                                         maxlength="50"
+                                         class="form-control col-md-12"
+                                         required="true"
+                                         requiredMessage="Informe um email valido">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </h:inputText>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="senha" class="text-left col-md-12" value="Senha: ">
+                            <h:inputSecret id="senha" 
+                                           value="#{controladorCadastro.senha}"
+                                           maxlength="20"
+                                           class="form-control col-md-12"
+                                           required="true"
+                                           requiredMessage="Informe uma senha valida"/>
+                        </h:outputLabel>
+                    </div>
+                    <br></br>
+                    <h:commandButton value="Cadastrar"
                                      class="btn btn-primary"
-                                     immediate="true"
-                                     action="#{controladorCadastro.voltar()}"/>
-                </h:form>
-            </h:form>
+                                     action="#{controladorCadastro.cadastrarProfessor()}"/>
+                    <h:form>
+                        <h:commandButton value="Voltar"
+                                         class="btn btn-primary"
+                                         immediate="true"
+                                         action="#{controladorCadastro.voltar()}"/>
+                    </h:form>
+                </h:form>            
+            </div>
         </div>
     </body>
 </html>
