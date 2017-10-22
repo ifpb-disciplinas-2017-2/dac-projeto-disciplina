@@ -9,37 +9,54 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container-fluid">
-            <h2>Menu</h2>
-            <br></br>
-            <h:link outcome="gerenciar.xhtml" 
-                    value="Gerenciar Pedidos de Acesso"/>
-            <br></br><br></br>
-            <h:link outcome="gerenciarProfessor.xhtml" 
-                    value="CRUD de Professor"/>
-            <br></br><br></br>
-            <h:link outcome="gerenciarCurso.xhtml" 
-                    value="CRUD de Curso"/>
-            <br></br><br></br>
-            <h:link outcome="gerenciarDisciplina.xhtml" 
-                    value="CRUD de Disciplina"/>
-            <br></br><br></br>
-            <h:link outcome="gerenciarLaboratorio.xhtml" 
-                    value="CRUD de Laboratorio"/>
-            <br></br><br></br>
-            <h:link outcome="gerenciarSala.xhtml" 
-                    value="CRUD de Sala"/>
-            <br></br><br></br>
-            <h:link outcome="gerenciarTurma.xhtml" 
-                    value="Adicionar Turma"/>
-            <br></br><br></br>
-            <h:form>
-                <h:commandButton value="Logout"
-                                 action="#{controladorAdmin.logout()}"
-                                 class="btn btn-danger"/>
-            </h:form>
+            <div class="row text-center">
+                <h1>Menu do Administrador</h1>
+                <hr />
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h:link outcome="gerenciar.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Gerenciar Pedidos de Acesso"/>
+                    
+                    <h:link outcome="gerenciarProfessor.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="CRUD de Professor"/>
+                    
+                    <h:link outcome="gerenciarCurso.xhtml" 
+                            class="item-menu col-sm-12 col-md-3"
+                            value="CRUD de Curso"/>
+                    
+                    <h:link outcome="gerenciarDisciplina.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="CRUD de Disciplina"/>
+                    
+                    <h:link outcome="gerenciarLaboratorio.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            value="CRUD de Laboratorio"/>
+                    
+                    <h:link outcome="gerenciarSala.xhtml" 
+                            class="item-menu col-sm-12 col-md-3"
+                            value="CRUD de Sala"/>
+                    
+                    <h:link outcome="gerenciarTurma.xhtml" 
+                            class="item-menu col-sm-12 col-md-3"
+                            value="Adicionar Turma"/>
+                </div>
+            </div>
+      
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Logout"
+                                     action="#{controladorAdmin.logout()}"
+                                     class="btn btn-danger"/>
+                </h:form>
+            </div>
         </div>
     </body>
 </html>
