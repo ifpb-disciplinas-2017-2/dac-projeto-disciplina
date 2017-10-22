@@ -10,7 +10,6 @@ import com.ifpb.dac.entidades.Atividade;
 public interface GoogleAgenda {
     
     void cadastrarEvento(Atividade atividade);
-    void atualizarEvento(Atividade atividade);
     void removerEvento(Atividade atividade);
     
 }

@@ -38,43 +38,45 @@
                         </div>
                         <br />
                         <hr></hr>
+                        <h:outputText rendered="#{controladorProfessor.msg}"
+                                      value="Nenhum horario encontrado para esse professor"/>
                         <div>
                             <h:dataTable rendered="#{controladorProfessor.visualizar}"
                                          class="table table-hover"
                                          value="#{controladorProfessor.horario}"
                                          var="horaProf">
                                 <div>
-                                    <h:column>
+                                    <h:column rendered="#{not empty controladorProfessor.horario}">
                                         <f:facet name="header">Dia</f:facet>
                                         <h:outputText value="#{horaProf.dia}"/>
                                     </h:column>
                                 </div>
                                 <div>
-                                    <h:column>
+                                    <h:column rendered="#{not empty controladorProfessor.horario}">
                                         <f:facet name="header">Inicio</f:facet>
                                         <h:outputText value="#{horaProf.valorInicio}"/>
                                     </h:column>
                                 </div>
                                 <div>
-                                    <h:column>
+                                    <h:column rendered="#{not empty controladorProfessor.horario}">
                                         <f:facet name="header">Fim</f:facet>
                                         <h:outputText value="#{horaProf.valorFim}"/>
                                     </h:column>
                                 </div>
                                 <div>
-                                    <h:column>
+                                    <h:column rendered="#{not empty controladorProfessor.horario}">
                                         <f:facet name="header">Disciplina</f:facet>
                                         <h:outputText value="#{horaProf.descricao}"/>
                                     </h:column>
                                 </div>
                                 <div>
-                                    <h:column>
+                                    <h:column rendered="#{not empty controladorProfessor.horario}">
                                         <f:facet name="header">Professor</f:facet>
                                         <h:outputText value="#{horaProf.nome}"/>
                                     </h:column>
                                 </div>
                                 <div>
-                                    <h:column>
+                                    <h:column rendered="#{not empty controladorProfessor.horario}">
                                         <f:facet name="header">Local</f:facet>
                                         <h:outputText value="#{horaProf.local}"/>
                                     </h:column>

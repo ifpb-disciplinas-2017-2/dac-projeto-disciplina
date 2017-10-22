@@ -26,6 +26,7 @@ public class ControladorProfessor implements Serializable {
     private HttpSession sessao;
     private String valorSelect;
     private boolean visualizar = false;
+    private boolean msg = false;
     private List<HorariosDTO> horario = new ArrayList<>();
     private List<String> professores = new ArrayList<>();
 
@@ -60,8 +61,23 @@ public class ControladorProfessor implements Serializable {
     public void setProfessores(List<String> professores) {
         this.professores = professores;
     }
+
+    public boolean isMsg() {
+        return msg;
+    }
+
+    public void setMsg(boolean msg) {
+        this.msg = msg;
+    }
     
     public String visualizarHorarios(){
+        if(getHorario().isEmpty()){
+            System.out.println("Vazio");
+            msg = true;
+        } 
+        if(getHorario() == null){
+            msg = true;
+        }
         visualizar = true;
         return null;
     }

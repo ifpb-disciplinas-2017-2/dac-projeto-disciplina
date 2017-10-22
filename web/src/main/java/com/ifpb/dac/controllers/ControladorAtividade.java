@@ -1,6 +1,7 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Atividade;
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.AtividadeDao;
@@ -11,7 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -40,16 +40,16 @@ public class ControladorAtividade implements Serializable {
     private HttpSession sessao;
     private Atividade atividade = new Atividade();
     private Usuario usuario = new Usuario();
+    private Professor professor = new Professor();
     private List<Atividade> atividades = new ArrayList<>();
     private List<String> disciplinasProfessores = new ArrayList<>();
-//    private List<Atividade> atividadesProfessor = new ArrayList<>();
     private List<Atividade> atividadesProfessor = new ArrayList<>();
 
     @PostConstruct
     public void init() {
         sessao = (HttpSession) FacesContext.getCurrentInstance().
                 getExternalContext().getSession(false);
-        usuario = (Usuario) sessao.getAttribute("usuario");
+        professor = (Professor) sessao.getAttribute("usuario");
     }
 
     public Atividade getAtividade() {
@@ -61,7 +61,7 @@ public class ControladorAtividade implements Serializable {
     }
 
     public List<Atividade> getAtividades() {
-        List<Atividade> atvd = aDao.atividadesProfessor(usuario.getNome());
+        List<Atividade> atvd = aDao.atividadesProfessor(professor.getNome());
         if (atvd == null) {
             FacesMessage message = new FacesMessage("Nenhuma atividade cadastrada...");
             message.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -92,8 +92,16 @@ public class ControladorAtividade implements Serializable {
         this.usuario = usuario;
     }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
     public List<String> getDisciplinasProfessores() {
-        return tDao.disciplinaProfessores(usuario.getNome());
+        return tDao.disciplinaProfessores(professor.getNome());
     }
 
     public void setDisciplinasProfessores(List<String> disciplinasProfessores) {
@@ -109,7 +117,7 @@ public class ControladorAtividade implements Serializable {
     }
 
     public String cadastrarAtividade() {
-        Turma turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
+        Turma turma = tDao.retornarDiscProf(valorSelect, professor.getNome());
         atividade.setTurma(turma);
         atividade.setNotDiaAnterior(false);
         gAgenda.cadastrarEvento(atividade);

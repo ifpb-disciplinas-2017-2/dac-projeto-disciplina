@@ -1,8 +1,6 @@
-
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Professor;
-import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.ProfessorDao;
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +16,10 @@ public class ProfessorDaoImpl implements ProfessorDao {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Override
     public void adicionar(Professor prof) {
+        prof.setEmail(prof.getEmail().toLowerCase());
         em.persist(prof);
     }
 
@@ -40,15 +39,15 @@ public class ProfessorDaoImpl implements ProfessorDao {
         return em.createQuery("SELECT p FROM Professor p",
                 Professor.class).getResultList();
     }
-    
+
     @Override
-    public Professor buscarPorId(int id){
+    public Professor buscarPorId(int id) {
         return em.find(Professor.class, id);
     }
-    
+
     @Override
-    public List<String> listarNomeProfessores(){
-        return em.createQuery("SELECT p.nome FROM Professor p", 
+    public List<String> listarNomeProfessores() {
+        return em.createQuery("SELECT p.nome FROM Professor p",
                 String.class).getResultList();
     }
 
@@ -57,11 +56,38 @@ public class ProfessorDaoImpl implements ProfessorDao {
         TypedQuery<Professor> createQuery = em.createQuery("select p from Professor p where p.nome like :nomeProfessor", Professor.class);
         createQuery.setParameter("nomeProfessor", nomeProfessor);
         Optional<Professor> resultado = createQuery.getResultList().stream().findFirst();
-        if(resultado.isPresent()){
+        if (resultado.isPresent()) {
             Professor prof = resultado.get();
             return prof;
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public Professor autentica(String email, String senha) {
+        TypedQuery<Professor> createQuery = em.createQuery("SELECT p FROM Professor p WHERE p.email =:email "
+                + "AND p.senha =:senha", Professor.class);
+        createQuery.setParameter("email", email);
+        createQuery.setParameter("senha", senha);
+        Optional<Professor> findFirst = createQuery.getResultList().stream().findFirst();
+        if (findFirst.isPresent()) {
+            return findFirst.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean verificarEmail(String email) {
+        TypedQuery<Professor> createQuery = em.createQuery("SELECT p FROM Professor p "
+                + "WHERE p.email =:email", Professor.class);
+        createQuery.setParameter("email", email);
+        Optional<Professor> findFirst = createQuery.getResultList().stream().findFirst();
+        if(findFirst.isPresent()){
+            return true;
+        } else {
+            return false;
         }
     }
     

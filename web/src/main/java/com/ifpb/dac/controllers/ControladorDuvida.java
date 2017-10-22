@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Duvida;
 import com.ifpb.dac.entidades.Professor;
-import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.DuvidaDao;
 import com.ifpb.dac.interfaces.ProfessorDao;
 import java.io.Serializable;
@@ -104,11 +98,7 @@ public class ControladorDuvida implements Serializable {
 
     // ---------------------------------------------------------------------------------------------
     public List<Duvida> getDuvidas() {
-        Usuario usuario = (Usuario) sessao.getAttribute("usuario");
-//        System.out.println("USUARIO:::::::::::: " + usuario.toString());
-//        System.out.println("Nome professor/ussuario: -------------- " + usuario.getNome());
-        Professor professor = professorDao.buscarPorNome(usuario.getNome());
-//        System.out.println("Codigo professor: ----------- " + professor.getCodigo());
+        Professor professor = (Professor) sessao.getAttribute("usuario");
         List<Duvida> duvidas = duvidaDao.buscarPorProfessorEDuvidaNaoRespondida(
                 professor.getCodigo());
         if (duvidas == null) {
@@ -116,7 +106,6 @@ public class ControladorDuvida implements Serializable {
         } else {
             return duvidas;
         }
-//        return duvidas;
     }
 
     public void setDuvidas(List<Duvida> duvidas) {

@@ -2,10 +2,12 @@ package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Pedido;
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.AlunoDao;
 import com.ifpb.dac.interfaces.PedidoDao;
+import com.ifpb.dac.interfaces.ProfessorDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
 import java.io.IOException;
 import java.io.Serializable;
@@ -27,6 +29,8 @@ public class ControladorAdmin implements Serializable {
 
     @Inject
     private UsuarioDao usuarioDao;
+    @Inject
+    private ProfessorDao professorDao;
     @Inject
     private AlunoDao alunoDao;
     @Inject
@@ -71,11 +75,12 @@ public class ControladorAdmin implements Serializable {
                 pedidoDao.remover(p);
             }
         } else {
-            Usuario usuLiberado = usuarioDao.autentica(p.getEmail(), p.getSenha(),
-                    p.getTipo());
-            if (usuLiberado != null) {
-                usuLiberado.setLogado(true);
-                usuarioDao.atualizar(usuLiberado);
+            Professor prof = professorDao.autentica(p.getEmail(), p.getSenha());
+//            Usuario usuLiberado = usuarioDao.autentica(p.getEmail(), p.getSenha(),
+//                    p.getTipo());
+            if (prof != null) {
+                prof.setLogado(true);
+                professorDao.atualizar(prof);
                 pedidoDao.remover(p);
             }
         }        

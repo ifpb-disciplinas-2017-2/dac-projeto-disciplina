@@ -26,8 +26,6 @@ public class Laboratorio implements Serializable {
     @GeneratedValue(generator = "minha_seq_lab", strategy = GenerationType.SEQUENCE)
     @Column(name = "codigo_lab")
     private int codigo_lab;    
-//    @Embedded
-//    private Info informacao;
     @Column(name = "abreviacao", length = 30)
     private String abreviacao;
     @Column(name = "descricao", length = 50)
@@ -53,14 +51,6 @@ public class Laboratorio implements Serializable {
     public void setCodigo_lab(int codigo_lab) {
         this.codigo_lab = codigo_lab;
     }
-
-//    public Info getInformacao() {
-//        return informacao;
-//    }
-//
-//    public void setInformacao(Info informacao) {
-//        this.informacao = informacao;
-//    }
 
     public List<Aula> getAulas() {
         return aulas;

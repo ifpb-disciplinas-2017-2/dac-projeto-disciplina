@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
     <head>
         <title>Adicionar Atividade</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -25,7 +26,7 @@
                     <h2>Adicionar Atividade</h2>
                     <div class="form-group">
                         <h:outputLabel for="prof" class="text-left" value="Nome: ">
-                            <h:outputText id="prof" value="#{controladorAtividade.usuario.nome}"/>
+                            <h:outputText id="prof" value="#{controladorAtividade.professor.nome}"/>
                         </h:outputLabel>
                     </div>
                     
@@ -45,6 +46,7 @@
                             <h:inputText value="#{controladorAtividade.atividade.resumo}"
                                          id="resumo"
                                          class="form-control col-md-12"
+                                         maxlength="40"
                                          required="true"
                                          requiredMessage="Necessario informar o titulo da atividade"/>
                         </h:outputLabel>
@@ -55,6 +57,7 @@
                             <h:inputText value="#{controladorAtividade.atividade.descricao}"
                                          id="desc"
                                          class="form-control col-md-12"
+                                         maxlength="40"
                                          required="true"
                                          requiredMessage="Necessario informar a descricao da atividade"/>
                         </h:outputLabel>
@@ -65,6 +68,7 @@
                             <h:inputText id="dataInicio" 
                                          required="true"
                                          class="form-control col-md-12"
+                                         pt:placeholder="xx/xx/xxxx xx:xx:xx"
                                          requiredMessage="Necessario informar a data de inicio"
                                          value="#{controladorAtividade.atividade.inicio}">
                                 <f:converter converterId="convert.ConversorData"/>
@@ -77,6 +81,7 @@
                             <h:inputText id="dataFim" 
                                          required="true"
                                          class="form-control col-md-12"
+                                         pt:placeholder="xx/xx/xxxx xx:xx:xx"
                                          requiredMessage="Necessario informar a data de fim"
                                          value="#{controladorAtividade.atividade.fim}">
                                 <f:converter converterId="convert.ConversorData" />

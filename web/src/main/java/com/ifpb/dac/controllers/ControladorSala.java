@@ -24,6 +24,7 @@ public class ControladorSala implements Serializable {
     private SalaDao sDao;
     private String valorSelect;
     private boolean visualizar = false;
+    private boolean msg = false;
     private List<HorariosDTO> horario = new ArrayList<>();
     private List<String> salas = new ArrayList<>();
 
@@ -60,8 +61,22 @@ public class ControladorSala implements Serializable {
     }
 
     public String visualizarHorarios() {
+        if(getHorario().isEmpty()){
+            msg = true;
+        }
+        if(getHorario() == null){
+            msg = true;
+        }
         visualizar = true;
         return null;
+    }
+
+    public boolean isMsg() {
+        return msg;
+    }
+
+    public void setMsg(boolean msg) {
+        this.msg = msg;
     }
 
 }

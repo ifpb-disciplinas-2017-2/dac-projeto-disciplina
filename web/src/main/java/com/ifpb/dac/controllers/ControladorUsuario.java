@@ -1,18 +1,15 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Aluno;
-import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.entidades.Pedido;
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.AlunoDao;
-import com.ifpb.dac.interfaces.AtividadeDao;
-import com.ifpb.dac.interfaces.CursoDao;
 import com.ifpb.dac.interfaces.PedidoDao;
-import com.ifpb.dac.interfaces.TurmaDao;
+import com.ifpb.dac.interfaces.ProfessorDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -37,12 +34,11 @@ public class ControladorUsuario implements Serializable {
     @Inject
     private AlunoDao alunoDao;
     @Inject
-    private CursoDao cursoDao;
-    @Inject
-    private TurmaDao dao;
+    private ProfessorDao professorDao;
     private String valorSelect;
     private boolean cad = false;
     private List<String> tiposUsuario = Arrays.asList("Professor", "Aluno");
+    private Professor professor = new Professor();
     private Usuario usuario = new Usuario();
     private HttpSession sessao;
 
@@ -77,47 +73,29 @@ public class ControladorUsuario implements Serializable {
     public void setCad(boolean cad) {
         this.cad = cad;
     }
-
-    public String cadastrarUsuario() {
-        Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);
-        usuario.setTipo(tipo);
-        if (tipo.equals(Tipo.Aluno)) {
-            usuario.setLogado(true);
-        } else {
-            usuario.setLogado(false);
-            Pedido p = new Pedido(usuario.getNome(), usuario.getEmail(),
-                    usuario.getSenha(), tipo, 1);
-            pedidoDao.adicionar(p);
-            mostrarMensagem("Enviado pedido de acesso para o administrador");
-        }
-        usuarioDao.adicionar(usuario);
-        usuario = new Usuario();
-        return "index.xhtml";
-    }
-
+    
     public String navegarCadastro() {
-        cad = true;
-        return null;
+        return "cadastros/cadastro.xhtml";
     }
 
     public String realizarLogin() {
         Tipo tipo = Enum.valueOf(Tipo.class, valorSelect);
         // Caso seja login de professor
         if (tipo.equals(Tipo.Professor)) {
-            Usuario autenticado = usuarioDao.autentica(usuario.getEmail(),
-                    usuario.getSenha(), tipo);
+            Professor autentica = professorDao.autentica(usuario.getEmail(), usuario.getSenha());
             usuario = new Usuario();
-            if (autenticado != null) {
-                if (autenticado.isLogado()) {
+            if (autentica != null) {
+                if (autentica.isLogado()) {
                     iniciarSessao();
-                    sessao.setAttribute("usuario", autenticado);
+                    sessao.setAttribute("usuario", autentica);
                     sessao.setAttribute("credenciais", "prof");
                     return "principal.xhtml";
                 } else {
-                    atualizarPedido(autenticado.getEmail(), autenticado.getSenha());
+                    atualizarPedido(autentica.getEmail(), autentica.getSenha());
                     return null;
                 }
             } else {
+                mostrarMensagem("Email e senha invalidos!");
                 return null;
             }
         } else {
@@ -125,6 +103,7 @@ public class ControladorUsuario implements Serializable {
                     usuario.getSenha());
             usuario = new Usuario();
             if (autenticado == null) {
+                mostrarMensagem("Email e senha invalidos!");
                 return null;
             } else {
                 if (autenticado.isLogado()) {
@@ -141,10 +120,7 @@ public class ControladorUsuario implements Serializable {
     }
 
     public String entrarComoPublico() {
-//        Usuario usu = new Usuario();
-//        usu.setTipo(Tipo.Publico);
         iniciarSessao();
-//        sessao.setAttribute("usuario", usu);
         sessao.setAttribute("credenciais", "publico");
         return "principal.xhtml";
     }

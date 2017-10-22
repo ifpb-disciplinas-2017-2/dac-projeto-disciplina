@@ -27,6 +27,8 @@ public class Professor implements Serializable {
     private String email;
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
+    @Column(name = "senha", length = 50, nullable = false)
+    private String senha;
     @Column(name = "regime")
     @Enumerated(EnumType.STRING)
     private Regime regime;
@@ -36,6 +38,7 @@ public class Professor implements Serializable {
     @Column(name = "vinculo")
     @Enumerated(EnumType.STRING)
     private Vinculo vinculo;
+    private boolean logado;
     @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Aula> aulas;
     @OneToMany(mappedBy = "professor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -46,13 +49,16 @@ public class Professor implements Serializable {
         aulas = new ArrayList<>();
     }
 
-    public Professor(String email, String nome, Regime regime, Unidade unidade, Vinculo vinculo) {
+    public Professor(String email, String nome, String senha, Regime regime, 
+            Unidade unidade, Vinculo vinculo, boolean log) {
         this();
         this.email = email;
         this.nome = nome;
+        this.senha = senha;
         this.regime = regime;
         this.unidade = unidade;
         this.vinculo = vinculo;
+        this.logado = log;
     }
 
     public int getCodigo() {
@@ -79,6 +85,14 @@ public class Professor implements Serializable {
         this.nome = nome;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Regime getRegime() {
         return regime;
     }
@@ -103,6 +117,14 @@ public class Professor implements Serializable {
         this.vinculo = vinculo;
     }
 
+    public boolean isLogado() {
+        return logado;
+    }
+
+    public void setLogado(boolean logado) {
+        this.logado = logado;
+    }
+
     public List<Aula> getAulas() {
         return aulas;
     }
@@ -119,4 +141,20 @@ public class Professor implements Serializable {
         this.turmas = turmas;
     }
 
+    public boolean add(Turma t){
+        return turmas.add(t);
+    }
+    
+    public boolean remover(Turma t){
+        return turmas.remove(t);
+    }
+    
+    public boolean addProf(Aula aula){
+        return aulas.add(aula);
+    }
+    
+    public boolean remover(Aula aula){
+        return aulas.remove(aula);
+    }
+    
 }

@@ -68,12 +68,12 @@ public class GoogleAgendaAdicionar implements MessageListener {
         DateTime startDateTime = new DateTime(dataInicioConvertida);
 //        DateTime startDateTime = new DateTime("2017-10-12T09:00:00-07:00");
         EventDateTime start = new EventDateTime()
-                .setDateTime(startDateTime);
+                .setDateTime(startDateTime).setTimeZone("America/Fortaleza");
         event.setStart(start);
 //        DateTime endDateTime = new DateTime("2017-10-15T17:00:00-07:00");
         DateTime endDateTime = new DateTime(dataFimConvertida);
         EventDateTime end = new EventDateTime()
-                .setDateTime(endDateTime);
+                .setDateTime(endDateTime).setTimeZone("America/Fortaleza");
         event.setEnd(end);
 
         EventReminder[] reminderOverrides = new EventReminder[]{
@@ -95,16 +95,14 @@ public class GoogleAgendaAdicionar implements MessageListener {
         } else {
             int cont = 0;
             int emails = alunosTurma.size();
-            System.out.println("Numero de usuarios cadastrados: " + emails);
             attendees = new EventAttendee[emails];
             for (Aluno auxiliar : alunosTurma) {
                 attendees[cont] = new EventAttendee().setEmail(auxiliar.getEmail());
                 cont++;
             }
         }
-        event.setColorId("2");
+        event.setColorId("10");
         event.setAttendees(Arrays.asList(attendees));
-        System.out.println(event.getHtmlLink());
         return event;
     }
 

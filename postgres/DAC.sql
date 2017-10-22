@@ -36,7 +36,9 @@ CREATE TABLE professor(
 	nome varchar(50) not null,
 	regime varchar(3) not null,
 	unidade varchar(10) not null,
-	vinculo varchar(12) not null
+	vinculo varchar(12) not null,
+        senha varchar(20) not null,
+        logado boolean
 );
 CREATE TABLE turma(
 	codigo_turma int primary key,

@@ -1,6 +1,7 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Material;
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.Dropbox;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -40,12 +40,12 @@ public class ControladorMaterial implements Serializable {
     private TurmaDao tDao;
     private HttpSession sessao;
     private Usuario usuario = new Usuario();
+    private Professor professor = new Professor();
     private Part arquivo;
     private Material material = new Material();
     private Turma turma;
     private List<Material> materiaisProf = new ArrayList<>();
     private List<String> disciplinasProfessores = new ArrayList<>();
-//    private boolean escolha = false;
     private boolean visualizar = false;
     private String valorSelect;
 
@@ -53,7 +53,7 @@ public class ControladorMaterial implements Serializable {
     public void init() {
         sessao = (HttpSession) FacesContext.getCurrentInstance().
                 getExternalContext().getSession(false);
-        usuario = (Usuario) sessao.getAttribute("usuario");
+        professor = (Professor) sessao.getAttribute("usuario");
     }
 
     public Part getArquivo() {
@@ -73,7 +73,7 @@ public class ControladorMaterial implements Serializable {
     }
 
     public List<Material> getMateriaisProf() {
-        List<Material> materiaisProfessor = mDao.materiaisProfessor(usuario.getNome());
+        List<Material> materiaisProfessor = mDao.materiaisProfessor(professor.getNome());
         if (materiaisProfessor == null) {
             return new ArrayList<>();
         } else {
@@ -93,8 +93,16 @@ public class ControladorMaterial implements Serializable {
         this.usuario = usuario;
     }
 
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
     public List<String> getDisciplinasProfessores() {
-        return tDao.disciplinaProfessores(usuario.getNome());
+        return tDao.disciplinaProfessores(professor.getNome());
     }
 
     public void setDisciplinasProfessores(List<String> disciplinasProfessores) {
@@ -118,27 +126,25 @@ public class ControladorMaterial implements Serializable {
     }
 
     public void listar() {
-        setMateriaisProf(mDao.materiaisProfessor(usuario.getNome()));
+        setMateriaisProf(mDao.materiaisProfessor(professor.getNome()));
         visualizar = true;
     }
 
     public String upload() {
-        System.out.println(valorSelect);
-        System.out.println(usuario.getNome());
-        turma = tDao.retornarDiscProf(valorSelect, usuario.getNome());
+        turma = tDao.retornarDiscProf(valorSelect, professor.getNome());
         if (turma == null) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Turma não encontrada", "Turma não encontrada");
             FacesContext.getCurrentInstance().addMessage("Material", msg);
         } else {
             try {
-                System.out.println(turma.getNome_disciplina());
                 material.setNomeArquivo(arquivo.getSubmittedFileName());
                 material.setArquivo(convertByteArray(arquivo.getInputStream()));
                 material.setTurma(turma);
                 drop.uploadArquivo(material);
             } catch (IOException ex) {
-                Logger.getLogger(ControladorMaterial.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorMaterial.class.getName()).
+                        log(Level.SEVERE, null, ex);
             }
         }
 

@@ -121,7 +121,7 @@ public class DaoPostgres {
 
     public boolean inserirProfessores(Professor p){
         String sql = "INSERT INTO professor (codigo_prof, email, nome, regime,"
-                + " unidade, vinculo) VALUES (?, ?, ?, ?, ?, ?)";
+                + " unidade, vinculo, senha, logado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         boolean cond = false;
         try {
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -131,6 +131,8 @@ public class DaoPostgres {
             stmt.setString(4, p.getRegime());
             stmt.setString(5, p.getUnidade());
             stmt.setString(6, p.getVinculo());
+            stmt.setString(7, "12345");
+            stmt.setBoolean(8, false);
             cond = stmt.executeUpdate() > 0;
             stmt.close();
             return cond;
@@ -203,26 +205,26 @@ public class DaoPostgres {
         }
     }
 
-    public boolean inserirUsuarios(Professor prof, int id) {
-        boolean cond = false;
-        String sql = "INSERT INTO usuario (id, nome, email, senha, tipo, logado)"
-                + "VALUES (?, ?, ?, ?, ?, ?) ";
-        try {
-            PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
-            stmt.setString(2, prof.getNome());
-            stmt.setString(3, prof.getPrimeiroEmail());
-            stmt.setString(4, "12345");
-            stmt.setString(5, "Professor");
-            stmt.setBoolean(6, false);
-            cond = stmt.executeUpdate() > 0;
-            stmt.close();
-            return cond;
-        } catch (SQLException ex) {
-            Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return cond;
-    }
+//    public boolean inserirUsuarios(Professor prof, int id) {
+//        boolean cond = false;
+//        String sql = "INSERT INTO usuario (id, nome, email, senha, tipo, logado)"
+//                + "VALUES (?, ?, ?, ?, ?, ?) ";
+//        try {
+//            PreparedStatement stmt = con.prepareStatement(sql);
+//            stmt.setInt(1, id);
+//            stmt.setString(2, prof.getNome());
+//            stmt.setString(3, prof.getPrimeiroEmail());
+//            stmt.setString(4, "12345");
+//            stmt.setString(5, "Professor");
+//            stmt.setBoolean(6, false);
+//            cond = stmt.executeUpdate() > 0;
+//            stmt.close();
+//            return cond;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DaoPostgres.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return cond;
+//    }
     
     public boolean inserirPedidos(Professor p, int id){
         String sql = "INSERT INTO pedido (id, nome, email, senha, tipo, prioridade) "

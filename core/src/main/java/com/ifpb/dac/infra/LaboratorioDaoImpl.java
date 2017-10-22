@@ -38,8 +38,10 @@ public class LaboratorioDaoImpl implements LaboratorioDao {
 
     @Override
     public List<Laboratorio> listarTodos() {
-        return em.createQuery("SELECT l FROM Laboratorio l", 
-                Laboratorio.class).getResultList();
+        TypedQuery<Laboratorio> createQuery = em.createQuery("SELECT l FROM Laboratorio l WHERE l.descricao !=:desc", 
+                Laboratorio.class);
+        createQuery.setParameter("desc", "X");
+        return createQuery.getResultList();
     }
 
     @Override

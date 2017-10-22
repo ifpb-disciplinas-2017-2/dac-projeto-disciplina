@@ -26,6 +26,7 @@ public class ControladorTurma implements Serializable {
     private String valorProfessor;
     private boolean visualizarProfessor = false;
     private boolean visualizar = false;
+    private boolean msg = false;
     private List<String> disciplinas = new ArrayList<>();
     private List<String> professores = new ArrayList<>();
     private List<HorariosDTO> horario = new ArrayList<>();
@@ -62,6 +63,14 @@ public class ControladorTurma implements Serializable {
         this.visualizar = visualizar;
     }
 
+    public boolean isMsg() {
+        return msg;
+    }
+
+    public void setMsg(boolean msg) {
+        this.msg = msg;
+    }
+
     public List<String> getDisciplinas() {
         return tDao.listarTodasDisciplinas();
     }
@@ -93,6 +102,12 @@ public class ControladorTurma implements Serializable {
     }
     
     public String visualizarHorarios(){
+        if(getHorario().isEmpty()){
+            msg = true;
+        } 
+        if(getHorario() == null){
+            msg = true;
+        }
         visualizar = true;
         return null;
     }

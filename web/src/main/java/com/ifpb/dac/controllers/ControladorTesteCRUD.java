@@ -50,8 +50,7 @@ public class ControladorTesteCRUD {
     private Info f = new Info("XXX", "XXX");
     private Sala sala = new Sala("TESTE", "TESTE");
     private Laboratorio lab = new Laboratorio("TESTE", "TESTE");
-    private Professor prof = new Professor("XXX", "XXX", 
-            Regime.DE, Unidade.UNIND, Vinculo.Efetivo);
+    private Professor prof = new Professor();
     private Horario hora = new Horario("XXX", Calendar.getInstance(), Calendar.getInstance());
     private Curso curso = new Curso(info, 9, "TESTE");
     private Disciplina disc = new Disciplina("TESTE", "TESTE", 2, 5, curso);
@@ -93,19 +92,19 @@ public class ControladorTesteCRUD {
     }
     
     public String addProf(){
-        profDao.adicionar(prof);
+//        profDao.adicionar(prof);
         return null;
     }
     public String removerProf(){
-        prof.setCodigo(10);
-        profDao.remover(prof);
+//        prof.setCodigo(10);
+//        profDao.remover(prof);
         return null;
     }
     public String atualizarProf(){
-        prof.setEmail("XXX");
-        prof.setNome("XXX");
-        prof.setCodigo(5);
-        profDao.atualizar(prof);
+//        prof.setEmail("XXX");
+//        prof.setNome("XXX");
+//        prof.setCodigo(5);
+//        profDao.atualizar(prof);
         return null;
     }
     

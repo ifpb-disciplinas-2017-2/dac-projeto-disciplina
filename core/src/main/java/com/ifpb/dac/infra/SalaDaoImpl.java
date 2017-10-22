@@ -34,8 +34,10 @@ public class SalaDaoImpl implements SalaDao {
 
     @Override
     public List<Sala> listarTodos() {
-        return em.createQuery("SELECT s FROM Sala s", Sala.class).
-                getResultList();
+        TypedQuery<Sala> createQuery = em.createQuery("SELECT s FROM Sala s"
+                + " WHERE s.descricao !=:desc", Sala.class);
+        createQuery.setParameter("desc", "X");
+        return createQuery.getResultList();        
     }
 
     @Override

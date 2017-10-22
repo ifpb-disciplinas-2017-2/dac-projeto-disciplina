@@ -47,15 +47,6 @@ public class Turma implements Serializable {
     @OneToMany(mappedBy = "turma", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Material> material;
     
-//    @OneToMany(mappedBy = "turma", fetch = FetchType.EAGER)
-//    private List<TurmaAluno> turmaAluno;
-    
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-//    @JoinTable(name = "aluno_turma",
-//            joinColumns =  @JoinColumn(name = "codigo_turma"),
-//            inverseJoinColumns = @JoinColumn(name = "id"))
-//    private List<Usuario> usuarios;
-    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinTable(name = "aluno_turma",
             joinColumns =  @JoinColumn(name = "codigo_turma"),
@@ -72,18 +63,9 @@ public class Turma implements Serializable {
     }
 
     public Turma() {
-//        usuarios = new ArrayList<>();
         this.aulas = new ArrayList<>();
         this.alunos = new ArrayList<>();
     }
-    
-//    public boolean add(Usuario u){
-//        return usuarios.add(u);
-//    }
-//    
-//    public boolean rmv(Usuario u){
-//        return usuarios.remove(u);
-//    }
 
     public List<Aluno> getAlunos() {
         return alunos;
@@ -156,21 +138,5 @@ public class Turma implements Serializable {
     public void setMaterial(List<Material> material) {
         this.material = material;
     }
-
-//    public List<TurmaAluno> getTurmaAluno() {
-//        return turmaAluno;
-//    }
-//
-//    public void setTurmaAluno(List<TurmaAluno> turmaAluno) {
-//        this.turmaAluno = turmaAluno;
-//    }
-
-//    public List<Usuario> getUsuarios() {
-//        return usuarios;
-//    }
-//
-//    public void setUsuarios(List<Usuario> usuarios) {
-//        this.usuarios = usuarios;
-//    }
 
 }

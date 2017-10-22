@@ -36,11 +36,6 @@ public class GoogleAgendaJMS implements GoogleAgenda {
     }
 
     @Override
-    public void atualizarEvento(Atividade atividade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void removerEvento(Atividade atividade) {
         ObjectMessage mensagem = contexto.createObjectMessage(atividade);
         contexto.createProducer().send(queueRmv, mensagem);

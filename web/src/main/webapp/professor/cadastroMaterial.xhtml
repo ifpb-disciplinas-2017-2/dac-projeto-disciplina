@@ -28,7 +28,7 @@
                     
                     <div class="form-group">
                         <h:outputLabel for="prof" value="Nome: ">
-                            <h:outputText id="prof" value="#{controladorMaterial.usuario.nome}"/>
+                            <h:outputText id="prof" value="#{controladorMaterial.professor.nome}"/>
                         </h:outputLabel>
                     </div>
                     
@@ -47,6 +47,7 @@
                         <h:outputLabel for="desc" class="text-left col-md-12" value="Informe a descricao do arquivo: ">
                             <h:inputText id="desc"
                                          class="form-control col-md-12"
+                                         maxlength="40"
                                          required="true"
                                          value="#{controladorMaterial.material.descricao}"/>
                         </h:outputLabel>

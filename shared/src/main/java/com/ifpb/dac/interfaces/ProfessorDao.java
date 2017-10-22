@@ -13,4 +13,6 @@ public interface ProfessorDao {
     Professor buscarPorId(int id);
     List<String> listarNomeProfessores();
     Professor buscarPorNome(String nomeProfessor);
+    Professor autentica(String email, String senha);
+    boolean verificarEmail(String email);
 }

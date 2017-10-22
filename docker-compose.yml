@@ -34,9 +34,6 @@ services:
             - "banco:host-banco"
         healthcheck:
             test: "exit 0"
-        volumes:
-            - "/etc/timezone:/etc/timezone:ro"
-            - "/etc/localtime:/etc/localtime:ro"
     banco:
         build: ./postgres
         image: projeto/banco

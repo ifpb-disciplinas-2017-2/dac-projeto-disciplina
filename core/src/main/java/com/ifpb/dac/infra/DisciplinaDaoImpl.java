@@ -52,5 +52,11 @@ public class DisciplinaDaoImpl implements DisciplinaDao {
         createQuery.setParameter("curso", curso);
         return createQuery.getResultList();
     }
+
+    @Override
+    public List<String> listarNomeDisciplinas() {
+        return em.createQuery("SELECT d.descricao FROM Disciplina d", 
+                String.class).getResultList();
+    }
     
 }

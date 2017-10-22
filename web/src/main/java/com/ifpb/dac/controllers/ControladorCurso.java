@@ -18,18 +18,19 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class ControladorCurso implements Serializable {
-    
+
     @Inject
     private CursoDao cDao;
     @Inject
     private HorariosDao hDao;
     @Inject
     private DisciplinaDao dDao;
-    
+
     private String valorCurso;
     private String valorDisciplina;
     private boolean visualizarDisc = false;
     private boolean visualizar = false;
+    private boolean msg = false;
     private List<String> cursos = new ArrayList<>();
     private List<String> disciplinasCurso = new ArrayList<>();
     private List<HorariosDTO> horario = new ArrayList<>();
@@ -66,6 +67,14 @@ public class ControladorCurso implements Serializable {
         this.cursos = cursos;
     }
 
+    public boolean isMsg() {
+        return msg;
+    }
+
+    public void setMsg(boolean msg) {
+        this.msg = msg;
+    }
+
     public List<String> getDisciplinasCurso() {
         return dDao.listarDisciplinaCurso(valorCurso);
     }
@@ -89,16 +98,19 @@ public class ControladorCurso implements Serializable {
     public void setVisualizar(boolean visualizar) {
         this.visualizar = visualizar;
     }
-    
-    public String visualizarDisciplinasCurso(){
+
+    public String visualizarDisciplinasCurso() {
         visualizarDisc = true;
         visualizar = false;
         return null;
     }
-    
-    public String visualizarHorarios(){
+
+    public String visualizarHorarios() {
+        if(getHorario().isEmpty()){
+            msg = true;
+        }
         visualizar = true;
         return null;
     }
-    
+
 }

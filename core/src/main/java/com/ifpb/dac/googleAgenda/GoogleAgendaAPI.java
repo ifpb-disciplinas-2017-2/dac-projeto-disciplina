@@ -82,7 +82,8 @@ public class GoogleAgendaAPI implements GoogleAPI {
         }
     }
 
-    @Schedule(hour = "23", minute = "59", second = "59")
+    @Schedule(hour = "23", minute = "00", second = "00")
+//    @Schedule(hour = "23", minute = "59", second = "59")
 //    @Schedule(hour = "*", minute = "*", second = "*/30")
     public void notificarDiaAnteriorEvento() {
         System.out.println("Executando o agendador...");

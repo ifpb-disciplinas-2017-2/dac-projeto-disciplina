@@ -61,11 +61,11 @@ public class Loader {
             dao.inserirAula(aulas.get(i), auxiliar);
         }
         
-        List<Professor> professores = r.objetosProfessor();
-        for(int i = 0; i < professores.size(); i++){
-            int auxiliar = i + 2;
-            dao.inserirUsuarios(professores.get(i), auxiliar);
-        }
+//        List<Professor> professores = r.objetosProfessor();
+//        for(int i = 0; i < professores.size(); i++){
+//            int auxiliar = i + 2;
+//            dao.inserirUsuarios(professores.get(i), auxiliar);
+//        }
         
         List<Professor> pedidos = r.objetosProfessor();
         for(int i = 0; i < pedidos.size(); i++){

@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -25,6 +24,7 @@ public class ControladorLaboratorio implements Serializable {
     private LaboratorioDao lDao;
     private String valorSelect;
     private boolean visualizar = false;
+    private boolean msg = false;
     private List<HorariosDTO> horario = new ArrayList<>();
     private List<String> laboratorios = new ArrayList<>();
 
@@ -59,8 +59,22 @@ public class ControladorLaboratorio implements Serializable {
     public void setLaboratorios(List<String> laboratorios) {
         this.laboratorios = laboratorios;
     }
+
+    public boolean isMsg() {
+        return msg;
+    }
+
+    public void setMsg(boolean msg) {
+        this.msg = msg;
+    }
     
     public String visualizarHorarios(){
+        if(getHorario().isEmpty()){
+            msg = true;
+        }
+        if(getHorario() == null){
+            msg = true;
+        }
         visualizar = true;
         return null;
     }

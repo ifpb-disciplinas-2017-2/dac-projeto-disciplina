@@ -26,8 +26,6 @@ public class Disciplina implements Serializable {
     @GeneratedValue(generator = "minha_seq_disc", strategy = GenerationType.SEQUENCE)
     @Column(name = "codigo_disc")
     private int codigo_disc;
-//    @Embedded
-//    private Info info;
     @Column(name = "abreviacao", length = 30)
     private String abreviacao;
     @Column(name = "descricao", length = 50)
@@ -46,7 +44,6 @@ public class Disciplina implements Serializable {
         this();
         this.abreviacao = abrev;
         this.descricao = desc;
-//        this.info = info;
         this.aulas_semana = aulas_semana;
         this.carga_horaria = carga_horaria;
         this.curso = curso;
@@ -79,15 +76,6 @@ public class Disciplina implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-//    
-
-//    public Info getInfo() {
-//        return info;
-//    }
-//
-//    public void setInfo(Info info) {
-//        this.info = info;
-//    }
 
     public int getAulas_semana() {
         return aulas_semana;
