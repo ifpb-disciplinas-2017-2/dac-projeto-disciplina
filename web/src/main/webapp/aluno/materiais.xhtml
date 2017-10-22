@@ -12,37 +12,56 @@
     </head>
     <body>
         <div class="container">
-            <h:outputText value="Não possui nenhum material associado as disciplinas que você se cadastrou..."
-                          rendered="#{empty controladorMaterialAluno.materiaisAluno}"/>
+            <div class="row text-center">
+                <h:outputText value="Não possui nenhum material associado as disciplinas que você se cadastrou..."
+                              rendered="#{empty controladorMaterialAluno.materiaisAluno}"/>
+                <hr />
+            </div>
+            
             <br></br>
-            <h:form>
-                <h:dataTable var="material" value="#{controladorMaterialAluno.materiaisAluno}">
-                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                        <f:facet name="header">Descricao</f:facet>
-                        <h:outputText value="#{material.descricao}"/>
-                    </h:column>
-                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                        <f:facet name="header">Arquivo</f:facet>
-                        <h:outputText value="#{material.nomeArquivo}"/>
-                    </h:column>
-                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                        <f:facet name="header">Disciplina</f:facet>
-                        <h:outputText value="#{material.turma.nome_disciplina}"/>
-                    </h:column>
-                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                        <f:facet name="header">Professor</f:facet>
-                        <h:outputText value="#{material.turma.professor.nome}"/>
-                    </h:column>
-                    <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
-                        <f:facet name="header">Download</f:facet>
-                        <a href="#{controladorMaterialAluno.downloadArquivo(material)}" download="#{material.nomeArquivo}">Baixar</a>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
+            
+            
+            <div class="row text-center">
+                <h:form>
+                    
+                    <h:dataTable var="material"
+                                 class="table-hover col-md-12"
+                                 value="#{controladorMaterialAluno.materiaisAluno}">
+                        
+                        <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                            <f:facet name="header">Descricao</f:facet>
+                            <h:outputText value="#{material.descricao}"/>
+                        </h:column>
+                        <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                            <f:facet name="header">Arquivo</f:facet>
+                            <h:outputText value="#{material.nomeArquivo}"/>
+                        </h:column>
+                        <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                            <f:facet name="header">Disciplina</f:facet>
+                            <h:outputText value="#{material.turma.nome_disciplina}"/>
+                        </h:column>
+                        <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                            <f:facet name="header">Professor</f:facet>
+                            <h:outputText value="#{material.turma.professor.nome}"/>
+                        </h:column>
+                        <h:column rendered="#{not empty controladorMaterialAluno.materiaisAluno}">
+                            <f:facet name="header">Download</f:facet>
+                            <a href="#{controladorMaterialAluno.downloadArquivo(material)}" download="#{material.nomeArquivo}">Baixar</a>
+                        </h:column>
+                    
+                    </h:dataTable>
+                
+                </h:form>
+                
+            </div>
+            
             <br></br>
-            <h:form>
-                <h:commandButton value="Voltar" action="#{controladorMenu.voltar()}"/>
-            </h:form>
+            
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                </h:form>
+            </div>
         </div>
     </body>
 </html>
