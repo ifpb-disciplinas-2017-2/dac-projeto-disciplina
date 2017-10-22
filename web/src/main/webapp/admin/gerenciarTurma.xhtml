@@ -9,74 +9,105 @@
         <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="../bootstrap/js/bootstrap.js"/>
         <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
     </head>
     <body>
         <div class="container">
-            <h:link outcome="menu.xhtml" value="Voltar"/>
-            <h3 style="text-align: center;">Gerenciador de Turmas</h3>
-            <br></br>
-            <h:form>
-                <h:outputLabel value="Identificacao: " for="ident">
-                    <h:inputText id="ident"
-                                 value="#{controladorCRUDTurma.turma.identificacao}"
-                                 maxlength="1"
-                                 required="true"
-                                 requiredMessage="Informe uma identificacao"/>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="disc" value="Disciplina: ">
-                    <h:selectOneMenu id="disc" value = "#{controladorCRUDTurma.valorDisc}">
-                        <f:selectItems value="#{controladorCRUDTurma.discs}" 
-                                       var="dis"
-                                       itemLabel="#{dis}"
-                                       itemValue="#{dis}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="curso" value="Curso: ">
-                    <h:selectOneMenu id="curso" value = "#{controladorCRUDTurma.valorCurso}">
-                        <f:selectItems value="#{controladorCRUDTurma.cursos}" 
-                                       var="curso"
-                                       itemLabel="#{curso}"
-                                       itemValue="#{curso}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <br></br>
-                <h:outputLabel for="prof" value="Professor: ">
-                    <h:selectOneMenu id="prof" value = "#{controladorCRUDTurma.valorProf}">
-                        <f:selectItems value="#{controladorCRUDTurma.professores}" 
-                                       var="professor"
-                                       itemLabel="#{professor}"
-                                       itemValue="#{professor}"/>
-                    </h:selectOneMenu>
-                </h:outputLabel>
-                <br></br>
-                <h:commandButton value="Adicionar"
-                                 rendered="#{controladorCRUDTurma.editando eq false}"
-                                 action="#{controladorCRUDTurma.adicionar()}"/>
-                <h:commandButton value="Atualizar"
-                                 rendered="#{controladorCRUDTurma.editando}"
-                                 action="#{controladorCRUDTurma.atualizar()}"/>
-                <br></br>
-            </h:form>
-            <h:form>
-                <h3 style="text-align: center;">Lista de Turmas</h3>
-                <h:dataTable value="#{controladorCRUDTurma.turmas}"
-                             var="tur">
-                    <h:column>
-                        <f:facet name="header">Disciplina</f:facet>
-                        <h:outputText value="#{tur.nome_disciplina}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Identificacao</f:facet>
-                        <h:outputText value="#{tur.identificacao}"/>
-                    </h:column>   
-                    <h:column>
-                        <f:facet name="header">Professor</f:facet>
-                        <h:outputText value="#{tur.professor.nome}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
+            <div class="row">
+                <h:link outcome="menu.xhtml" class="btn btn-warning" value="Voltar"/>
+            </div>
+            
+            <br />
+            
+            <div class="row text-center">
+                <h3>Gerenciador de Turmas</h3>
+            </div>
+            
+            
+            <div class="row text-center">
+                <h:form>
+                    <div class="form-group">
+                        <h:outputLabel value="Identificacao: " class="text-left col-md-12" for="ident">
+                            <h:inputText id="ident"
+                                         value="#{controladorCRUDTurma.turma.identificacao}"
+                                         maxlength="1"
+                                         required="true"
+                                         class="form-control col-md-12"
+                                         requiredMessage="Informe uma identificacao"/>
+                        </h:outputLabel>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="disc" class="text-left col-md-12" value="Disciplina: ">
+                            <h:selectOneMenu id="disc" class="form-control" value = "#{controladorCRUDTurma.valorDisc}">
+                                <f:selectItems value="#{controladorCRUDTurma.discs}" 
+                                               var="dis"
+                                               itemLabel="#{dis}"
+                                               itemValue="#{dis}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="curso" class="text-left col-md-12" value="Curso: ">
+                            <h:selectOneMenu id="curso" class="form-control" value = "#{controladorCRUDTurma.valorCurso}">
+                                <f:selectItems value="#{controladorCRUDTurma.cursos}" 
+                                               var="curso"
+                                               itemLabel="#{curso}"
+                                               itemValue="#{curso}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h:outputLabel for="prof" class="text-left col-md-12" value="Professor: ">
+                            <h:selectOneMenu id="prof" class="form-control" value = "#{controladorCRUDTurma.valorProf}">
+                                <f:selectItems value="#{controladorCRUDTurma.professores}" 
+                                               var="professor"
+                                               itemLabel="#{professor}"
+                                               itemValue="#{professor}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    
+                    <br></br>
+                    <h:commandButton value="Adicionar"
+                                     rendered="#{controladorCRUDTurma.editando eq false}"
+                                     action="#{controladorCRUDTurma.adicionar()}"
+                                     class="btn btn-success col-md-12"/>
+                    <h:commandButton value="Atualizar"
+                                     rendered="#{controladorCRUDTurma.editando}"
+                                     action="#{controladorCRUDTurma.atualizar()}"
+                                     class="btn btn-warning col-md-12"/>
+                    <br></br>
+                </h:form>
+            </div>
+            
+            <br />  
+            
+            <div class="row">
+                <h:form>
+                    <h3 style="text-align: center;">Lista de Turmas</h3>
+                    <h:dataTable value="#{controladorCRUDTurma.turmas}"
+                                 var="tur"
+                                 class="table table-hover">
+                        <h:column>
+                            <f:facet name="header">Disciplina</f:facet>
+                            <h:outputText value="#{tur.nome_disciplina}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Identificacao</f:facet>
+                            <h:outputText value="#{tur.identificacao}"/>
+                        </h:column>   
+                        <h:column>
+                            <f:facet name="header">Professor</f:facet>
+                            <h:outputText value="#{tur.professor.nome}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+            
         </div>
     </body>
 </html>
