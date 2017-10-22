@@ -20,9 +20,16 @@ and open the template in the editor.
 
 /* Menu Principal */
 .item-menu {
-    
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
 }
 
 .item-menu:hover {
     background-color: #e0e0e0;
+}
+
+.format-textarea {
+    resize: none;   
 }
