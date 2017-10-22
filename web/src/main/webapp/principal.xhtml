@@ -8,14 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="./bootstrap/js/jquery-3.2.1.min.js"/>
         <script src="./bootstrap/js/bootstrap.js"/>
-        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>        
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="./css/style.css" />
     </h:head>
     <h:body>
         <div class="container-fluid">
-            <h2>Menu</h2>
-            <br></br>
-            <h:link outcome="publico/sala.xhtml" 
-                    value="Visualizar Horarios de Salas"/>
+            <div class="row text-center">
+                <h1>Menu</h1>
+                <hr />
+            </div>
+            
+            <div class="row">
+                <h:link outcome="publico/sala.xhtml" 
+                        class="col-sm-12"
+                        value="Visualizar Horarios de Salas"/>
+                
+            </div>
+            
             <br></br><br></br>
             <h:link outcome="publico/laboratorio.xhtml" 
                     value="Visualizar Horarios de Laboratorios"/>
