@@ -28,7 +28,7 @@
                                          requiredMessage="Informe um email valido"/>
                         </h:outputLabel>
                     </div>
-                    
+
                     <div class="form-group">
                         <h:outputLabel class="text-left col-md-12" for="senha" value="Senha: ">
                             <h:inputSecret id="senha" 
@@ -39,7 +39,7 @@
                                            requiredMessage="Informe uma senha valida"/>
                         </h:outputLabel>
                     </div>
-                    
+
                     <div class="form-group">
                         <h:selectOneMenu class="form-control col-md-12" value = "#{controladorUsuario.valorSelect}">
                             <f:selectItems value="#{controladorUsuario.tiposUsuario}" 
@@ -52,29 +52,30 @@
                     <h:commandButton class="btn btn-primary"
                                      value="Login" 
                                      action="#{controladorUsuario.realizarLogin()}"/>
-                    
-                    
-                    
+
+
+
                     <h:form>
                         <h:commandButton class="btn btn-primary"
                                          immediate="true"
                                          value="Realizar cadastro de aluno"
                                          style="margin-left: 20px;"
                                          action="#{controladorUsuario.navegarCadastro()}"/>
-                        <h:commandButton immediate="true" class="btn btn-primary"
-                                         value="Entrar como publico" 
-                                         style="margin-left: 20px;"
-                                         action="#{controladorUsuario.entrarComoPublico()}"/>
                         <br></br>
                     </h:form>
                 </h:form>
-                
+
             </div> <!-- .row -->
-            
-            
+
+
             <br></br>
             <div class="row text-center">
-                <h:link style="margin-left: 20px;" outcome="admin/loginAdmin.xhtml" value="Entrar como administrador" />             
+                <h:form>
+                    <h:commandButton immediate="true" class="btn btn-primary"
+                                     value="Entrar como publico" 
+                                     action="#{controladorUsuario.entrarComoPublico()}"/>
+                </h:form>
+                <h:link style="margin-left: 10px;" outcome="admin/loginAdmin.xhtml" value="Entrar como administrador" />             
             </div>
         </div>
     </h:body>

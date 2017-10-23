@@ -17,7 +17,7 @@
                 <h1>Menu</h1>
                 <hr />
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12">
                     <h:link outcome="publico/sala.xhtml" 
@@ -84,15 +84,16 @@
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'prof'}"
                             value="Responder Dúvidas" />
-                
+
                 </div> <!-- .col-md-12 -->    
             </div> <!-- .row -->
-            
-            <h:form>
-                <h:commandButton value="Logout"
-                                 action="#{controladorMenu.logout()}"
-                                 class="btn btn-danger"/>
-            </h:form>
+            <div class="row text-center">
+                <h:form>
+                    <h:commandButton value="Logout"
+                                     action="#{controladorMenu.logout()}"
+                                     class="btn btn-danger"/>
+                </h:form>
+            </div>
         </div>
     </h:body>
 </html>
