@@ -9,6 +9,7 @@ import com.ifpb.dac.interfaces.EnviarEmail;
 import com.ifpb.dac.interfaces.GoogleAgenda;
 import com.ifpb.dac.interfaces.TurmaDao;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -117,13 +118,28 @@ public class ControladorAtividade implements Serializable {
     }
 
     public String cadastrarAtividade() {
-        Turma turma = tDao.retornarDiscProf(valorSelect, professor.getNome());
-        atividade.setTurma(turma);
-        atividade.setNotDiaAnterior(false);
-        gAgenda.cadastrarEvento(atividade);
-        eEmail.enviar(atividade);
-        atividade = new Atividade();
-        visualizarAtiv = false;
+        LocalDateTime diaAtual = LocalDateTime.now();
+        if (atividade.getInicio().isBefore(diaAtual)
+                || atividade.getFim().isBefore(diaAtual)) {
+            FacesMessage message = new FacesMessage("Datas não podem ser anteriores com a de hoje...");
+            message.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage("Atividade", message);
+        } else {
+            if (atividade.getInicio().isAfter(atividade.getFim())) {
+                FacesMessage message = new FacesMessage("Data de inicio maior ou igual que a de fim, verifique isto...");
+                message.setSeverity(FacesMessage.SEVERITY_INFO);
+                FacesContext.getCurrentInstance().addMessage("Atividade", message);
+            } else {
+                Turma turma = tDao.retornarDiscProf(valorSelect, professor.getNome());
+                atividade.setTurma(turma);
+                atividade.setNotDiaAnterior(false);
+                gAgenda.cadastrarEvento(atividade);
+                eEmail.enviar(atividade);
+                atividade = new Atividade();
+                visualizarAtiv = false;
+            }
+
+        }
         return null;
     }
 
