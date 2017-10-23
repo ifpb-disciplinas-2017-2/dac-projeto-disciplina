@@ -55,8 +55,8 @@ public class GoogleAgendaAdicionar implements MessageListener {
                 .setLocation("Cajazeiras")
                 .setDescription(a.getDescricao());
 
-        LocalDateTime ini = a.getInicio().plusHours(3);
-        LocalDateTime fm = a.getFim().plusHours(3);
+        LocalDateTime ini = a.getInicio().plusHours(2);
+        LocalDateTime fm = a.getFim().plusHours(2);
 
         String dataInicioFormatada = ini.format(
                 DateTimeFormatter.ISO_LOCAL_DATE_TIME);
@@ -66,11 +66,9 @@ public class GoogleAgendaAdicionar implements MessageListener {
         String dataInicioConvertida = DateTime.parseRfc3339(dataInicioFormatada).toString();
         String dataFimConvertida = DateTime.parseRfc3339(dataFinalFormatada).toString();
         DateTime startDateTime = new DateTime(dataInicioConvertida);
-//        DateTime startDateTime = new DateTime("2017-10-12T09:00:00-07:00");
         EventDateTime start = new EventDateTime()
                 .setDateTime(startDateTime).setTimeZone("America/Fortaleza");
         event.setStart(start);
-//        DateTime endDateTime = new DateTime("2017-10-15T17:00:00-07:00");
         DateTime endDateTime = new DateTime(dataFimConvertida);
         EventDateTime end = new EventDateTime()
                 .setDateTime(endDateTime).setTimeZone("America/Fortaleza");
