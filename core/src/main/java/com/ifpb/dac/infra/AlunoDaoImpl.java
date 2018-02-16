@@ -1,7 +1,6 @@
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Aluno;
-import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.interfaces.AlunoDao;
 import java.util.List;
 import java.util.Optional;
