@@ -37,7 +37,7 @@ public class Curso implements Serializable {
     private List<Aula> aulas;
     @OneToMany(mappedBy = "curso", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Turma> turmas;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="coordenador_codigo")
     private Coordenador coordenador;
     

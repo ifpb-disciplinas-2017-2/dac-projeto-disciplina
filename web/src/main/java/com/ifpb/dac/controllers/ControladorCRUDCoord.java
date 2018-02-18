@@ -64,6 +64,7 @@ public class ControladorCRUDCoord implements Serializable{
             curso.setCoordenador(coordenador);
             cursoDao.atualizar(curso);
             coordenador = new Coordenador();
+            selectCurso = null;
         }
         return null;
     }
@@ -80,7 +81,7 @@ public class ControladorCRUDCoord implements Serializable{
     
     public String atualizarCoordenador() {
         editando = false;
-        selectCurso = null;
+        
         Curso curso = cursoDao.retornarPorNome(selectCurso);       
         Curso cursoAntigo = coordAntesDeEditar.getCurso();
         if (coordenadorDao.verificarEmail(coordenador.getEmail()) && !coordenador.getEmail().equals(coordAntesDeEditar.getEmail())) {
@@ -97,23 +98,24 @@ public class ControladorCRUDCoord implements Serializable{
             FacesContext.getCurrentInstance().addMessage("Atualizar", msg);
             
         }else{
+            //RETIRANDO O COORDENADOR DO CURSO ANTIGO, CASO UM NOVO CURSO TENHA SIDO ESCOLHIDO
+            if(cursoAntigo != curso){
+                cursoAntigo.setCoordenador(null);
+                cursoDao.atualizar(cursoAntigo);
+            }
+            
             coordenador.setRegime(Enum.valueOf(Regime.class, regime));
             coordenador.setVinculo(Enum.valueOf(Vinculo.class, vinculo));
             coordenador.setUnidade(Enum.valueOf(Unidade.class, unidade));
             coordenador.setCurso(curso);
             curso.setCoordenador(coordenador);
             
-            //LIMPANDO O CURSO ANTIGO - CASO OUTRO CURSO TENHA SIDO ESCOLHIDO
-            cursoAntigo.setCoordenador(null);
-            cursoDao.atualizar(cursoAntigo);
-            
-            //ATUALIZANDO CURSO E COORDENADOR
             cursoDao.atualizar(curso);
-            coordenadorDao.atualizar(coordenador);
-            
+
             //LIMPANDO INSTÂNCIAS PARA PRÓXIMOS USOS NA SESSÃO
             coordenador = new Coordenador();
             coordAntesDeEditar = new Coordenador();
+            selectCurso = null;
         }
         return null;
     }
