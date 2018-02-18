@@ -82,6 +82,8 @@
                             <h:inputText id="inicioMandato" converter="convert.LocalDate" 
                                          class="form-control col-md-12"
                                          required="true"
+                                         maxlength="10"
+                                         validator="validator.LocalDate"
                                          requiredMessage="Informe o início do mandato"
                                          value="#{controladorCRUDCoord.coordenador.inicioMandato}"/>
                         </div>
@@ -92,9 +94,10 @@
                             <h:inputText id="fimMandato" converter="convert.LocalDate" 
                                          class="form-control col-md-12"
                                          required="true"
+                                         maxlength="10"
+                                         validator="validator.LocalDate"
                                          requiredMessage="Informe o fim do mandato"
                                          value="#{controladorCRUDCoord.coordenador.fimMandato}"/>
-                            
                         </div>
                     </div>
                 </div>

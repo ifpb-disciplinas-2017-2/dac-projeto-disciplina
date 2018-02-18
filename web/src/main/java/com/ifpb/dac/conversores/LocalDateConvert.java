@@ -12,22 +12,30 @@ import javax.faces.convert.FacesConverter;
  * @author lyndemberg
  */
 @FacesConverter(value = "convert.LocalDate", forClass = LocalDate.class)
-public class LocalDateConvert implements Converter{
-    
+public class LocalDateConvert implements Converter {
+
     DateTimeFormatter padrao = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if(value == null) return null;
+
+        //true se a data possue so letras e ou espaços
+        boolean dataDesqualificada = value.matches("[a-zA-Z\\s]+");
+
+        if (value == null || "".equals(value) || dataDesqualificada) {
+            return null;
+        }
         return LocalDate.parse(value, padrao);
+
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if(value == null) return null;
+        if (value == null) {
+            return null;
+        }
         LocalDate date = (LocalDate) value;
         return date.format(padrao);
     }
 
-    
 }
