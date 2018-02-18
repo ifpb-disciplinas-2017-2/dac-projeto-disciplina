@@ -2,6 +2,7 @@
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Pedido;
+import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.PedidoDao;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,14 @@ public class PedidoDaoImpl implements PedidoDao {
         return em.createQuery("SELECT p FROM Pedido p ORDER BY p.prioridade DESC", 
                 Pedido.class).getResultList();
     }
+    
+    @Override
+    public List<Pedido> listarTodosFiltro(Tipo usuario) {
+        TypedQuery<Pedido> query = em.createQuery("SELECT p FROM Pedido p WHERE p.tipo=:tipo ORDER BY p.prioridade DESC", 
+                Pedido.class);
+        query.setParameter("tipo", usuario);
+        return query.getResultList();
+    }
 
     @Override
     public Pedido buscarPorId(int id) {
@@ -64,5 +73,7 @@ public class PedidoDaoImpl implements PedidoDao {
             return null;
         }
    }
+
+    
     
 }

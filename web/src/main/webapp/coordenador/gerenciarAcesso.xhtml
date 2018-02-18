@@ -15,17 +15,37 @@
         <div class="container">
             <div class="row text-center">
                 <h2>
-                    <h:outputText value="Todos os pedidos de acesso"/>
+                    <h:outputText value="Gerenciar pedidos de acesso"/>
                 </h2>
                 <br/><br/>
-                <h:link outcome="menu.xhtml" class="btn btn-warning" value="Voltar"/>
+                <div class="row">
+                    <h:form>
+                        <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                    </h:form>
+                </div>
             </div>
                 
-            <br /><br />
+            <div class="row">
+                <h:form>
+                    <div class="form-group">
+                        <h:outputLabel for="filtro" value="Filtro:" class="text-left col-md-12">
+                            <h:selectOneMenu class="form-control" id="filtro" value = "#{controladorCoordenador.filtroPedidos}">
+                                <f:selectItems value="#{controladorCoordenador.getItensFiltro()}" 
+                                               var="item"
+                                               itemLabel="#{item}"
+                                               itemValue="#{item}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div><br/><br/>
+                    <h:commandButton value="Ver pedidos"
+                                     action="#{controladorCoordenador.filtrar()}"
+                                     class="btn btn-success col-md-12"/>
+                </h:form>
+            </div>
             
             <div class="row">
                 <h:form>
-                    <h:dataTable class="table table-hover" value="#{controladorAdmin.pedidos}" var="pedido">
+                    <h:dataTable class="table table-hover" rendered="#{controladorCoordenador.filtroPedidos != null}" value="#{controladorCoordenador.getPedidos()}" var="pedido">
                         <h:column>
                             <f:facet name="header">Nome</f:facet>
                             <h:outputText value="#{pedido.nome}"/>
@@ -42,9 +62,8 @@
                             <f:facet name="header">Liberar</f:facet>
                             <h:commandButton class="btn btn-primary"
                                              value="Liberar Acesso"
-                                             action="#{controladorAdmin.liberarAcesso(pedido)}"/>
+                                             action="#{controladorCoordenador.liberarAcesso(pedido)}"/>
                         </h:column>
-                        
                     </h:dataTable>
                 </h:form>
             </div>

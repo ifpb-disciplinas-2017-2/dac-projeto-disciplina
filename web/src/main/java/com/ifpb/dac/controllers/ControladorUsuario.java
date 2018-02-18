@@ -1,11 +1,14 @@
 package com.ifpb.dac.controllers;
 
 import com.ifpb.dac.entidades.Aluno;
+import com.ifpb.dac.entidades.Coordenador;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Usuario;
 import com.ifpb.dac.enums.Tipo;
+import static com.ifpb.dac.enums.Tipo.Coordenador;
 import com.ifpb.dac.interfaces.AlunoDao;
+import com.ifpb.dac.interfaces.CoordenadorDao;
 import com.ifpb.dac.interfaces.PedidoDao;
 import com.ifpb.dac.interfaces.ProfessorDao;
 import com.ifpb.dac.interfaces.UsuarioDao;
@@ -35,9 +38,11 @@ public class ControladorUsuario implements Serializable {
     private AlunoDao alunoDao;
     @Inject
     private ProfessorDao professorDao;
+    @Inject
+    private CoordenadorDao coordenadorDao;
     private String valorSelect;
     private boolean cad = false;
-    private List<String> tiposUsuario = Arrays.asList("Professor", "Aluno");
+    private List<String> tiposUsuario = Arrays.asList("Professor", "Aluno","Coordenador");
     private Professor professor = new Professor();
     private Usuario usuario = new Usuario();
     private HttpSession sessao;
@@ -98,7 +103,19 @@ public class ControladorUsuario implements Serializable {
                 mostrarMensagem("Email e senha invalidos!");
                 return null;
             }
-        } else {
+        }else if(tipo.equals(Tipo.Coordenador)) {
+            Coordenador coord = coordenadorDao.autentica(usuario.getEmail(), usuario.getSenha());
+            usuario = new Usuario();
+            if(coord != null){
+                iniciarSessao();
+                sessao.setAttribute("usuario", coord);
+                sessao.setAttribute("credenciais", "coord");
+                return "principal.xhtml";
+            }else{
+                mostrarMensagem("Email e senha invalidos!");
+                return null;
+            }
+        }else {
             Aluno autenticado = alunoDao.autentica(usuario.getEmail(),
                     usuario.getSenha());
             usuario = new Usuario();
@@ -142,7 +159,7 @@ public class ControladorUsuario implements Serializable {
         int incrementoPrioridade = p.getPrioridade() + 1;
         p.setPrioridade(incrementoPrioridade);
         pedidoDao.atualizar(p);
-        mostrarMensagem("Enviado pedido de acesso para o administrador");
+        mostrarMensagem("Pedido de acesso enviado ao Coordenador");
     }
 
 }

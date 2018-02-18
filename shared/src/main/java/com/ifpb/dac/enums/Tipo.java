@@ -11,6 +11,6 @@ package com.ifpb.dac.enums;
  */
 public enum Tipo {
     
-    Administrador, Professor, Publico, Aluno;
+    Administrador, Professor, Publico, Aluno,Coordenador;
     
 }

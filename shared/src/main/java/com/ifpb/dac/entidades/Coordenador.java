@@ -1,13 +1,20 @@
 package com.ifpb.dac.entidades;
 
+import com.ifpb.dac.conversores.LocalDateToDate;
 import com.ifpb.dac.enums.Regime;
 import com.ifpb.dac.enums.Unidade;
 import com.ifpb.dac.enums.Vinculo;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 /**
@@ -18,8 +25,14 @@ import javax.persistence.OneToOne;
 public class Coordenador implements Serializable {
 
     @Id
+    @GeneratedValue
+    @Column(name="codigo_coord")
     private int codigo;
+    @Convert(converter = LocalDateToDate.class)
+    @Column(name="inicio_mandato")
     private LocalDate inicioMandato;
+    @Convert(converter = LocalDateToDate.class)
+    @Column(name="fim_mandato")
     private LocalDate fimMandato;
     @Column(length = 50, nullable = false)
     private String nome;
@@ -27,11 +40,14 @@ public class Coordenador implements Serializable {
     private String senha;
     private String telefone1;
     private String telefone2;
+    @Enumerated(EnumType.STRING)
     private Unidade unidade;
+    @Enumerated(EnumType.STRING)
     private Regime regime;
+    @Enumerated(EnumType.STRING)
     private Vinculo vinculo;
     private boolean logado;
-    @OneToOne
+    @OneToOne(mappedBy = "coordenador")
     private Curso curso;
 
     public Coordenador() {

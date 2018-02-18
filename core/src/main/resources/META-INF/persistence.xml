@@ -18,6 +18,10 @@
     <class>com.ifpb.dac.entidades.TurmaAluno</class>
     <class>com.ifpb.dac.entidades.Aluno</class>
     <class>com.ifpb.dac.entidades.Duvida</class>
+    
+    <class>com.ifpb.dac.conversores.LocalDateToDate</class>
+    <class>com.ifpb.dac.entidades.Coordenador</class>
+    
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ALL</shared-cache-mode>
     <properties>
