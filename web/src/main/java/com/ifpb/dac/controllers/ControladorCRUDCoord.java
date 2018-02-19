@@ -27,7 +27,8 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class ControladorCRUDCoord implements Serializable{
+public class ControladorCRUDCoord implements Serializable {
+
     @Inject
     private CoordenadorDao coordenadorDao;
     @Inject
@@ -39,23 +40,27 @@ public class ControladorCRUDCoord implements Serializable{
     private String selectCurso;
     private boolean editando = false;
     private Coordenador coordAntesDeEditar = new Coordenador();
-    
-    public String excluirCoordenador(Coordenador coord){
+
+    public String excluirCoordenador(Coordenador coord) {
         coordenadorDao.remover(coord);
         return null;
     }
-    
-    public String cadastrarCoordenador(){
+
+    public String cadastrarCoordenador() {
         Curso curso = cursoDao.retornarPorNome(selectCurso);
         if (coordenadorDao.verificarEmail(coordenador.getEmail())) {
             FacesMessage msg = new FacesMessage("Ja existe um coordenador cadastrado com esse email");
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext.getCurrentInstance().addMessage("Cadastro", msg);
-        }else if(curso.getCoordenador() != null){
+        } else if (curso.getCoordenador() != null) {
             FacesMessage msg = new FacesMessage("O curso já tem coordenador, exclua-o primeiro");
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext.getCurrentInstance().addMessage("Cadastro", msg);
-        }else{
+        } else if (!areQualifiedDates(coordenador.getInicioMandato(), coordenador.getFimMandato())) {
+            FacesMessage msg = new FacesMessage("A data de inicio do mandato é maior que a de fim");
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage("Cadastro", msg);
+        } else {
             coordenador.setRegime(Enum.valueOf(Regime.class, regime));
             coordenador.setVinculo(Enum.valueOf(Vinculo.class, vinculo));
             coordenador.setUnidade(Enum.valueOf(Unidade.class, unidade));
@@ -68,48 +73,56 @@ public class ControladorCRUDCoord implements Serializable{
         }
         return null;
     }
-    
+
+    public boolean areQualifiedDates(LocalDate inicioMandato, LocalDate fimMandato) {
+        return inicioMandato.isBefore(fimMandato);
+    }
+
     public String editarCoordenador(Coordenador coord) {
         editando = true;
         coordenador = coord;
         selectCurso = coord.getCurso().getInfo().getDescricao();
         coordAntesDeEditar = coord;
-        
+
         return null;
     }
-    
-    
+
     public String atualizarCoordenador() {
         editando = false;
-        
-        Curso curso = cursoDao.retornarPorNome(selectCurso);       
+
+        Curso curso = cursoDao.retornarPorNome(selectCurso);
         Curso cursoAntigo = coordAntesDeEditar.getCurso();
         if (coordenadorDao.verificarEmail(coordenador.getEmail()) && !coordenador.getEmail().equals(coordAntesDeEditar.getEmail())) {
-            
+
             FacesMessage msg = new FacesMessage("Ja existe um coordenador cadastrado com esse email");
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext.getCurrentInstance().addMessage("Atualizar", msg);
-            
-        }else if(curso.getCoordenador() != null 
-                && !curso.getCoordenador().getEmail().equals(coordAntesDeEditar.getEmail())){
-            
+
+        } else if (curso.getCoordenador() != null
+                && !curso.getCoordenador().getEmail().equals(coordAntesDeEditar.getEmail())) {
+
             FacesMessage msg = new FacesMessage("O curso já tem coordenador, exclua-o primeiro para proseguir");
             msg.setSeverity(FacesMessage.SEVERITY_INFO);
             FacesContext.getCurrentInstance().addMessage("Atualizar", msg);
-            
-        }else{
+
+        } else if (!areQualifiedDates(coordAntesDeEditar.getInicioMandato(), coordAntesDeEditar.getFimMandato())) {
+            FacesMessage msg = new FacesMessage("A data de inicio do mandato é maior que a de fim");
+            msg.setSeverity(FacesMessage.SEVERITY_INFO);
+            FacesContext.getCurrentInstance().addMessage("Cadastro", msg);
+
+        } else {
             //RETIRANDO O COORDENADOR DO CURSO ANTIGO, CASO UM NOVO CURSO TENHA SIDO ESCOLHIDO
-            if(cursoAntigo != curso){
+            if (cursoAntigo != curso) {
                 cursoAntigo.setCoordenador(null);
                 cursoDao.atualizar(cursoAntigo);
             }
-            
+
             coordenador.setRegime(Enum.valueOf(Regime.class, regime));
             coordenador.setVinculo(Enum.valueOf(Vinculo.class, vinculo));
             coordenador.setUnidade(Enum.valueOf(Unidade.class, unidade));
             coordenador.setCurso(curso);
             curso.setCoordenador(coordenador);
-            
+
             cursoDao.atualizar(curso);
 
             //LIMPANDO INSTÂNCIAS PARA PRÓXIMOS USOS NA SESSÃO
@@ -119,22 +132,24 @@ public class ControladorCRUDCoord implements Serializable{
         }
         return null;
     }
-    
-    public List<Coordenador> listarTodos(){
+
+    public List<Coordenador> listarTodos() {
         return coordenadorDao.listarTodos();
     }
 
-    public List<String> getCursosNomes(){
+    public List<String> getCursosNomes() {
         return cursoDao.listarNomeCursos();
     }
-    
-    public List<String> getRegimes(){
+
+    public List<String> getRegimes() {
         return Arrays.asList("DE", "T40");
     }
-    public List<String> getVinculos(){
+
+    public List<String> getVinculos() {
         return Arrays.asList("Efetivo", "Substituto");
     }
-    public List<String> getUnidades(){
+
+    public List<String> getUnidades() {
         return Arrays.asList("UFGP", "UNIND", "UNINFO");
     }
 
@@ -185,7 +200,5 @@ public class ControladorCRUDCoord implements Serializable{
     public void setSelectCurso(String selectCurso) {
         this.selectCurso = selectCurso;
     }
-    
-    
-    
+
 }
