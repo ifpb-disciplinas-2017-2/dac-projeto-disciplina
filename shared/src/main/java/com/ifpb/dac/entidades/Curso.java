@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @SequenceGenerator(name = "minha_seq_curso",
@@ -107,6 +110,11 @@ public class Curso implements Serializable {
 
     public void setCoordenador(Coordenador coordenador) {
         this.coordenador = coordenador;
+    }
+
+    @Override
+    public String toString() {
+        return "Curso{" + "codigo_curso=" + codigo_curso + ", info=" + info + ", periodo=" + periodo + ", unidade=" + unidade + ", aulas=" + aulas + ", turmas=" + turmas + ", coordenador=" + coordenador + '}';
     }
 
     

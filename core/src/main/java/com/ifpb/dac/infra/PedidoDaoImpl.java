@@ -4,8 +4,10 @@ package com.ifpb.dac.infra;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.PedidoDao;
+import com.ifpb.dac.interfaces.PedidoDaoLocal;
 import java.util.List;
 import java.util.Optional;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,7 +20,8 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 @Remote(PedidoDao.class)
-public class PedidoDaoImpl implements PedidoDao {
+@Local(PedidoDaoLocal.class)
+public class PedidoDaoImpl implements PedidoDao,PedidoDaoLocal {
 
     @PersistenceContext
     private EntityManager em;

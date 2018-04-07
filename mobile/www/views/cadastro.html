@@ -1,0 +1,42 @@
+<ion-view ng-controller="cadastroCtrl">
+    <ion-content padding="true">
+            <div class="row">
+                <img src="../img/sicad.png" width="100"/><h4>Cadastro</h4>    
+            </div>
+            <br>
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Nome</span>
+                    <input type="text" placeholder="Digite seu nome" ng-model="aluno.nome" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">E-mail</span>
+                    <input type="text" placeholder="john@gmail.com" ng-model="aluno.email" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Senha</span>
+                    <input type="password" placeholder="Digite sua senha" ng-model="aluno.senha" required>
+                </label>
+                <label class="item item-input item-select">
+                        <div class="input-label">
+                          Curso
+                        </div>
+                        <select ng-model="aluno.curso.codigo_curso">
+                            <option value="" disabled>Selecione um curso</option>
+                            <option ng-repeat="curso in cursos" value="{{curso.id}}">
+                                {{curso.info.descricao}}
+                            </option>
+                        </select>
+                </label>    
+            </div>
+            <div class="row">
+                <button ng-click="cadastrar()" class="button button-block button-positive">
+                    Enviar cadastro
+                </button>
+            </div>
+                
+                
+            
+
+    </ion-content>  
+</ion-view>

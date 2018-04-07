@@ -4,6 +4,7 @@ package com.ifpb.dac.entidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -114,5 +118,10 @@ public class Aluno implements Serializable {
     public void setLogado(boolean logado) {
         this.logado = logado;
     }    
+
+    @Override
+    public String toString() {
+        return "Aluno{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", logado=" + logado + ", turmas=" + turmas + ", curso=" + curso + '}';
+    }
     
 }

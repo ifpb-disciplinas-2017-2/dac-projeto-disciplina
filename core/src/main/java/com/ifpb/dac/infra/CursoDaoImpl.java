@@ -2,8 +2,11 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Curso;
 import com.ifpb.dac.interfaces.CursoDao;
+import com.ifpb.dac.interfaces.CursoDaoLocal;
+import com.ifpb.dac.rs.model.CursoRest;
 import java.util.List;
 import java.util.Optional;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,7 +15,8 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(CursoDao.class)
-public class CursoDaoImpl implements CursoDao {
+@Local(CursoDaoLocal.class)
+public class CursoDaoImpl implements CursoDao,CursoDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -60,6 +64,12 @@ public class CursoDaoImpl implements CursoDao {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<CursoRest> listCursos() {
+        return em.createQuery("SELECT new com.ifpb.dac.rs.model.CursoRest(c.codigo_curso, c.info) FROM Curso c", 
+                CursoRest.class).getResultList();
     }
 
 }
