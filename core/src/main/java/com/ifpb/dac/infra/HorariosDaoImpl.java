@@ -2,7 +2,9 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.HorariosDTO;
 import com.ifpb.dac.interfaces.HorariosDao;
+import com.ifpb.dac.interfaces.HorariosDaoLocal;
 import java.util.List;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,7 +17,8 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 @Remote(HorariosDao.class)
-public class HorariosDaoImpl implements HorariosDao {
+@Local(HorariosDaoLocal.class)
+public class HorariosDaoImpl implements HorariosDao,HorariosDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -23,7 +26,7 @@ public class HorariosDaoImpl implements HorariosDao {
     @Override
     public List<HorariosDTO> listarHorarioSala(String sala) {
         String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
-                + "d.descricao, h.inicio, h.fim, p.nome) "
+                + "d.abreviacao, h.inicio, h.fim, p.nome) "
                 + "FROM Aula a JOIN a.horario h "
                 + "JOIN a.sala s "
                 + "JOIN a.disciplina d "
@@ -40,7 +43,7 @@ public class HorariosDaoImpl implements HorariosDao {
     @Override
     public List<HorariosDTO> listarHorarioLab(String local) {
         String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
-                + "d.descricao, h.inicio, h.fim, p.nome) "
+                + "d.abreviacao, h.inicio, h.fim, p.nome) "
                 + "FROM Aula a JOIN a.horario h "
                 + "JOIN a.laboratorio l "
                 + "JOIN a.disciplina d "
@@ -57,7 +60,7 @@ public class HorariosDaoImpl implements HorariosDao {
     @Override
     public List<HorariosDTO> listarHorarioProf(String professor) {
         String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
-                + "d.descricao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
+                + "d.abreviacao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
                 + "FROM Aula a "
                 + "JOIN a.horario h "
                 + "JOIN a.laboratorio l "
@@ -76,7 +79,7 @@ public class HorariosDaoImpl implements HorariosDao {
     @Override
     public List<HorariosDTO> listarHorarioCurso(String curso, String disciplina) {
         String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
-                + "d.descricao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
+                + "d.abreviacao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
                 + "FROM Aula a "
                 + "JOIN a.horario h "
                 + "JOIN a.laboratorio l "
@@ -97,7 +100,7 @@ public class HorariosDaoImpl implements HorariosDao {
     @Override
     public List<HorariosDTO> listarHorarioTurma(String disciplina, String professor) {
         String sql = "SELECT new com.ifpb.dac.entidades.HorariosDTO(a.dia, "
-                + "d.descricao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
+                + "d.abreviacao, h.inicio, h.fim, p.nome, l.descricao, s.descricao) "
                 + "FROM Aula a "
                 + "JOIN a.horario h "
                 + "JOIN a.laboratorio l "

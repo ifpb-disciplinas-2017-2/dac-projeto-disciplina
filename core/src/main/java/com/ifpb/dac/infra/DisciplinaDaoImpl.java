@@ -2,7 +2,9 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Disciplina;
 import com.ifpb.dac.interfaces.DisciplinaDao;
+import com.ifpb.dac.interfaces.DisciplinaDaoLocal;
 import java.util.List;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,7 +13,8 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(DisciplinaDao.class)
-public class DisciplinaDaoImpl implements DisciplinaDao {
+@Local(DisciplinaDaoLocal.class)
+public class DisciplinaDaoImpl implements DisciplinaDao,DisciplinaDaoLocal {
 
     @PersistenceContext
     private EntityManager em;

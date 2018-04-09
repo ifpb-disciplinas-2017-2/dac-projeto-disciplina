@@ -1,0 +1,45 @@
+<ion-view ng-controller="horarioSalaCtrl">
+    <ion-content padding="true">
+      <div>
+          <center><h4>Horários sala</h4></center>
+          <label class="item item-input item-select">
+              <div class="input-label">
+                Sala
+              </div>
+              <select ng-model="sala" ng-change="buscar(sala)">
+                <option value="" disabled selected>Selecione a sala</option>
+                <option ng-repeat="sala in salas">{{sala}}</option>
+              </select>
+          </label>
+      </div>
+      <div class="row">
+        <button class="button button-small button-stable" ng-click="filtroDia = 'SEGUNDA-FEIRA'"
+        ng-class="{'active': filtroDia == 'SEGUNDA-FEIRA'}">
+            SEGUNDA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'TERÇA-FEIRA'"
+        ng-class="{'active': filtroDia == 'TERÇA-FEIRA'}">
+            TERÇA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'QUARTA-FEIRA'"
+        ng-class="{'active': filtroDia == 'QUARTA-FEIRA'}">
+            QUARTA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'QUINTA-FEIRA'"
+        ng-class="{'active': filtroDia == 'QUINTA-FEIRA'}">
+            QUINTA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'SEXTA-FEIRA'"
+        ng-class="{'active': filtroDia == 'SEXTA-FEIRA'}">
+            SEXTA
+        </button>
+      </div>  
+      <ion-list>
+          <ion-item ng-repeat="item in horario | filter : filtroDia">
+              {{item.valorInicio}} - {{item.valorFim}}<br>
+              {{item.descricao}} <br>
+              {{item.nome}}
+          </ion-item>
+        </ion-list>
+    </ion-content>
+  </ion-view>

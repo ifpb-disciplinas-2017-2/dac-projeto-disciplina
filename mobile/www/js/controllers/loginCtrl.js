@@ -1,4 +1,5 @@
 angular.module('app').controller('loginCtrl',function($scope,alunoAPI,$ionicPopup,$state){
+    $scope.usuario = {};
     $scope.logar = function(usuario){
         alunoAPI.login(usuario.email,usuario.senha).then(function(response){
             //SALVANDO DADOS DO USUÁRIO NO LOCALSTORAGE PARA USAR NO HEADERS DE OUTRAS REQUISIÇÕES
@@ -12,7 +13,7 @@ angular.module('app').controller('loginCtrl',function($scope,alunoAPI,$ionicPopu
             }else if(response.status === 401){
                 showAlert('Pedido enviado','Aguarde o coordenador liberar seu acesso');    
             }else{
-                showAlert('Erro','Não foi possível realizar login!'+response.status);    
+                showAlert('Erro','Não foi possível realizar login!');    
             }
         });
     };

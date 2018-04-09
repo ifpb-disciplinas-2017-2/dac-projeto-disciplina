@@ -22,7 +22,7 @@
                           Curso
                         </div>
                         <select ng-model="aluno.curso.codigo_curso">
-                            <option value="" disabled>Selecione um curso</option>
+                            <option value="" disabled selected>Selecione um curso</option>
                             <option ng-repeat="curso in cursos" value="{{curso.id}}">
                                 {{curso.info.descricao}}
                             </option>

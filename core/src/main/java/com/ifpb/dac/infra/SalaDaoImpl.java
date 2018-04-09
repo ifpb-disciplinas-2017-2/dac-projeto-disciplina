@@ -2,7 +2,9 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Sala;
 import com.ifpb.dac.interfaces.SalaDao;
+import com.ifpb.dac.interfaces.SalaDaoLocal;
 import java.util.List;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,7 +13,8 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(SalaDao.class)
-public class SalaDaoImpl implements SalaDao {
+@Local(SalaDaoLocal.class)
+public class SalaDaoImpl implements SalaDao,SalaDaoLocal {
 
     @PersistenceContext
     private EntityManager em;

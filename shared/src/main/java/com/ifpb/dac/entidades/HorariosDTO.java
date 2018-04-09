@@ -102,7 +102,7 @@ public class HorariosDTO implements Serializable {
     }
     
     public String retornaHora(Calendar hora){
-        SimpleDateFormat parse = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat parse = new SimpleDateFormat("HH:mm");
         return parse.format(hora.getTime());
     }
 
@@ -123,11 +123,15 @@ public class HorariosDTO implements Serializable {
     }
 
     public String getLocal() {
-        if(descricaoSala.equals("X")){
-            return descricaoLab;
-        } else {
-            return descricaoSala;
+        //ESSA VERIFICAÇÃO DE NULL É NECESSÁRIA PARA PODER NÃO DÁ NULLPOINTER QUANDO O MESSAGEBODYWRITER FOR ESCREVER PARA JSON
+        if(descricaoSala != null){
+            if(descricaoSala.equals("X")){
+                return descricaoLab;
+            } else {
+                return descricaoSala;
+            }
         }
+        return null;
     }
 
     public void setLocal(String local) {
