@@ -40,28 +40,28 @@
                             class="item-menu col-sm-12 col-md-3"
                             value="Horarios Turma" />
 
-                    
+
                     <h:link outcome="coordenador/gerenciarAcesso.xhtml"
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'coord'}"
                             value="Gerenciar Acesso" />
-                    
+
                     <h:link outcome="coordenador/gerenciarProfessor.xhtml"
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'coord'}"
                             value="Gerenciar professor" />
-                    
+
                     <h:link outcome="coordenador/gerenciarDisciplina.xhtml"
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'coord'}"
                             value="Gerenciar Disciplinas" />
-                    
+
                     <h:link outcome="coordenador/gerenciarTurma.xhtml"
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'coord'}"
                             value="Gerenciar turmas" />
-                    
-                    
+
+
                     <h:link outcome="professor/adicionarAtividade.xhtml"
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'prof'}"
@@ -86,10 +86,15 @@
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'prof'}"
                             value="Responder Dúvidas" />
-                    
-                    
-                    
-                    
+
+                    <h:link outcome="professor/enviarMensagemProfessor.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Enviar Mensagens" />
+
+
+
+
                     <h:link outcome="aluno/cadastroTurma.xhtml"
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'aluno'}"
@@ -110,9 +115,14 @@
                             rendered="#{controladorMenu.credenciais eq 'aluno'}"
                             value="Cadastrar Dúvidas" />
 
-                    
+                    <h:link outcome="aluno/enviarMensagem.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Enviar Mensagens" />
 
-                    
+
+
+
                 </div> <!-- .col-md-12 -->    
             </div> <!-- .row -->
             <div class="row text-center">
