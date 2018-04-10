@@ -1,4 +1,4 @@
-package com.ifpb.dac.resources;
+package com.ifpb.dac.rs.resources;
 
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Curso;
@@ -9,9 +9,14 @@ import com.ifpb.dac.interfaces.AlunoDaoLocal;
 import com.ifpb.dac.interfaces.CursoDaoLocal;
 import com.ifpb.dac.interfaces.PedidoDaoLocal;
 import com.ifpb.dac.rs.model.AlunoRest;
+import com.ifpb.dac.rs.security.Token;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -36,13 +41,8 @@ public class AlunoResource {
     private CursoDaoLocal cursoDao;
     @Inject
     private PedidoDaoLocal pedidoDao;
-    
-//    @GET
-//    public Response listarTodos(){
-//        List<Aluno> alunos = alunoDao.listarTodos();
-//        GenericEntity<List<Aluno>> entity = new GenericEntity<List<Aluno>>(alunos) {};
-//        return Response.ok().entity(entity).build();
-//    }
+    @Inject
+    private Token token;
     
     @POST
     public Response cadastro(Aluno aluno){
@@ -78,12 +78,10 @@ public class AlunoResource {
             }else{
                 System.out.println(autenticado.toString());
                     if(autenticado.isLogado()){    
-                    //USUÁRIO EXISTE E POSSUI PERMISSÃO PARA LOGAR: STATUS 200
-                    //GenericEntity<Aluno> entity = new GenericEntity<Aluno>(autenticado){};
-//                        Aluno aluno = new Aluno();
-//                        aluno.setNome("Oi");
-//                        aluno.setEmail("ola@gmail.com");
-                        return Response.ok().entity(autenticado).build();
+                        //USUÁRIO EXISTE E POSSUI PERMISSÃO PARA LOGAR: STATUS 200
+                        String tokenString = token.create(autenticado.getEmail(), 3);
+                        JsonObject entity = Json.createObjectBuilder().add("token", tokenString).build();
+                        return Response.ok().entity(entity).build();
                     }else{
                         //USUÁRIO EXISTE, MAS AINDA NÃO TEM PERMISSÃO PARA LOGAR: STATUS 401
                         Pedido p = pedidoDao.buscarPorCredenciais(email,senha);

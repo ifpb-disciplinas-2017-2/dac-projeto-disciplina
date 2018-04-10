@@ -3,18 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ifpb.dac.resources;
+package com.ifpb.dac.interfaces;
 
-import java.util.Set;
-import javax.ws.rs.core.Application;
+import java.util.List;
 
 /**
  *
  * @author lyndemberg
  */
-@javax.ws.rs.ApplicationPath("api")
-public class ApplicationConfig extends Application {
-    
-   
-    
+public interface DisciplinaDaoLocal {
+    List<String> listarDisciplinaCurso(String curso);
 }
