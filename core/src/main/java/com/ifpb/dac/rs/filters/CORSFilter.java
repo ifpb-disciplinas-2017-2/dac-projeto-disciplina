@@ -11,6 +11,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 
 /**
@@ -21,7 +22,7 @@ import javax.ws.rs.ext.Provider;
 public class CORSFilter implements ContainerResponseFilter{
 public static final String ALLOWED_METHODS = "GET, POST, PUT, DELETE, OPTIONS, HEAD";
     public final static int MAX_AGE = 42 * 60 * 60;
-    public final static String DEFAULT_ALLOWED_HEADERS = "origin,accept,content-type";
+    public final static String DEFAULT_ALLOWED_HEADERS = "origin,accept,content-type,authorization";
     public final static String DEFAULT_EXPOSED_HEADERS = "location,info";
 
     @Override
@@ -40,7 +41,7 @@ public static final String ALLOWED_METHODS = "GET, POST, PUT, DELETE, OPTIONS, H
         List<String> headers = responseContext.getHeaders().get("Access-Control-Allow-Headers");
         return createHeaderList(headers, DEFAULT_ALLOWED_HEADERS);
     }
-
+    
     String getRequestedExposedHeaders(ContainerRequestContext responseContext) {
         List<String> headers = responseContext.getHeaders().get("Access-Control-Expose-Headers");
         return createHeaderList(headers, DEFAULT_EXPOSED_HEADERS);

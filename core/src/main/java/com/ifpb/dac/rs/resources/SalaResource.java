@@ -1,20 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.ifpb.dac.resources;
+package com.ifpb.dac.rs.resources;
 
-import com.ifpb.dac.interfaces.LaboratorioDaoLocal;
+import com.ifpb.dac.entidades.Curso;
+import com.ifpb.dac.interfaces.CursoDaoLocal;
+import com.ifpb.dac.interfaces.SalaDaoLocal;
+import com.ifpb.dac.rs.model.CursoRest;
+import com.ifpb.dac.rs.security.Secure;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collector;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -22,16 +26,17 @@ import javax.ws.rs.core.Response;
  *
  * @author lyndemberg
  */
-@Path("laboratorio")
+@Path("sala")
 @Stateless
 @Produces({MediaType.APPLICATION_JSON})
-public class LaboratorioResource {
+public class SalaResource {
     @Inject
-    private LaboratorioDaoLocal labDao;
+    private SalaDaoLocal salaDao;
     
     @GET
+    @Secure
     public Response listarNomeSalas(){
-        List<String> listaNomes = labDao.listarNomeLaboratorios();
+        List<String> listaNomes = salaDao.listarNomeSalas();
         JsonArray collect = listaNomes
                 .stream()
                 .collect(Collector.of(Json::createArrayBuilder,
@@ -39,5 +44,8 @@ public class LaboratorioResource {
                         (x, y) -> x.add(y)))
                 .build();
         return Response.ok().entity(collect).build();
+        
     }
+    
+    
 }

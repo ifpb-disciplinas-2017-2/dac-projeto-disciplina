@@ -1,6 +1,12 @@
-package com.ifpb.dac.resources;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.ifpb.dac.rs.resources;
 
-import com.ifpb.dac.interfaces.ProfessorDaoLocal;
+import com.ifpb.dac.interfaces.LaboratorioDaoLocal;
+import com.ifpb.dac.rs.security.Secure;
 import java.util.List;
 import java.util.stream.Collector;
 import javax.ejb.Stateless;
@@ -17,16 +23,17 @@ import javax.ws.rs.core.Response;
  *
  * @author lyndemberg
  */
-@Path("professor")
+@Path("laboratorio")
 @Stateless
 @Produces({MediaType.APPLICATION_JSON})
-public class ProfessorResource {
+public class LaboratorioResource {
     @Inject
-    private ProfessorDaoLocal professorDao;
+    private LaboratorioDaoLocal labDao;
     
     @GET
-    public Response listarNomesProfessores(){
-        List<String> listaNomes = professorDao.listarNomeProfessores();
+    @Secure
+    public Response listarNomeSalas(){
+        List<String> listaNomes = labDao.listarNomeLaboratorios();
         JsonArray collect = listaNomes
                 .stream()
                 .collect(Collector.of(Json::createArrayBuilder,
@@ -34,6 +41,5 @@ public class ProfessorResource {
                         (x, y) -> x.add(y)))
                 .build();
         return Response.ok().entity(collect).build();
-        
     }
 }

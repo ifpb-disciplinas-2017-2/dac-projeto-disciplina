@@ -1,9 +1,10 @@
-package com.ifpb.dac.resources;
+package com.ifpb.dac.rs.resources;
 
 import com.ifpb.dac.entidades.Curso;
 import com.ifpb.dac.interfaces.CursoDaoLocal;
 import com.ifpb.dac.interfaces.DisciplinaDaoLocal;
 import com.ifpb.dac.rs.model.CursoRest;
+import com.ifpb.dac.rs.security.Secure;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,25 +36,15 @@ public class CursoResource {
     @Inject
     private DisciplinaDaoLocal disciplinaDao;
     
-//    @GET
-//    public Response listarNomesCursos(){
-//        List<String> listaNomes = cursoDao.listarNomeCursos();
-//        JsonArray collect = listaNomes
-//                .stream()
-//                .collect(Collector.of(Json::createArrayBuilder,
-//                        (t, u) -> t.add(u),
-//                        (x, y) -> x.add(y)))
-//                .build();
-//        return Response.ok().entity(collect).build();
-//        
-//    }
     @GET
     public Response listarCursos(){ 
         List<CursoRest> listCursos = cursoDao.listCursos();
         GenericEntity<List<CursoRest>> entity = new GenericEntity<List<CursoRest>>(listCursos){};
         return Response.ok().entity(entity).build();
     }
+    
     @GET
+    @Secure
     @Path("{nome}/disciplinas")
     public Response listarDisciplinasCurso(@PathParam("nome") String curso){
         List<String> disciplinas = disciplinaDao.listarDisciplinaCurso(curso);
