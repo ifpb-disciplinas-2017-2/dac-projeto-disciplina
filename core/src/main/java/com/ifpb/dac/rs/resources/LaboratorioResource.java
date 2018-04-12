@@ -5,7 +5,7 @@
  */
 package com.ifpb.dac.rs.resources;
 
-import com.ifpb.dac.interfaces.LaboratorioDaoLocal;
+import com.ifpb.dac.rs.interfaces.LaboratorioDaoLocal;
 import com.ifpb.dac.rs.security.Secure;
 import java.util.List;
 import java.util.stream.Collector;

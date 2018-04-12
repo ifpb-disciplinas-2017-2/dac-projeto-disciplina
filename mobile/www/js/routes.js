@@ -38,7 +38,7 @@ angular.module('app').config(function($stateProvider,$urlRouterProvider){
         }
     })
     .state('home.horarioProf', {
-        url: '/horarioProf',
+        url: '/horarioProf/:disciplina/:professor',
         views : {
             'conteudo':{
                 templateUrl: 'views/horarioProf.html'
@@ -50,6 +50,30 @@ angular.module('app').config(function($stateProvider,$urlRouterProvider){
         views : {
             'conteudo':{
                 templateUrl: 'views/horarioCurso.html'
+            }
+        }
+    })
+    .state('home.horarioTurma', {
+        url: '/horarioTurma/:disciplina/:professor',
+        views : {
+            'conteudo':{
+                templateUrl: 'views/horarioTurma.html'
+            }
+        }
+    })
+    .state('home.turmas', {
+        url: '/turmas',
+        views : {
+            'conteudo':{
+                templateUrl: 'views/turmas.html'
+            }
+        }
+    })
+    .state('home.cadastroTurma', {
+        url: '/cadastroTurma',
+        views : {
+            'conteudo':{
+                templateUrl: 'views/cadastroTurma.html'
             }
         }
     })

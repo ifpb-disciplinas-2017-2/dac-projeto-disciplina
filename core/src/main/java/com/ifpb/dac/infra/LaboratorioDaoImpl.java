@@ -2,7 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Laboratorio;
 import com.ifpb.dac.interfaces.LaboratorioDao;
-import com.ifpb.dac.interfaces.LaboratorioDaoLocal;
+import com.ifpb.dac.rs.interfaces.LaboratorioDaoLocal;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;

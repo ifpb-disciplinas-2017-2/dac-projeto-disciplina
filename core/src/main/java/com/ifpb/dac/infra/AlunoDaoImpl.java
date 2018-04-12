@@ -3,9 +3,10 @@ package com.ifpb.dac.infra;
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Info;
 import com.ifpb.dac.interfaces.AlunoDao;
-import com.ifpb.dac.interfaces.AlunoDaoLocal;
+import com.ifpb.dac.rs.interfaces.AlunoDaoLocal;
 import com.ifpb.dac.rs.model.AlunoRest;
 import com.ifpb.dac.rs.model.CursoRest;
+import com.ifpb.dac.rs.model.TurmaRest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -113,7 +114,6 @@ public class AlunoDaoImpl implements AlunoDao, AlunoDaoLocal {
         Root<Aluno> root = criteria.from(Aluno.class);
         criteria.multiselect(root.get("id"), root.get("nome"),
                 root.get("email"),
-                root.get("senha"),
                 root.get("logado"),
                 root.get("curso").get("codigo_curso"),
                 root.get("curso").get("info"));
@@ -124,15 +124,14 @@ public class AlunoDaoImpl implements AlunoDao, AlunoDaoLocal {
         List<Tuple> result = query.getResultList();
         if (!result.isEmpty()) {
             for (Tuple tupla : result) {
-                Integer codigo_curso = tupla.get(5, Integer.class);
-                Info info = tupla.get(6, Info.class);
+                Integer codigo_curso = tupla.get(4, Integer.class);
+                Info info = tupla.get(5, Info.class);
                 CursoRest curso = new CursoRest(codigo_curso, info);
                 Integer id = tupla.get(0, Integer.class);
                 String nome = tupla.get(1, String.class);
                 String emailRetornado = tupla.get(2, String.class);
-                String senhaRetornada = tupla.get(3, String.class);
-                Boolean logado = tupla.get(4, Boolean.class);
-                aluno = new AlunoRest(id, nome, emailRetornado, senhaRetornada, logado, curso);
+                Boolean logado = tupla.get(3, Boolean.class);
+                aluno = new AlunoRest(id, nome, emailRetornado, logado, curso);
             }
         }
         return aluno;
@@ -146,7 +145,6 @@ public class AlunoDaoImpl implements AlunoDao, AlunoDaoLocal {
         Root<Aluno> root = criteria.from(Aluno.class);
         criteria.multiselect(root.get("id"), root.get("nome"),
                 root.get("email"),
-                root.get("senha"),
                 root.get("logado"),
                 root.get("curso").get("codigo_curso"),
                 root.get("curso").get("info"));
@@ -156,18 +154,37 @@ public class AlunoDaoImpl implements AlunoDao, AlunoDaoLocal {
         List<Tuple> result = query.getResultList();
         if (!result.isEmpty()) {
             for (Tuple tupla : result) {
-                Integer codigo_curso = tupla.get(5, Integer.class);
-                Info info = tupla.get(6, Info.class);
+                Integer codigo_curso = tupla.get(4, Integer.class);
+                Info info = tupla.get(5, Info.class);
                 CursoRest curso = new CursoRest(codigo_curso, info);
                 Integer idRetornado = tupla.get(0, Integer.class);
                 String nome = tupla.get(1, String.class);
                 String emailRetornado = tupla.get(2, String.class);
-                String senhaRetornada = tupla.get(3, String.class);
-                Boolean logado = tupla.get(4, Boolean.class);
-                aluno = new AlunoRest(id, nome, emailRetornado, senhaRetornada, logado, curso);
+                Boolean logado = tupla.get(3, Boolean.class);
+                aluno = new AlunoRest(id, nome, emailRetornado, logado, curso);
             }
         }
         return aluno;
+    }
+
+    @Override
+    public Aluno buscarPorEmail(String email) {
+        TypedQuery<Aluno> createQuery = em.createQuery("SELECT a FROM "
+                + "Aluno a WHERE a.email =:email", Aluno.class);
+        createQuery.setParameter("email", email);
+        Optional<Aluno> findFirst = createQuery.getResultList().stream().findFirst();
+        if (findFirst.isPresent()) {
+            return findFirst.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<TurmaRest> listTurmasRestAluno(int idAluno) {
+        TypedQuery<TurmaRest> createQuery = em.createQuery("SELECT NEW com.ifpb.dac.rs.model.TurmaRest(t.codigo_turma,t.identificacao,t.nome_disciplina,t.professor.nome) FROM Aluno a, IN (a.turmas) t WHERE a.id =:id", TurmaRest.class);
+        createQuery.setParameter("id", idAluno);
+        return createQuery.getResultList();
     }
 
 }

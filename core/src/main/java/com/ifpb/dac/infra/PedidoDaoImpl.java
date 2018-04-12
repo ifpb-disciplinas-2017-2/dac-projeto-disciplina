@@ -4,7 +4,7 @@ package com.ifpb.dac.infra;
 import com.ifpb.dac.entidades.Pedido;
 import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.PedidoDao;
-import com.ifpb.dac.interfaces.PedidoDaoLocal;
+import com.ifpb.dac.rs.interfaces.PedidoDaoLocal;
 import java.util.List;
 import java.util.Optional;
 import javax.ejb.Local;

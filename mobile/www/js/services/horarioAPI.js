@@ -12,11 +12,15 @@ angular.module("app").factory("horarioAPI", function($http, constants){
     var _getHorarioCurso = function(curso,disciplina){
         return $http.get(constants.baseUrl + "/horarios/"+curso+"/"+disciplina);
     };
+    var _getHorarioTurma = function(disciplina, professor){
+        return $http.get(constants.baseUrl + "/horarios/turma/"+disciplina+"/"+professor);
+    };
     
     return {
         getHorarioSala : _getHorarioSala,
         getHorarioLaboratorio : _getHorarioLaboratorio,
         getHorarioProfessor : _getHorarioProfessor,
-        getHorarioCurso : _getHorarioCurso
+        getHorarioCurso : _getHorarioCurso,
+        getHorarioTurma : _getHorarioTurma
     };
 });

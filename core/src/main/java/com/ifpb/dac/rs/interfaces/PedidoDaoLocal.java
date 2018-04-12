@@ -1,4 +1,4 @@
-package com.ifpb.dac.interfaces;
+package com.ifpb.dac.rs.interfaces;
 
 import com.ifpb.dac.entidades.Pedido;
 

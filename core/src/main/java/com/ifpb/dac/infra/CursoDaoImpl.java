@@ -2,7 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Curso;
 import com.ifpb.dac.interfaces.CursoDao;
-import com.ifpb.dac.interfaces.CursoDaoLocal;
+import com.ifpb.dac.rs.interfaces.CursoDaoLocal;
 import com.ifpb.dac.rs.model.CursoRest;
 import java.util.List;
 import java.util.Optional;

@@ -10,10 +10,10 @@ public class AlunoRest implements Serializable{
     private int id;
     private String nome;
     private String email;
-    private String senha;
     private boolean logado;
     private CursoRest curso;
-
+    private String token;
+    
     public AlunoRest() {
     }
 
@@ -25,11 +25,10 @@ public class AlunoRest implements Serializable{
         this.id = id;
     }
 
-    public AlunoRest(int id, String nome, String email, String senha, boolean logado, CursoRest curso) {
+    public AlunoRest(int id, String nome, String email, boolean logado, CursoRest curso) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
         this.logado = logado;
         this.curso = curso;
     }
@@ -50,14 +49,6 @@ public class AlunoRest implements Serializable{
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public boolean isLogado() {
         return logado;
     }
@@ -72,6 +63,14 @@ public class AlunoRest implements Serializable{
 
     public void setCurso(CursoRest curso) {
         this.curso = curso;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
     
 }

@@ -2,7 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.HorariosDTO;
 import com.ifpb.dac.interfaces.HorariosDao;
-import com.ifpb.dac.interfaces.HorariosDaoLocal;
+import com.ifpb.dac.rs.interfaces.HorariosDaoLocal;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;

@@ -1,9 +1,9 @@
 angular.module("app").factory("authorizationInterceptor", function($location,$q){
     return {
         request : function(config){
-            var authorization = angular.fromJson(localStorage.getItem("authorization"));
-            if(authorization != null){
-                config.headers.AUTHORIZATION = 'Bearer ' + authorization.token;
+            var usuario = angular.fromJson(localStorage.getItem("usuario"));
+            if(usuario != null){
+                config.headers.AUTHORIZATION = 'Bearer ' + usuario.token;
             }else{
                 config.headers.AUTHORIZATION = 'Bearer ';
             }

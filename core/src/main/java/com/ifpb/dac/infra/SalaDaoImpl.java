@@ -2,7 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Sala;
 import com.ifpb.dac.interfaces.SalaDao;
-import com.ifpb.dac.interfaces.SalaDaoLocal;
+import com.ifpb.dac.rs.interfaces.SalaDaoLocal;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;

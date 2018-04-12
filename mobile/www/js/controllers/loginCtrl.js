@@ -2,8 +2,8 @@ angular.module('app').controller('loginCtrl',function($scope,alunoAPI,$ionicPopu
     $scope.usuario = {};
     $scope.logar = function(usuario){
         alunoAPI.login(usuario.email,usuario.senha).then(function(response){
-            //SALVANDO TOKEN NO LOCALSTORAGE PARA USAR NO HEADERS DE OUTRAS REQUISIÇÕES
-            localStorage.setItem("authorization",angular.toJson(response.data));
+            //SALVANDO USUÁRIO E TOKEN NO LOCALSTORAGE PARA USAR NO HEADERS DE OUTRAS REQUISIÇÕES
+            localStorage.setItem("usuario",angular.toJson(response.data));
             $state.go('home.principal');
         },function(response){
             if(response.status === 403){

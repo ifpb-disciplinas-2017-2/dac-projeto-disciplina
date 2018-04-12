@@ -24,7 +24,7 @@ public class Token {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS512;
 
         LocalDateTime agora = LocalDateTime.now();
-        LocalDateTime agoraComHoras = agora.plusMinutes(horas);
+        LocalDateTime agoraComHoras = agora.plusHours(horas);
         Date horaGeracao = convertLocalDateTimeToDate(agora);
         Date horaExpiracao = convertLocalDateTimeToDate(agoraComHoras);
         

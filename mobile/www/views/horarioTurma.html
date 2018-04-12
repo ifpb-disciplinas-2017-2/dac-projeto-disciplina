@@ -1,0 +1,36 @@
+<ion-view ng-controller="horarioTurmaCtrl">
+    <ion-content padding="true">
+        <center><h4>Horário turma</h4></center>
+
+      <div class="row">
+        <button class="button button-small button-stable" ng-click="filtroDia = 'SEGUNDA-FEIRA'"
+        ng-class="{'active': filtroDia == 'SEGUNDA-FEIRA'}">
+            SEGUNDA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'TERÇA-FEIRA'"
+        ng-class="{'active': filtroDia == 'TERÇA-FEIRA'}">
+            TERÇA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'QUARTA-FEIRA'"
+        ng-class="{'active': filtroDia == 'QUARTA-FEIRA'}">
+            QUARTA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'QUINTA-FEIRA'"
+        ng-class="{'active': filtroDia == 'QUINTA-FEIRA'}">
+            QUINTA
+        </button>
+        <button class="button button-small button-stable" ng-click="filtroDia = 'SEXTA-FEIRA'"
+        ng-class="{'active': filtroDia == 'SEXTA-FEIRA'}">
+            SEXTA
+        </button>
+      </div>  
+      <ion-list>
+          <ion-item ng-repeat="item in horario | filter : filtroDia">
+              {{item.valorInicio}} - {{item.valorFim}}<br>
+              {{item.local}} <br>
+              {{item.descricao}} <br>
+              {{item.nome}}
+          </ion-item>
+        </ion-list>
+    </ion-content>
+  </ion-view>

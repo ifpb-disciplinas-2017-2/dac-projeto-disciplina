@@ -1,7 +1,7 @@
 package com.ifpb.dac.rs.resources;
 
 import com.ifpb.dac.entidades.HorariosDTO;
-import com.ifpb.dac.interfaces.HorariosDaoLocal;
+import com.ifpb.dac.rs.interfaces.HorariosDaoLocal;
 import com.ifpb.dac.rs.security.Secure;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -58,6 +58,19 @@ public class HorariosResource {
         GenericEntity<List<HorariosDTO>> entity = new GenericEntity<List<HorariosDTO>>(horarios){};
         return Response.ok().entity(entity).build();
     }
+    
+    @GET
+    @Secure
+    @Path("turma/{disciplina}/{professor}")
+    public Response turma(@PathParam("disciplina") String disciplina, @PathParam("professor") String professor){
+        System.out.println(disciplina);
+        System.out.println(professor);
+        List<HorariosDTO> horarioTurma = horariosDao.listarHorarioTurma(disciplina, professor);
+        GenericEntity<List<HorariosDTO>> entity = new GenericEntity<List<HorariosDTO>>(horarioTurma){};
+        return Response.ok().entity(entity).build();
+    }
+    
+    
     
     
 }

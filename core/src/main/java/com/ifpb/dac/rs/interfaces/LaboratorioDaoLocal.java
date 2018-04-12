@@ -1,5 +1,5 @@
 
-package com.ifpb.dac.interfaces;
+package com.ifpb.dac.rs.interfaces;
 
 import java.util.List;
 

@@ -3,12 +3,15 @@ package com.ifpb.dac.rs.resources;
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Curso;
 import com.ifpb.dac.entidades.Pedido;
+import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.enums.Tipo;
-import com.ifpb.dac.interfaces.AlunoDao;
-import com.ifpb.dac.interfaces.AlunoDaoLocal;
-import com.ifpb.dac.interfaces.CursoDaoLocal;
-import com.ifpb.dac.interfaces.PedidoDaoLocal;
+import com.ifpb.dac.rs.interfaces.AlunoDaoLocal;
+import com.ifpb.dac.rs.interfaces.CursoDaoLocal;
+import com.ifpb.dac.rs.interfaces.PedidoDaoLocal;
+import com.ifpb.dac.rs.interfaces.TurmaDaoLocal;
 import com.ifpb.dac.rs.model.AlunoRest;
+import com.ifpb.dac.rs.model.TurmaRest;
+import com.ifpb.dac.rs.security.Secure;
 import com.ifpb.dac.rs.security.Token;
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,6 +25,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -41,6 +45,8 @@ public class AlunoResource {
     private CursoDaoLocal cursoDao;
     @Inject
     private PedidoDaoLocal pedidoDao;
+    @Inject
+    private TurmaDaoLocal turmaDao;
     @Inject
     private Token token;
     
@@ -80,8 +86,9 @@ public class AlunoResource {
                     if(autenticado.isLogado()){    
                         //USUÁRIO EXISTE E POSSUI PERMISSÃO PARA LOGAR: STATUS 200
                         String tokenString = token.create(autenticado.getEmail(), 3);
-                        JsonObject entity = Json.createObjectBuilder().add("token", tokenString).build();
-                        return Response.ok().entity(entity).build();
+                        autenticado.setToken(tokenString);
+                        //JsonObject entity = Json.createObjectBuilder().add("token", tokenString).build();
+                        return Response.ok().entity(autenticado).build();
                     }else{
                         //USUÁRIO EXISTE, MAS AINDA NÃO TEM PERMISSÃO PARA LOGAR: STATUS 401
                         Pedido p = pedidoDao.buscarPorCredenciais(email,senha);
@@ -92,6 +99,41 @@ public class AlunoResource {
                     }   
             }
         }
+    }
+    
+    @POST
+    @Secure
+    @Path("turma")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public Response cadastroEmTurma(@FormParam("aluno") String email, 
+                                    @FormParam("disciplina") String disciplina,
+                                    @FormParam("professor") String professor){
+        Aluno aluno = alunoDao.buscarPorEmail(email);
+        Turma turma = turmaDao.retornarDiscProf(disciplina, professor);
+        Turma auxiliar = turmaDao.buscarPorId(turma.getCodigo_turma());
+        int verificarAlunoTurma = turmaDao.verificarAlunoTurma(auxiliar.
+                getCodigo_turma(), aluno.getId());
+        if (verificarAlunoTurma > 0) {
+            System.out.println("caiu no if");
+            //já cadastrado
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        } else {
+            System.out.println("caiu no else");
+            aluno.add(auxiliar);
+            auxiliar.add(aluno);
+            turmaDao.atualizar(auxiliar);
+            JsonObject msg = Json.createObjectBuilder().add("msg", "Cadastro na turma foi realizado").build();
+            return Response.ok().entity(msg).build();
+        }
+    }
+    
+    @GET
+    @Secure
+    @Path("{id}/turmas")
+    public Response listarTurmasAluno(@PathParam("id") int idAluno){
+        List<TurmaRest> turmasRest = alunoDao.listTurmasRestAluno(idAluno);
+        GenericEntity<List<TurmaRest>> lista = new GenericEntity<List<TurmaRest>>(turmasRest){};
+        return Response.ok().entity(lista).build();
     }
 }
 

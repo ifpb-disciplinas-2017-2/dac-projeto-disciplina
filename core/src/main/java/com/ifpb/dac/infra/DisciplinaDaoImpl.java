@@ -2,7 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Disciplina;
 import com.ifpb.dac.interfaces.DisciplinaDao;
-import com.ifpb.dac.interfaces.DisciplinaDaoLocal;
+import com.ifpb.dac.rs.interfaces.DisciplinaDaoLocal;
 import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Remote;

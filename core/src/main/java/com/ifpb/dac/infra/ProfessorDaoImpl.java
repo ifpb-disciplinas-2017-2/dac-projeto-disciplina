@@ -2,7 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.interfaces.ProfessorDao;
-import com.ifpb.dac.interfaces.ProfessorDaoLocal;
+import com.ifpb.dac.rs.interfaces.ProfessorDaoLocal;
 import java.util.List;
 import java.util.Optional;
 import javax.ejb.Local;
