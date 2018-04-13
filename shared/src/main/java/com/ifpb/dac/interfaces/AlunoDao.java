@@ -1,6 +1,7 @@
 package com.ifpb.dac.interfaces;
 
 import com.ifpb.dac.entidades.Aluno;
+import com.ifpb.dac.entidades.Turma;
 import java.util.List;
 
 /**
@@ -24,4 +25,5 @@ public interface AlunoDao {
     boolean verificarEmail(String email);
 
     List<Aluno> listarTodosOsAlunos(int id);
+    List<Turma> listarTurmasAluno(Aluno a);
 }

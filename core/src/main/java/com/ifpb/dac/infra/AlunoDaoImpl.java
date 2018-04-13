@@ -2,6 +2,7 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Info;
+import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.interfaces.AlunoDao;
 import com.ifpb.dac.rs.interfaces.AlunoDaoLocal;
 import com.ifpb.dac.rs.model.AlunoRest;
@@ -184,6 +185,13 @@ public class AlunoDaoImpl implements AlunoDao, AlunoDaoLocal {
     public List<TurmaRest> listTurmasRestAluno(int idAluno) {
         TypedQuery<TurmaRest> createQuery = em.createQuery("SELECT NEW com.ifpb.dac.rs.model.TurmaRest(t.codigo_turma,t.identificacao,t.nome_disciplina,t.professor.nome) FROM Aluno a, IN (a.turmas) t WHERE a.id =:id", TurmaRest.class);
         createQuery.setParameter("id", idAluno);
+        return createQuery.getResultList();
+    }
+
+    @Override
+    public List<Turma> listarTurmasAluno(Aluno a) {
+        TypedQuery<Turma> createQuery = em.createQuery("SELECT t FROM Aluno a, IN (a.turmas) t WHERE a.id =:id", Turma.class);
+        createQuery.setParameter("id", a.getId());
         return createQuery.getResultList();
     }
 

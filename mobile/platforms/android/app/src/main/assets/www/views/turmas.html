@@ -1,0 +1,18 @@
+<ion-view cache-view="false" ng-controller="turmasCtrl">
+    <ion-content padding="true">
+        <center>
+            <button ui-sref="home.cadastroTurma" class="button icon-right ion-plus-circled"> Fazer cadastro em turma</button>
+            <h4>Turmas</h4>
+        </center>
+        <div class="card" ng-repeat="turma in turmas">
+            <div class="item item-divider">
+              Turma: {{turma.identificacao}}
+            </div>
+            <div class="item item-text-wrap">
+              Disciplina: {{turma.disciplina}} <br>
+              Professor: {{turma.professor}}
+              <a ui-sref="home.horarioTurma({disciplina: turma.disciplina, professor: turma.professor})">VER HORÁRIO</a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
