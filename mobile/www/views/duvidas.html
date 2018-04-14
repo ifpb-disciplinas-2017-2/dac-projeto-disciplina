@@ -1,0 +1,107 @@
+<ion-view cache-view="false" ng-controller="duvidasCtrl">
+    <ion-nav-title>Dúvidas</ion-nav-title>
+    <ion-nav-buttons side="right">    
+        <button ui-sref="home.novaDuvida" class="button button-icon icon ion-plus-circled"></button>
+    </ion-nav-buttons>
+    <ion-content padding="true">
+        <center>
+            <div class="button-bar">
+                    <button ng-click="carregarDuvidasAluno()"
+                    ng-class="{'active': filtroDuvidas == 'usuario'}" 
+                    class="button button-small button-outline button-positive">Suas dúvidas</button>
+                <button ng-click="carregarDuvidasColegas()"
+                    ng-class="{'active': filtroDuvidas == 'colegas'}"
+                    class="button button-small button-outline button-assertive">De colegas</button>
+            </div>
+        </center>
+        
+        <div ng-show="filtroDuvidas == 'usuario'">
+            <div class="card" ng-repeat="duvida in duvidas">
+                <div class="item item-divider">
+                    {{duvida.codigo_turma}} - {{duvida.disciplina_turma}}
+                </div>
+                <div class="item item-text-wrap">
+                    <b>Pergunta: </b>{{duvida.pergunta}}<br>
+                    <b>Status: </b> {{duvida.status}}
+                </div>
+                <div class="item item-divider" ng-show="{{duvida.status == 'Respondida'}}">
+                    <button ng-click="abrirVerDuvida(duvida)" class="button button-small button-positive">
+                        Ver Resposta
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="filtroDuvidas == 'colegas'">
+            <div class="card" ng-repeat="duvida in duvidas">
+                <div class="item item-divider">
+                    {{duvida.codigo_turma}} - {{duvida.disciplina_turma}}
+                </div>
+                <div class="item item-text-wrap">
+                    <b>Pergunta: </b>{{duvida.pergunta}}<br>
+                    <b>Autor: </b> {{duvida.nomeAluno}}
+                </div>
+                <div class="item item-divider">
+                    <button ng-click="abrirResponderDuvida(duvida)" class="button button-small button-assertive">
+                        Responder
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <script id="verDuvida.html" type="text/ng-template">
+            <ion-modal-view>
+              <ion-header-bar class="bar-positive">
+                <h1 class="title">Visualizar Dúvida</h1>
+                <button ng-click="fecharVerDuvida()" class="button icon ion-close"></button>
+              </ion-header-bar>
+              <ion-content padding="true">
+                    <div class="card">
+                        <div class="item item-divider">
+                            {{duvidaVer.codigo_turma}} - {{duvidaVer.disciplina_turma}}
+                        </div>
+                        <div class="item item-text-wrap">
+                            <b>Pergunta: </b>{{duvidaVer.pergunta}}<br>
+                            <b>Status: </b> {{duvidaVer.status}}<br>
+                            <b>Resposta: </b> {{duvidaVer.resposta}}<br>
+                            <b>Autor da resposta: </b> {{duvidaVer.usuario}}
+                        </div>
+                    </div>  
+              </ion-content>
+            </ion-modal-view>
+        </script>
+
+        <script id="responderDuvida.html" type="text/ng-template">
+            <ion-modal-view>
+                <ion-header-bar class="bar-positive">
+                    <h1 class="title">Responder Dúvida</h1>
+                    <button ng-click="fecharResponderDuvida()" class="button icon ion-close"></button>
+                </ion-header-bar>
+                <ion-content padding="true">
+                    <br>
+                    <center><b>Pergunta: </b>{{duvidaResponder.pergunta}}</center>                    
+                    <br>
+                    <form name="formResponder">
+                        <div class="list">
+                            <label class="item item-input">
+                                <textarea rows="8" ng-model="duvidaResponder.resposta" 
+                                    placeholder="Digite aqui sua resposta" required>
+                                </textarea>
+                            </label>
+                        </div>  
+                        <div class="row">
+                            <button ng-disabled="!formResponder.$valid" 
+                                ng-click="responder(duvidaResponder)" 
+                                class="button button-block button-positive">
+                                Enviar
+                            </button> 
+                        </div>
+                        
+                    </form>
+            
+                              
+                </ion-content>
+            </ion-modal-view>
+        </script>
+    </ion-content>
+</ion-view>

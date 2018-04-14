@@ -1,6 +1,30 @@
-<ion-view>
+<ion-view ng-controller="principalCtrl">
+    <ion-nav-title>Página inicial</ion-nav-title>
     <ion-content padding="true">
-        <center><h4>Página inicial</h4></center>
-        
+        <br>
+        <center>
+            <i style="font-size:60pt" class="icon ion-android-happy"></i>
+            <h3>Bem vindo!</h3>
+        </center>
+
+        <div class="list card">
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-person"></i>
+                {{aluno.nome}}
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                    <i class="icon ion-at"></i>
+                {{aluno.email}}
+            </a>
+            
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-university"></i>
+                {{aluno.curso.info.descricao}}
+            </a>
+            
+            
+        </div>
+
     </ion-content>
 </ion-view>

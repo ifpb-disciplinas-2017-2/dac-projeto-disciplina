@@ -9,14 +9,5 @@ angular.module('app').controller('horarioTurmaCtrl',function($scope,$ionicPopup,
         console.log("NÃO FOI POSSÍVEL BUSCAR OS HORÁRIOS DA TURMA");
     });
     
-
-    function showAlert(titulo,subtitulo){
-        alertPopup = $ionicPopup.alert({
-            title: titulo,
-            subTitle: subtitulo
-        }).then(function(res) {
-              $state.go('index');
-        });
-    };
     
 });

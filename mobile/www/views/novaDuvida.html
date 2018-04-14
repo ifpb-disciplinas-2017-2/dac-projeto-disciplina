@@ -1,0 +1,32 @@
+<ion-view ng-controller="novaDuvidaCtrl">
+        <ion-content padding="true">
+            <center>
+                <h4>Cadastar dúvida</h4>
+            </center>
+            
+            <form name="formCad">
+                <div class="list">
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Turma
+                        </div>
+                        <select ng-model="duvida.codigo_turma" required>
+                            <option value="" disabled selected>Selecione a turma</option>
+                            <option ng-repeat="turma in turmas" value="{{turma.codigo}}">
+                                {{turma.identificacao}} - {{turma.disciplina}}
+                            </option>
+                        </select>
+                    </label>
+                    <label class="item item-input">
+                        <textarea ng-model="duvida.pergunta" placeholder="Digite aqui sua pergunta" required>
+                        </textarea>
+                    </label>
+                </div>
+                <button ng-disabled="!formCad.$valid" 
+                        ng-click="cadastrar(duvida)" 
+                        class="button button-block button-positive">
+                        Enviar
+                </button> 
+            </form>
+        </ion-content>
+    </ion-view>

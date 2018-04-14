@@ -14,14 +14,5 @@ angular.module('app').controller('horarioLabCtrl',function($scope,$ionicPopup,$s
             console.log("NÃO FOI POSSÍVEL BUSCAR OS HORÁRIOS DO LABORATÓRIO");
         });
     }   
-
-    function showAlert(titulo,subtitulo){
-        alertPopup = $ionicPopup.alert({
-            title: titulo,
-            subTitle: subtitulo
-        }).then(function(res) {
-              $state.go('index');
-        });
-    };
     
 });

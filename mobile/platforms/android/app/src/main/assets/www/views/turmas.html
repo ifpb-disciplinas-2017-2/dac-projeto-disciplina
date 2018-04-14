@@ -1,9 +1,9 @@
 <ion-view cache-view="false" ng-controller="turmasCtrl">
+    <ion-nav-title>Turmas</ion-nav-title>
+    <ion-nav-buttons side="right">    
+        <button ui-sref="home.cadastroTurma" class="button button-icon icon ion-plus-circled"></button>
+    </ion-nav-buttons>
     <ion-content padding="true">
-        <center>
-            <button ui-sref="home.cadastroTurma" class="button icon-right ion-plus-circled"> Fazer cadastro em turma</button>
-            <h4>Turmas</h4>
-        </center>
         <div class="card" ng-repeat="turma in turmas">
             <div class="item item-divider">
               Turma: {{turma.identificacao}}

@@ -15,13 +15,5 @@ angular.module('app').controller('horarioSalaCtrl',function($scope,$ionicPopup,$
         });
     }   
 
-    function showAlert(titulo,subtitulo){
-        alertPopup = $ionicPopup.alert({
-            title: titulo,
-            subTitle: subtitulo
-        }).then(function(res) {
-              $state.go('index');
-        });
-    };
     
 });

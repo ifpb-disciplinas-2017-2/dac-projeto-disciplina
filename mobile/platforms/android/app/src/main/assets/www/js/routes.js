@@ -77,6 +77,22 @@ angular.module('app').config(function($stateProvider,$urlRouterProvider){
             }
         }
     })
+    .state('home.duvidas', {
+        url: '/duvidas',
+        views : {
+            'conteudo':{
+                templateUrl: 'views/duvidas.html'
+            }
+        }
+    })
+    .state('home.novaDuvida', {
+        url: '/novaDuvida',
+        views : {
+            'conteudo':{
+                templateUrl: 'views/novaDuvida.html'
+            }
+        }
+    })
     .state('home.principal', {
         url: '/principal',
         views : {

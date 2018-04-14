@@ -4,7 +4,10 @@ import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Duvida;
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.interfaces.DuvidaDao;
+import com.ifpb.dac.rs.interfaces.DuvidaDaoLocal;
+import com.ifpb.dac.rs.model.DuvidaRest;
 import java.util.List;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +20,8 @@ import javax.persistence.TypedQuery;
  */
 @Remote(DuvidaDao.class)
 @Stateless
-public class DuvidaDaoImpl implements DuvidaDao {
+@Local(DuvidaDaoLocal.class)
+public class DuvidaDaoImpl implements DuvidaDao,DuvidaDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -94,7 +98,18 @@ public class DuvidaDaoImpl implements DuvidaDao {
 //        return createQuery.getResultList();
 //    }
 
-   
-    
-    
+    @Override
+    public List<DuvidaRest> listarDuvidasFeitasPorAlunoRest(int idAluno) {
+        TypedQuery<DuvidaRest> query = em.createQuery("SELECT new com.ifpb.dac.rs.model.DuvidaRest(d.id,d.pergunta,d.resposta,d.aluno.id,d.aluno.nome,d.usuario,d.turma.codigo_turma,d.turma.identificacao,d.turma.nome_disciplina) FROM Duvida d WHERE d.aluno.id = :id", DuvidaRest.class);
+        query.setParameter("id", idAluno);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<DuvidaRest> listarDuvidasNaoRespondidasTurmasAlunoRest(int idAluno) {
+        TypedQuery<DuvidaRest> query = em.createQuery("SELECT new com.ifpb.dac.rs.model.DuvidaRest(d.id,d.pergunta,d.resposta,d.aluno.id,d.aluno.nome,d.usuario,d.turma.codigo_turma,d.turma.identificacao,d.turma.nome_disciplina) FROM Duvida d WHERE d.aluno.id <> :id AND d.resposta IS NULL AND d.turma IN (SELECT t FROM Aluno a, IN (a.turmas) t WHERE a.id =:id)", DuvidaRest.class);
+        query.setParameter("id", idAluno);
+        return query.getResultList();
+    }
+
 }

@@ -24,20 +24,16 @@ angular.module('app').controller('cadastroTurmaCtrl',function($scope,$ionicPopup
             $state.go("home.turmas");
         },function(response){
             if(response.status === 400){
-                showAlert("Erro", "O aluno já está cadastrado nessa turma");
+                $ionicPopup.alert({
+                    title: 'Erro',
+                    template: 'O aluno já está cadastrado nessa turma'
+                });
             }else{
-                showAlert("Erro", "NÃO FOI POSSÍVEL CADASTRAR O ALUNO NA TURMA");
+                $ionicPopup.alert({
+                    title: 'Erro',
+                    template: 'NÃO FOI POSSÍVEL CADASTRAR O ALUNO NA TURMA'
+                });
             }
         });
     }
-
-    function showAlert(titulo,subtitulo){
-        alertPopup = $ionicPopup.alert({
-            title: titulo,
-            subTitle: subtitulo
-        }).then(function(res) {
-              $state.go('index');
-        });
-    };
-    
 });
