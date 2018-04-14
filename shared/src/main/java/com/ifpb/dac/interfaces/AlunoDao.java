@@ -25,5 +25,8 @@ public interface AlunoDao {
     boolean verificarEmail(String email);
 
     List<Aluno> listarTodosOsAlunos(int id);
+
     List<Turma> listarTurmasAluno(Aluno a);
+
+    List<Aluno> listarAlunosTurma(int id, int codTurma);
 }

@@ -195,4 +195,12 @@ public class AlunoDaoImpl implements AlunoDao, AlunoDaoLocal {
         return createQuery.getResultList();
     }
 
+    @Override
+    public List<Aluno> listarAlunosTurma(int id, int codTurma) {
+        TypedQuery<Aluno> createQuery = em.createQuery("SELECT a FROM Turma t, IN (t.alunos) a WHERE a.id <>:idAluno AND t.codigo_turma =:codTurma", Aluno.class);
+        createQuery.setParameter("idAluno", id);
+        createQuery.setParameter("codTurma", codTurma);
+        return createQuery.getResultList();
+    }
+
 }
