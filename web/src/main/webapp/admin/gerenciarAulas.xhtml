@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>Gerenciar aulas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h:link outcome="menu.xhtml" class="btn btn-warning" value="Voltar"/>
+            </div>
+            <br />
+            <div class="row text-center">
+                <h1>Gerenciar aulas</h1>
+                <hr />
+            </div>
+            
+            <div class="row">
+                <center>
+                    <h:link outcome="cadastrarAula.xhtml"
+                            class="item-menu col-sm-4"
+                            value="Cadastrar aula"/>
+                    <h:link outcome="editarAula.xhtml"
+                            class="item-menu col-sm-4"
+                            value="Editar aula"/>
+                    
+                </center>
+            </div>
+        </div>
+        
+    </body>
+</html>

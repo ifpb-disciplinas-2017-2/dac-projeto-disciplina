@@ -1,5 +1,6 @@
 package com.ifpb.dac.infra;
 
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.entidades.Turma;
 import com.ifpb.dac.interfaces.TurmaDao;
 import com.ifpb.dac.rs.interfaces.TurmaDaoLocal;
@@ -112,5 +113,16 @@ public class TurmaDaoImpl implements TurmaDao,TurmaDaoLocal {
         resultado = (Long) createNativeQuery.getSingleResult();
         return resultado.intValue();
     }
+
+    @Override
+    public List<Professor> professoresDeDisciplina(String disciplina) {
+        TypedQuery<Professor> createQuery = em.createQuery("SELECT p FROM Turma t "
+                + "JOIN t.professor p "
+                + "WHERE t.nome_disciplina =:disc "
+                + "GROUP BY p.codigo", Professor.class);
+        createQuery.setParameter("disc", disciplina);
+        return createQuery.getResultList();
+    }
+
     
 }

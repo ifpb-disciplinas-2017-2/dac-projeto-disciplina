@@ -14,6 +14,7 @@ public interface LaboratorioDao {
     void atualizar(Laboratorio lab);
     List<Laboratorio> listarTodos();
     Laboratorio buscarPorId(int id);
+    Laboratorio buscarPorNome(String nome);
     List<String> listarNomeLaboratorios();
     
 }

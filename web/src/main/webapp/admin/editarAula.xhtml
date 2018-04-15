@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Editar aula</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row">
+                <h:link outcome="gerenciarAulas.xhtml" class="btn btn-warning" value="Voltar"/>
+            </div>
+            <br />
+            <div class="row text-center">
+                <h3>Gerenciar aulas</h3>
+                <hr />
+            </div>
+
+            <div class="row text-center">
+                <div class="col-md-7">
+                <h4>Editar Aula</h4>
+                <h:form>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="disciplina" class="text-left" value="Informe a disciplina: ">
+                            <h:selectOneMenu id="disciplina" class="form-control col-md-12" 
+                                             value = "#{controladorEditarAula.disciplinaSelect}"
+                                             required="true" requiredMessage="Selecione a disciplina">
+                                <f:selectItem itemLabel="Selecione a disciplina"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorEditarAula.disciplinas}" 
+                                               var="disciplina"
+                                               itemLabel="#{disciplina.descricao}"
+                                               itemValue="#{disciplina.descricao}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                     value="Buscar professores"
+                                     action="#{controladorEditarAula.mostrarProfessores()}" />
+                    </div>
+                </div>
+                </h:form>
+                <h:form>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="professor" class="text-left" value="Turma de: "
+                                       rendered="#{controladorEditarAula.verProfessores}">
+                            <h:selectOneMenu id="professor" class="form-control col-md-12" 
+                                             value = "#{controladorEditarAula.professorSelect}"
+                                             required="true" requiredMessage="Selecione o professor">
+                                <f:selectItem itemLabel="Selecione a professor"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorEditarAula.professores}" 
+                                               var="professor"
+                                               itemLabel="#{professor.nome}"
+                                               itemValue="#{professor.codigo}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                     value="Ver aulas"
+                                     rendered="#{controladorEditarAula.verProfessores}"
+                                     action="#{controladorEditarAula.abrirAulas()}" />
+                    </div>
+                </div>
+                </h:form>
+                <div>
+                    <h:dataTable rendered="#{controladorEditarAula.verAulas}"
+                                         class="table table-hover"
+                                         value="#{controladorEditarAula.aulas}"
+                                         var="aula">
+                        <div>
+                            <h:column rendered="#{not empty controladorEditarAula.aulas}">
+                                <f:facet name="header">Dia</f:facet>
+                                <h:outputText value="#{aula.dia}"/>
+                            </h:column>
+                        </div>
+                        <div>
+                            <h:column rendered="#{not empty controladorEditarAula.aulas}">
+                                <f:facet name="header">Inicio</f:facet>
+                                <h:outputText value="#{aula.horario.inicio.time.hours} : #{aula.horario.inicio.time.minutes}"/>
+                            </h:column>
+                        </div>
+                        <div>
+                            <h:column rendered="#{not empty controladorEditarAula.aulas}">
+                                <f:facet name="header">Fim</f:facet>
+                                <h:outputText value="#{aula.horario.fim.time.hours} : #{aula.horario.fim.time.minutes}"/>
+                            </h:column>
+                        </div>
+                        <div>
+                            <h:column rendered="#{not empty controladorEditarAula.aulas}">
+                                <f:facet name="header">Local</f:facet>
+                                <h:outputText value="#{aula.local}"/>
+                            </h:column>
+                        </div>
+                        <div>
+                            <h:column rendered="#{not empty controladorEditarAula.aulas}">
+                                <f:facet name="header"></f:facet>
+                                <h:form>
+                                    <h:commandButton class="btn btn-info"
+                                     value="Editar"
+                                     action="#{controladorEditarAula.abrirEditar(aula)}" />
+                                    <h:commandButton class="btn btn-danger"
+                                     value="Excluir"
+                                     action="#{controladorEditarAula.excluirAula(aula)}" />
+                                </h:form>
+                            </h:column>
+                        </div>
+                    </h:dataTable>
+                </div>
+                </div>
+                <div class="col-md-5">
+                    <h:form rendered="#{controladorEditarAula.editando == true}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>Editando aula</h4>
+                                    <h:commandButton class="btn btn-danger right"
+                                        value="Cancelar"
+                                        action="#{controladorEditarAula.cancelarEdicao()}" />
+                            </div>
+                            <div class="panel-body">
+                                <b>Dados da aula:</b><br/>
+                                Disciplina: <h:outputText value="#{controladorEditarAula.aula.disciplina.descricao}"/><br/>
+                                Professor <h:outputText value="#{controladorEditarAula.aula.professor.nome}"/><br/>
+                                Local <h:outputText value="#{controladorEditarAula.aula.local}"/><br/>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <h:outputLabel for="dia" class="text-left" value="Dia da semana: ">
+                                            <h:selectOneMenu id="dia" class="form-control col-md-12" 
+                                                             value = "#{controladorEditarAula.diaSelect}"
+                                                             required="true" requiredMessage="Selecione um dia da semana">
+                                                <f:selectItem itemLabel="#{controladorEditarAula.aula.dia}"
+                                                                          itemValue="#{controladorEditarAula.aula.dia}"
+                                                                          rendered="#{controladorEditarAula.aula != null}"></f:selectItem>
+                                                <f:selectItems value="#{controladorEditarAula.diasSemana}" 
+                                                               var="dia"
+                                                               itemLabel="#{dia}"
+                                                               itemValue="#{dia}"/>
+                                            </h:selectOneMenu>
+                                        </h:outputLabel>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <h:outputLabel for="horario" class="text-left" value="Horário: ">
+                                            <h:selectOneMenu id="horario" class="form-control col-md-12" 
+                                                             value = "#{controladorEditarAula.horarioSelect}"
+                                                             required="true" requiredMessage="Selecione o dia da semana">
+                                                <f:selectItem itemLabel="#{controladorEditarAula.aula.horario.horarioFormatado}"
+                                                              itemValue="#{controladorEditarAula.aula.horario.codigo_hora}"
+                                                              rendered="#{controladorEditarAula.aula != null}"></f:selectItem>
+                                                <f:selectItems value="#{controladorEditarAula.horarios}" 
+                                                               var="horario"
+                                                               itemLabel="#{horario.horarioFormatado}"
+                                                               itemValue="#{horario.codigo_hora}"/>
+                                            </h:selectOneMenu>
+
+                                        </h:outputLabel>
+                                    </div>
+                                    <div class="row">
+                                        <h:commandButton class="btn btn-success col-md-12"
+                                                            value="Atualizar aula"
+                                                            action="#{controladorEditarAula.atualizar()}" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        
+    </h:body>
+</html>
+

@@ -12,6 +12,7 @@ public interface DisciplinaDao {
     List<Disciplina> listarTodos();
     Disciplina buscarPorId(int id);
     List<String> listarDisciplinaCurso(String curso);
+    List<Disciplina> listarDisciplinaCurso(int idCurso);
     List<String> listarNomeDisciplinas();
     
 }

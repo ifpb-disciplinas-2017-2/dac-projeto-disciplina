@@ -4,6 +4,7 @@ import com.ifpb.dac.entidades.Laboratorio;
 import com.ifpb.dac.interfaces.LaboratorioDao;
 import com.ifpb.dac.rs.interfaces.LaboratorioDaoLocal;
 import java.util.List;
+import java.util.Optional;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -60,4 +61,15 @@ public class LaboratorioDaoImpl implements LaboratorioDao,LaboratorioDaoLocal {
         return createQuery.getResultList();
     }
     
+    @Override
+    public Laboratorio buscarPorNome(String nome) {
+        TypedQuery<Laboratorio> createQuery = em.createQuery("SELECT l FROM Laboratorio l WHERE l.descricao =:nome",Laboratorio.class);
+        createQuery.setParameter("nome", nome);
+        Optional<Laboratorio> findFirst = createQuery.getResultList().stream().findFirst();
+        if(findFirst.isPresent()){
+            return findFirst.get();
+        } else {
+            return null;
+        }
+    }
 }

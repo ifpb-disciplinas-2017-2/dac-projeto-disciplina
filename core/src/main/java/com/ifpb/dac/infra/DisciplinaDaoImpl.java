@@ -61,5 +61,14 @@ public class DisciplinaDaoImpl implements DisciplinaDao,DisciplinaDaoLocal {
         return em.createQuery("SELECT d.descricao FROM Disciplina d", 
                 String.class).getResultList();
     }
+
+    @Override
+    public List<Disciplina> listarDisciplinaCurso(int idCurso) {
+        TypedQuery<Disciplina> createQuery = em.createQuery("SELECT d FROM Disciplina d "
+                + "JOIN d.curso c "
+                + "WHERE c.codigo_curso = :id", Disciplina.class);
+        createQuery.setParameter("id", idCurso);
+        return createQuery.getResultList();        
+    }
     
 }
