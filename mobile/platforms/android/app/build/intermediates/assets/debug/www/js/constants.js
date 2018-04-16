@@ -1,3 +1,3 @@
 angular.module("app").value("constants",{
-    baseUrl : "http://192.168.1.5:8082/core/api"
+    baseUrl : "http://10.3.186.64:8082/core/api"
 });

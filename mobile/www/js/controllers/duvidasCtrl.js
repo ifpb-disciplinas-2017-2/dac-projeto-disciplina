@@ -69,7 +69,8 @@ angular.module('app').controller('duvidasCtrl',function($scope,$ionicPopup,$ioni
         };
         $scope.responder = function(duvida){
             duvidaAPI.responderDuvida(idAluno,duvida.id,duvida.resposta).then(function(response){
-                $state.go("home.duvidas");
+                $scope.fecharResponderDuvida();
+                $state.go("home.duvidas",{},{reload:true});
             }, function(response){
                 alertPopup = $ionicPopup.alert({
                     title: "Erro",
