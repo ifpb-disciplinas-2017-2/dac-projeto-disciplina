@@ -2,7 +2,10 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Laboratorio;
 import com.ifpb.dac.interfaces.LaboratorioDao;
+import com.ifpb.dac.rs.interfaces.LaboratorioDaoLocal;
 import java.util.List;
+import java.util.Optional;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,8 +17,9 @@ import javax.persistence.TypedQuery;
  * @author rodrigobento
  */
 @Remote(LaboratorioDao.class)
+@Local(LaboratorioDaoLocal.class)
 @Stateless
-public class LaboratorioDaoImpl implements LaboratorioDao {
+public class LaboratorioDaoImpl implements LaboratorioDao,LaboratorioDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -57,4 +61,15 @@ public class LaboratorioDaoImpl implements LaboratorioDao {
         return createQuery.getResultList();
     }
     
+    @Override
+    public Laboratorio buscarPorNome(String nome) {
+        TypedQuery<Laboratorio> createQuery = em.createQuery("SELECT l FROM Laboratorio l WHERE l.descricao =:nome",Laboratorio.class);
+        createQuery.setParameter("nome", nome);
+        Optional<Laboratorio> findFirst = createQuery.getResultList().stream().findFirst();
+        if(findFirst.isPresent()){
+            return findFirst.get();
+        } else {
+            return null;
+        }
+    }
 }

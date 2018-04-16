@@ -10,6 +10,7 @@ public interface SalaDao {
     void atualizar(Sala sala);
     List<Sala> listarTodos();
     Sala buscarPorId(int id);
+    Sala buscarPorNome(String nome);
     List<String> listarNomeSalas();
     
 }

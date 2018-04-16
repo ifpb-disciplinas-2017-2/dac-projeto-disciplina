@@ -1,9 +1,25 @@
-﻿CREATE TABLE curso(
+﻿CREATE TABLE coordenador(
+	codigo_coord int primary key,
+	inicio_mandato DATE,
+	fim_mandato DATE,
+	email varchar(50) not null,
+	nome varchar(50) not null,
+	regime varchar(3) not null,
+	unidade varchar(10) not null,
+	vinculo varchar(12) not null,
+        senha varchar(20) not null,
+	telefone1 varchar(11) not null,
+	telefone2 varchar(11) not null,
+        logado boolean
+);
+CREATE TABLE curso(
 	codigo_curso int primary key,
 	abreviacao varchar(40) not null,
 	descricao varchar(50) not null,
 	periodo int not null,
-	unidade varchar(50) not null
+	unidade varchar(50) not null,
+	coordenador_codigo int,
+	FOREIGN KEY (coordenador_codigo) REFERENCES coordenador(codigo_coord) ON DELETE SET NULL ON UPDATE CASCADE
 );
 CREATE TABLE disciplina (
 	codigo_disc int primary key,

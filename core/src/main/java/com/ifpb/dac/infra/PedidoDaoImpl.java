@@ -2,9 +2,12 @@
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Pedido;
+import com.ifpb.dac.enums.Tipo;
 import com.ifpb.dac.interfaces.PedidoDao;
+import com.ifpb.dac.rs.interfaces.PedidoDaoLocal;
 import java.util.List;
 import java.util.Optional;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +20,8 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 @Remote(PedidoDao.class)
-public class PedidoDaoImpl implements PedidoDao {
+@Local(PedidoDaoLocal.class)
+public class PedidoDaoImpl implements PedidoDao,PedidoDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -45,6 +49,14 @@ public class PedidoDaoImpl implements PedidoDao {
         return em.createQuery("SELECT p FROM Pedido p ORDER BY p.prioridade DESC", 
                 Pedido.class).getResultList();
     }
+    
+    @Override
+    public List<Pedido> listarTodosFiltro(Tipo usuario) {
+        TypedQuery<Pedido> query = em.createQuery("SELECT p FROM Pedido p WHERE p.tipo=:tipo ORDER BY p.prioridade DESC", 
+                Pedido.class);
+        query.setParameter("tipo", usuario);
+        return query.getResultList();
+    }
 
     @Override
     public Pedido buscarPorId(int id) {
@@ -64,5 +76,7 @@ public class PedidoDaoImpl implements PedidoDao {
             return null;
         }
    }
+
+    
     
 }

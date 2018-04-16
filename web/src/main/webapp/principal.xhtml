@@ -40,25 +40,27 @@
                             class="item-menu col-sm-12 col-md-3"
                             value="Horarios Turma" />
 
-                    <h:link outcome="aluno/cadastroTurma.xhtml"
-                            class="item-menu col-sm-12 col-md-3"
-                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                            value="Cadastrar em turmas" />
 
-                    <h:link outcome="aluno/materiais.xhtml"
+                    <h:link outcome="coordenador/gerenciarAcesso.xhtml"
                             class="item-menu col-sm-12 col-md-3"
-                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                            value="Visualizar materiais recebidos" />
+                            rendered="#{controladorMenu.credenciais eq 'coord'}"
+                            value="Gerenciar Acesso" />
 
-                    <h:link outcome="aluno/atividades.xhtml"
+                    <h:link outcome="coordenador/gerenciarProfessor.xhtml"
                             class="item-menu col-sm-12 col-md-3"
-                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                            value="Visualizar atividades enviadas" />
+                            rendered="#{controladorMenu.credenciais eq 'coord'}"
+                            value="Gerenciar professor" />
 
-                    <h:link outcome="aluno/cadastrarDuvida.xhtml"
+                    <h:link outcome="coordenador/gerenciarDisciplina.xhtml"
                             class="item-menu col-sm-12 col-md-3"
-                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
-                            value="Cadastrar Dúvidas" />
+                            rendered="#{controladorMenu.credenciais eq 'coord'}"
+                            value="Gerenciar Disciplinas" />
+
+                    <h:link outcome="coordenador/gerenciarTurma.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'coord'}"
+                            value="Gerenciar turmas" />
+
 
                     <h:link outcome="professor/adicionarAtividade.xhtml"
                             class="item-menu col-sm-12 col-md-3"
@@ -84,6 +86,47 @@
                             class="item-menu col-sm-12 col-md-3"
                             rendered="#{controladorMenu.credenciais eq 'prof'}"
                             value="Responder Dúvidas" />
+
+                    <h:link outcome="professor/enviarMensagemProfessor.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'prof'}"
+                            value="Enviar Mensagens" />
+
+
+
+
+                    <h:link outcome="aluno/cadastroTurma.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Cadastrar em turmas" />
+
+                    <h:link outcome="aluno/materiais.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Visualizar materiais recebidos" />
+
+                    <h:link outcome="aluno/atividades.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Visualizar atividades enviadas" />
+
+                    <h:link outcome="aluno/cadastrarDuvida.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Cadastrar Dúvidas" />
+                    
+                    <h:link outcome="aluno/responderDuvida.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Responder Dúvidas" />
+
+                    <h:link outcome="aluno/enviarMensagem.xhtml"
+                            class="item-menu col-sm-12 col-md-3"
+                            rendered="#{controladorMenu.credenciais eq 'aluno'}"
+                            value="Enviar Mensagens" />
+
+
+
 
                 </div> <!-- .col-md-12 -->    
             </div> <!-- .row -->

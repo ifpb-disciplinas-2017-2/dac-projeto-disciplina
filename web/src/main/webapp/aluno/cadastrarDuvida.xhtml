@@ -17,41 +17,93 @@
                     <h2>Cadastre um Dúvida</h2>
                     <hr />
                 </div>
-                
                 <div class="row text-center">
-                    <h:form>
-                        <div class="form-group">
-                            <h:outputLabel class="text-left" for="nomeProfessor" value="Nome do Professor">
-                                <h:selectOneMenu class="form-control" id="nomeProfessor" value="#{controladorDuvida.nomeProfessor}">
-                                    <f:selectItems value="#{controladorDuvida.professores}"
-                                                   var="professor"
-                                                   itemLabel="#{professor}"
-                                                   itemValue="#{professor}" />
-                                </h:selectOneMenu>
-                                <h:commandButton class="btn btn-success col-md-12"
-                                                 value="Selecionar Professor"
-                                                 action="#{controladorDuvida.visualizarRealizarPergunta()}"/>
-                            </h:outputLabel>
-                        </div>
-
-                        <hr />
-
-                        <div class="form-group">
-                            <h:outputLabel for="realizarPergunta" class="text-left" value="Realizar Perguntar" rendered="#{controladorDuvida.visualizarCampoPergunta}">
+                    <div class="col-md-8">
+                        <h4>Suas dúvidas</h4>
+                        <h:dataTable class="table table-hover" value="#{controladorDuvidaAluno.duvidasDoAluno}" 
+                                     rendered="#{not empty controladorDuvidaAluno.duvidasDoAluno}" var="duvida">
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Turma</f:facet>
+                                    <h:outputText value="#{duvida.turma.codigo_turma} - #{duvida.turma.nome_disciplina}"></h:outputText>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Pergunta</f:facet>
+                                    <h:outputText value="${duvida.pergunta}"></h:outputText>
+                                </h:column>
+                            </div>  
+                            <div>
+                                <h:column>
+                                    <f:facet name="header">Status</f:facet>
+                                    <h:outputText value="Respondida" rendered="#{duvida.resposta != null}"></h:outputText>
+                                    <h:outputText value="Não Respondida" rendered="#{duvida.resposta == null}"></h:outputText>
+                                </h:column>
+                            </div>
+                            <div>
+                                <h:column>
+                                    <h:form>
+                                        <h:commandButton class="btn btn-success"
+                                                     value="Visualizar"
+                                                     rendered="#{duvida.resposta != null}"
+                                                     action="#{controladorDuvidaAluno.visualizar(duvida)}" />
+                                    </h:form>
+                                </h:column>
+                            </div>
+                        </h:dataTable>
+                    </div>
+                    <div class="col-md-4">
+                        <h:form rendered="#{controladorDuvidaAluno.cadastrando == true}">
+                            <h4>Nova dúvida</h4>
+                            <div class="form-group">
+                                <h:outputLabel class="text-left" for="turma" value="Turma">
+                                    <h:selectOneMenu class="form-control" id="turma" value="#{controladorDuvidaAluno.codigoTurma}" 
+                                                     required="true"
+                                                     requiredMessage="Selecione a turma">
+                                        <f:selectItem itemLabel="Selecione a turma"
+                                                      noSelectionOption="true"></f:selectItem>
+                                        <f:selectItems value="#{controladorDuvidaAluno.turmasAluno}"
+                                                       var="turma"
+                                                       itemLabel="#{turma.identificacao} - #{turma.nome_disciplina}"
+                                                       itemValue="#{turma.codigo_turma}" />
+                                    </h:selectOneMenu>
+                                </h:outputLabel>
+                                <h:outputLabel for="realizarPergunta" class="text-left" value="Realizar Pergunta">
                                 <h:inputTextarea id="pergunta"
-                                                 cols="50"
-                                                 rows="10"
-                                                 class="form-control col-md-12 format-textarea"
-                                                 value="#{controladorDuvida.pergunta}"
-                                                 required="true"
-                                                 requiredMessage="Informe sua pergunta"/>
-                                <h:commandButton class="btn btn-success col-md-12"
-                                                 value="Cadastrar Pergunta"
-                                                 action="#{controladorDuvida.cadastrarPergunta()}" />
-                            </h:outputLabel>
-                        </div>
-                    </h:form>                    
-                </div> <!-- .row -->
+                                             cols="50"
+                                             rows="10"
+                                             class="form-control format-textarea"
+                                             value="#{controladorDuvidaAluno.pergunta}"
+                                             required="true"
+                                             requiredMessage="Informe sua pergunta"/>
+                                </h:outputLabel>
+                                <div class="row">
+                                    <h:commandButton class="btn btn-success col-md-12"
+                                             value="Cadastrar"
+                                             action="#{controladorDuvidaAluno.cadastrarDuvida()}" />
+                                </div>
+                            </div>
+                        </h:form>
+                        <h:form rendered="#{controladorDuvidaAluno.visualizando == true}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4>Visualização de dúvida</h4>
+                                        <h:commandButton class="btn btn-danger right"
+                                             value="Fechar"
+                                             action="#{controladorDuvidaAluno.fecharVisualizacao()}" />
+                                </div>
+                                <div class="panel-body">
+                                    <b>Pergunta: </b> #{controladorDuvidaAluno.duvida.pergunta}<br/>
+                                    <b>Resposta: </b> #{controladorDuvidaAluno.duvida.resposta}<br/>
+                                    <b>Autor da resposta: </b> #{controladorDuvidaAluno.duvida.usuario}
+                                </div>
+                            </div>
+                        </h:form>
+                        
+                    </div>
+                </div> 
+
                 <br></br>
                 
                 <div class="row">

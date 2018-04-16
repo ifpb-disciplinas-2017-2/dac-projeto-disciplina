@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ifpb.dac.infra;
 
+import com.ifpb.dac.entidades.Aluno;
 import com.ifpb.dac.entidades.Duvida;
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.interfaces.DuvidaDao;
+import com.ifpb.dac.rs.interfaces.DuvidaDaoLocal;
+import com.ifpb.dac.rs.model.DuvidaRest;
 import java.util.List;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,7 +20,8 @@ import javax.persistence.TypedQuery;
  */
 @Remote(DuvidaDao.class)
 @Stateless
-public class DuvidaDaoImpl implements DuvidaDao {
+@Local(DuvidaDaoLocal.class)
+public class DuvidaDaoImpl implements DuvidaDao,DuvidaDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -38,8 +38,9 @@ public class DuvidaDaoImpl implements DuvidaDao {
     
     @Override
     public void atualizar(Duvida duvida) {
-        Duvida d = em.find(Duvida.class, duvida.getId());
-        d.setResposta(duvida.getResposta());
+        em.merge(duvida);
+        //Duvida d = em.find(Duvida.class, duvida.getId());
+        //d.setResposta(duvida.getResposta());
     }
 
     @Override
@@ -52,21 +53,63 @@ public class DuvidaDaoImpl implements DuvidaDao {
     public Duvida buscarPorId(int id) {
         return em.find(Duvida.class, id);
     }
-
-    @Override
-    public List<Duvida> buscarPorProfessor(Professor professor) {
-        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.professor.codigo = :codigo_professor", Duvida.class);
-        createQuery.setParameter("codigo_professor", professor.getCodigo());
-        return createQuery.getResultList();
-    }
-
-    @Override
-    public List<Duvida> buscarPorProfessorEDuvidaNaoRespondida(int codigoProfessor) {
-        System.out.println("Codigo professor: " + codigoProfessor);
-        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.resposta is null and d.professor.codigo = :codigo_professor", Duvida.class);
-        createQuery.setParameter("codigo_professor", codigoProfessor);
-        
-        return createQuery.getResultList();
-    }
     
+    @Override
+    public List<Duvida> listarDuvidasFeitasPorAluno(Aluno aluno) {
+        TypedQuery<Duvida> query = em.createQuery("SELECT d FROM Duvida d WHERE d.aluno.id = :id", Duvida.class);
+        query.setParameter("id", aluno.getId());
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Duvida> listarDuvidasNaoRespondidasTurmasAluno(Aluno aluno) {
+        TypedQuery<Duvida> query = em.createQuery("SELECT d FROM Duvida d WHERE d.aluno.id <> :id AND d.resposta IS NULL AND d.turma IN (SELECT t FROM Aluno a, IN (a.turmas) t WHERE a.id =:id)",Duvida.class);
+        query.setParameter("id", aluno.getId());
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Duvida> listarDuvidasNaoRespondidasTurmasProfessor(Professor professor) {
+        TypedQuery<Duvida> query = em.createQuery("SELECT d FROM Duvida d WHERE d.resposta IS NULL AND d.turma IN (SELECT t FROM Turma t WHERE t.professor.codigo =:codigo)", Duvida.class);        
+        query.setParameter("codigo", professor.getCodigo());
+        return query.getResultList();
+    }
+
+//    @Override
+//    public List<Duvida> buscarPorProfessor(Professor professor) {
+//        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.professor.codigo = :codigo_professor", Duvida.class);
+//        createQuery.setParameter("codigo_professor", professor.getCodigo());
+//        return createQuery.getResultList();
+//    }
+//
+//    @Override
+//    public List<Duvida> buscarPorProfessorEDuvidaNaoRespondida(int codigoProfessor) {
+//        System.out.println("Codigo professor: " + codigoProfessor);
+//        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.resposta is null and d.professor.codigo = :codigo_professor", Duvida.class);
+//        createQuery.setParameter("codigo_professor", codigoProfessor);
+//        
+//        return createQuery.getResultList();
+//    }
+//
+//    @Override
+//    public List<Duvida> buscarPorAluno(Aluno aluno) {
+//        TypedQuery<Duvida> createQuery = em.createQuery("select d from Duvida d where d.aluno.id = :id", Duvida.class);
+//        createQuery.setParameter("id", aluno.getId());
+//        return createQuery.getResultList();
+//    }
+
+    @Override
+    public List<DuvidaRest> listarDuvidasFeitasPorAlunoRest(int idAluno) {
+        TypedQuery<DuvidaRest> query = em.createQuery("SELECT new com.ifpb.dac.rs.model.DuvidaRest(d.id,d.pergunta,d.resposta,d.aluno.id,d.aluno.nome,d.usuario,d.turma.codigo_turma,d.turma.identificacao,d.turma.nome_disciplina) FROM Duvida d WHERE d.aluno.id = :id", DuvidaRest.class);
+        query.setParameter("id", idAluno);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<DuvidaRest> listarDuvidasNaoRespondidasTurmasAlunoRest(int idAluno) {
+        TypedQuery<DuvidaRest> query = em.createQuery("SELECT new com.ifpb.dac.rs.model.DuvidaRest(d.id,d.pergunta,d.resposta,d.aluno.id,d.aluno.nome,d.usuario,d.turma.codigo_turma,d.turma.identificacao,d.turma.nome_disciplina) FROM Duvida d WHERE d.aluno.id <> :id AND d.resposta IS NULL AND d.turma IN (SELECT t FROM Aluno a, IN (a.turmas) t WHERE a.id =:id)", DuvidaRest.class);
+        query.setParameter("id", idAluno);
+        return query.getResultList();
+    }
+
 }

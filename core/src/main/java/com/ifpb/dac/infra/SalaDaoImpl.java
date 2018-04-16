@@ -2,7 +2,10 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Sala;
 import com.ifpb.dac.interfaces.SalaDao;
+import com.ifpb.dac.rs.interfaces.SalaDaoLocal;
 import java.util.List;
+import java.util.Optional;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,7 +14,8 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(SalaDao.class)
-public class SalaDaoImpl implements SalaDao {
+@Local(SalaDaoLocal.class)
+public class SalaDaoImpl implements SalaDao,SalaDaoLocal {
 
     @PersistenceContext
     private EntityManager em;
@@ -51,6 +55,18 @@ public class SalaDaoImpl implements SalaDao {
                 + "WHERE s.descricao !=:desc", String.class);
         createQuery.setParameter("desc", "X");
         return createQuery.getResultList();
+    }
+
+    @Override
+    public Sala buscarPorNome(String nome) {
+        TypedQuery<Sala> createQuery = em.createQuery("SELECT s FROM Sala s WHERE s.descricao =:nome",Sala.class);
+        createQuery.setParameter("nome", nome);
+        Optional<Sala> findFirst = createQuery.getResultList().stream().findFirst();
+        if(findFirst.isPresent()){
+            return findFirst.get();
+        } else {
+            return null;
+        }
     }
 
 }

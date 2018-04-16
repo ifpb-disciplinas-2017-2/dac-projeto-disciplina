@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Cadastrar aula</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h:link outcome="gerenciarAulas.xhtml" class="btn btn-warning" value="Voltar"/>
+            </div>
+            <br />
+            <div class="row text-center">
+                <h3>Gerenciar aulas</h3>
+                <hr />
+            </div>
+
+            <div class="row text-center">
+                <h4>Cadastrar nova aula</h4>
+                <div class="col-md-4 col-md-offset-4">
+                <h:form>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="tipoLocal" class="text-left" value="Informe o tipo de local: ">
+                            <h:selectOneMenu id="tipoLocal" class="form-control col-md-12" 
+                                             value = "#{controladorCadastrarAula.tipoLocal}"
+                                             required="true" requiredMessage="Selecione o tipo de local">
+                                <f:selectItem itemLabel="Selecione o tipo"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorCadastrarAula.tiposLocais}" 
+                                               var="tipo"
+                                               itemLabel="#{tipo}"
+                                               itemValue="#{tipo}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                 value="Listar"
+                                 action="#{controladorCadastrarAula.buscarLocais()}" />
+                    </div>
+                </div>
+                </h:form>
+                <h:form>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="local" class="text-left" value="Informe o local: "
+                                       rendered="#{controladorCadastrarAula.verLocais}">
+                            <h:selectOneMenu id="local" class="form-control col-md-12" 
+                                             value = "#{controladorCadastrarAula.localSelect}"
+                                             required="true" requiredMessage="Selecione o local">
+                                <f:selectItem itemLabel="Selecione o local"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorCadastrarAula.locais}" 
+                                               var="local"
+                                               itemLabel="#{local}"
+                                               itemValue="#{local}"/>
+                            </h:selectOneMenu>
+                            
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                     value="Listar disciplinas"
+                                     rendered="#{controladorCadastrarAula.verLocais}"
+                                     action="#{controladorCadastrarAula.buscarDisciplinas()}" />
+                    </div>
+                </div>
+                </h:form>
+                <h:form>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="disciplina" class="text-left" value="Informe a disciplina: "
+                                       rendered="#{controladorCadastrarAula.verDisciplinas}">
+                            <h:selectOneMenu id="disciplina" class="form-control col-md-12" 
+                                             value = "#{controladorCadastrarAula.disciplinaSelect}"
+                                             required="true" requiredMessage="Selecione a disciplina">
+                                <f:selectItem itemLabel="Selecione a disciplina"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorCadastrarAula.disciplinas}" 
+                                               var="disciplina"
+                                               itemLabel="#{disciplina.descricao}"
+                                               itemValue="#{disciplina.codigo_disc}"/>
+                            </h:selectOneMenu>
+                            
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                     value="Buscar professores"
+                                     rendered="#{controladorCadastrarAula.verDisciplinas}"
+                                     action="#{controladorCadastrarAula.buscarProfessoresDisciplina()}" />
+                    </div>
+                </div>
+                </h:form>
+                <h:form>
+                <div class="form-group">       
+                    <div class="row">
+                        <h:outputLabel for="professor" class="text-left" value="Turma de: "
+                                       rendered="#{controladorCadastrarAula.verProfessores}">
+                            <h:selectOneMenu id="professor" class="form-control col-md-12" 
+                                             value = "#{controladorCadastrarAula.professorSelect}"
+                                             required="true" requiredMessage="Selecione o professor">
+                                <f:selectItem itemLabel="Selecione o professor"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorCadastrarAula.professores}" 
+                                               var="professor"
+                                               itemLabel="#{professor.nome}"
+                                               itemValue="#{professor.codigo}"/>
+                            </h:selectOneMenu>
+                            
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                     value="Preencher dados da aula"
+                                     rendered="#{controladorCadastrarAula.verProfessores}"
+                                     action="#{controladorCadastrarAula.abrirCampos()}" />
+                    </div>
+                </div>
+                </h:form>
+                <h:form>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="dia" class="text-left" value="Dia da semana: "
+                                       rendered="#{controladorCadastrarAula.verCampos}">
+                            <h:selectOneMenu id="dia" class="form-control col-md-12" 
+                                             value = "#{controladorCadastrarAula.diaSelect}"
+                                             required="true" requiredMessage="Selecione o dia da semana">
+                                <f:selectItem itemLabel="Selecione o dia da semana"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorCadastrarAula.diasSemana}" 
+                                               var="dia"
+                                               itemLabel="#{dia}"
+                                               itemValue="#{dia}"/>
+                            </h:selectOneMenu>
+                        </h:outputLabel>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <h:outputLabel for="horario" class="text-left" value="Horário: "
+                                       rendered="#{controladorCadastrarAula.verCampos}">
+                            <h:selectOneMenu id="horario" class="form-control col-md-12" 
+                                             value = "#{controladorCadastrarAula.horarioSelect}"
+                                             required="true" requiredMessage="Selecione o dia da semana">
+                                <f:selectItem itemLabel="Selecione um horário"
+                                                          noSelectionOption="true"></f:selectItem>
+                                <f:selectItems value="#{controladorCadastrarAula.horarios}" 
+                                               var="horario"
+                                               itemLabel="#{horario.horarioFormatado}"
+                                               itemValue="#{horario.codigo_hora}"/>
+                            </h:selectOneMenu>
+                            
+                        </h:outputLabel>
+                    </div>
+                    <div class="row">
+                        <h:commandButton class="btn btn-success col-md-12"
+                                            value="Cadastrar aula"
+                                            rendered="#{controladorCadastrarAula.verCampos}"
+                                            action="#{controladorCadastrarAula.cadastrar()}" />
+                    </div>
+                </div>
+                </h:form>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>
+

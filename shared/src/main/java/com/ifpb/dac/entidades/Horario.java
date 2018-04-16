@@ -1,6 +1,7 @@
 package com.ifpb.dac.entidades;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -37,6 +39,8 @@ public class Horario implements Serializable {
     private Calendar inicio;
     @Temporal(TemporalType.TIME)
     private Calendar fim;
+    @Transient
+    private String horarioFormatado;
     @OneToMany(mappedBy = "horario", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Aula> aulas;
 
@@ -89,6 +93,17 @@ public class Horario implements Serializable {
 
     public void setAulas(List<Aula> aulas) {
         this.aulas = aulas;
+    }
+
+    public String getHorarioFormatado() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String inicioFormat = sdf.format(inicio.getTime());
+        String fimFormat = sdf.format(fim.getTime());
+        return inicioFormat + " - " + fimFormat;
+    }
+
+    public void setHorarioFormatado(String horarioFormatado) {
+        this.horarioFormatado = horarioFormatado;
     }
     
 }

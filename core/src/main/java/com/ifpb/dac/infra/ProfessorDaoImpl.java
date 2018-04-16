@@ -2,8 +2,10 @@ package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.interfaces.ProfessorDao;
+import com.ifpb.dac.rs.interfaces.ProfessorDaoLocal;
 import java.util.List;
 import java.util.Optional;
+import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,7 +14,8 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 @Remote(ProfessorDao.class)
-public class ProfessorDaoImpl implements ProfessorDao {
+@Local(ProfessorDaoLocal.class)
+public class ProfessorDaoImpl implements ProfessorDao, ProfessorDaoLocal {
 
     @PersistenceContext
     private EntityManager em;

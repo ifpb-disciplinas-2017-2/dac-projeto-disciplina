@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <head>
+        <title>Enviar Mensagens</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="../bootstrap/js/jquery-3.2.1.min.js"/>
+        <script src="../bootstrap/js/bootstrap.js"/>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.css"/>
+    </head>
+    <body>
+        <div class="container">
+
+            <div class="row text-center">
+                <h2>Enviar Mensagem</h2>   
+            </div>
+
+            <hr />
+
+            <div class="row text-center">
+
+                <div class="col-md-6 col-md-offset-3" style="margin-bottom: 2%">
+                    <h:form>
+                        <h:outputLabel class="text-center" for="nomeProfessor" value="Professor" />
+                        <h:selectOneMenu class="form-control" id="nomeProfessor" value="#{controladorMensagem.codigoProfessor}">
+                            <f:selectItems class="text-center" value="#{controladorMensagem.professores}"
+                                           var="professor"
+                                           itemLabel="#{professor.nome}"
+                                           itemValue="#{professor.codigo}" />
+                        </h:selectOneMenu>
+                        <h:commandButton class="btn btn-success col-md-12"
+                                         value="Selecionar Professor"
+                                         action="#{controladorMensagem.ativarCampoMensagem()}"/>
+                    </h:form> 
+                </div>
+
+                <div class="col-md-6 col-md-offset-3" style="margin-bottom: 2%">
+                    <h:form>
+                        <h:outputLabel class="text-center" for="nomeAluno" value="Aluno" />
+                        <h:selectOneMenu class="form-control" id="nomeAluno" value="#{controladorMensagem.codigoAluno}">
+                            <f:selectItems class="text-center" value="#{controladorMensagem.alunos}"
+                                           var="aluno"
+                                           itemLabel="#{aluno.nome} | #{aluno.email}"
+                                           itemValue="#{aluno.id}" />
+                        </h:selectOneMenu>
+                        <h:commandButton class="btn btn-success col-md-12"
+                                         value="Selecionar Aluno"
+                                         action="#{controladorMensagem.ativarCampoMensagemAluno()}"/>
+                    </h:form> 
+                </div>
+
+                <div class="col-md-6 col-md-offset-3" style="margin-bottom: 2%" jsf:rendered="#{controladorMensagem.visualizarCampoMensagem}">
+                    <h:form>
+                        <h:outputLabel for="enviarMensagem" class="text-center" value="Enviar Mensagem"/>
+                        <h:inputTextarea id="mensagem"
+                                         cols="50"
+                                         rows="6"
+                                         class="form-control col-md-12 format-textarea"
+                                         value="#{controladorMensagem.corpoMensagem}"
+                                         required="true"
+                                         requiredMessage="Informe sua Mensagem"/>
+                        <h:commandButton class="btn btn-success col-md-12"
+                                         value="Enviar Mensagem"
+                                         action="#{controladorMensagem.enviarMensagem()}" />
+                    </h:form>
+                </div>
+
+                <div class="col-md-6 col-md-offset-3" jsf:rendered="#{controladorMensagem.visualizarCampoMensagem}" style="border-style: solid; border-width: 1px; border-color: #90a4ae; overflow-x: auto; height: 200px; border-radius: 2%">
+                    <div class="panel panel-success" style="margin-left: -2.5%; margin-right: -2.5%">
+                        <div class="panel-heading text-center">#{controladorMensagem.professor.nome}</div>     
+                    </div>
+                    <h:dataTable value="#{controladorMensagem.historicoMensagens()}" var="msg">
+                        <h:column>           
+                            <div class="panel panel-success">
+                                <div class="panel-heading text-center">#{msg.nomeRemetente}</div>
+                                <div class="panel-body text-center">#{msg.mensagem}</div>
+                            </div>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+
+                <div class="col-md-6 col-md-offset-3" style="margin-bottom: 2%" jsf:rendered="#{controladorMensagem.visualizarCampoMensagemAluno}">
+                    <h:form>
+                        <h:outputLabel for="enviarMensagemAluno" class="text-center" value="Enviar Mensagem"/>
+                        <h:inputTextarea id="mensagem"
+                                         cols="50"
+                                         rows="6"
+                                         class="form-control col-md-12 format-textarea"
+                                         value="#{controladorMensagem.corpoMensagem}"
+                                         required="true"
+                                         requiredMessage="Informe sua Mensagem"/>
+                        <h:commandButton class="btn btn-success col-md-12"
+                                         value="Enviar Mensagem"
+                                         action="#{controladorMensagem.enviarMensagemAluno()}" />
+                    </h:form>
+                </div>
+
+                <div class="col-md-6 col-md-offset-3" jsf:rendered="#{controladorMensagem.visualizarCampoMensagemAluno}" style="border-style: solid; border-width: 1px; border-color: #90a4ae; overflow-x: auto; height: 200px; border-radius: 2%">
+                    <div class="panel panel-success" style="margin-left: -2.5%; margin-right: -2.5%">
+                        <div class="panel-heading text-center">#{controladorMensagem.alunoBusca.nome}</div>     
+                    </div>
+                    <h:dataTable value="#{controladorMensagem.historicoMensagensAluno()}" var="msgAluno">
+                        <h:column>           
+                            <div class="panel panel-success">
+                                <div class="panel-heading text-center">#{msgAluno.nomeRemetente}</div>
+                                <div class="panel-body text-center">#{msgAluno.mensagem}</div>
+                            </div>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+
+            </div> <!-- .row -->
+            <br></br>
+
+            <div class="row">
+                <h:form>
+                    <h:commandButton value="Voltar" class="btn btn-warning" action="#{controladorMenu.voltar()}"/>
+                </h:form> 
+            </div>
+
+        </div>
+    </body>
+</html>

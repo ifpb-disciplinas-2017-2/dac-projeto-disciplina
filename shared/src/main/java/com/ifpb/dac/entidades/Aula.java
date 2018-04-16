@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 /**
  *
@@ -49,7 +50,11 @@ public class Aula implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "codigo_turma")
     private Turma turma;
-
+    @Transient
+    private String local;
+    @Transient
+    private String tipoLocal;
+    
     public Aula(String dia, Curso curso, Disciplina disciplina, Horario horario, Professor professor, Sala sala, Laboratorio laboratorio, Turma turma) {
         this.dia = dia;
         this.curso = curso;
@@ -142,6 +147,30 @@ public class Aula implements Serializable {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    public String getLocal() {
+        if(sala.getDescricao().equals("X")){
+            return laboratorio.getDescricao();
+        }else{
+            return sala.getDescricao();
+        }
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public String getTipoLocal() {
+        if(sala.getDescricao().equals("X")){
+            return "LABORATÓRIO";
+        }else{
+            return "SALA";
+        }
+    }
+
+    public void setTipoLocal(String tipoLocal) {
+        this.tipoLocal = tipoLocal;
     }
     
 }

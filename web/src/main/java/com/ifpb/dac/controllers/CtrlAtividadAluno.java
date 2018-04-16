@@ -120,7 +120,7 @@ public class CtrlAtividadAluno implements Serializable {
         visualizarAtiv = true;
         return null;
     }
-
+    
     public String cadastrar() {
         Turma turma = tDao.retornarDiscProf(valorDisciplina, valorProf);
         Turma auxiliar = tDao.buscarPorId(turma.getCodigo_turma());

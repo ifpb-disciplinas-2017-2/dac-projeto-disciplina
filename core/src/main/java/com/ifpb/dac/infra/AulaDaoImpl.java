@@ -1,12 +1,15 @@
 package com.ifpb.dac.infra;
 
 import com.ifpb.dac.entidades.Aula;
+import com.ifpb.dac.entidades.Disciplina;
+import com.ifpb.dac.entidades.Professor;
 import com.ifpb.dac.interfaces.AulaDao;
 import java.util.List;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -44,6 +47,24 @@ public class AulaDaoImpl implements AulaDao{
     @Override
     public Aula buscarPorId(int id) {
         return em.find(Aula.class, id);
+    }
+
+    @Override
+    public List<Aula> listarAulasTurma(String disciplina, Professor professor) {
+        String sql = "SELECT a "
+                + "FROM Aula a "
+                + "JOIN a.horario h "
+                + "JOIN a.laboratorio l "
+                + "JOIN a.disciplina d "
+                + "JOIN a.professor p "
+                + "JOIN a.sala s "
+                + "JOIN a.turma t "
+                + "WHERE a.disciplina.descricao =:disciplina AND p.codigo =:professor "
+                + "ORDER BY a.abrev_dia, h.inicio";
+        TypedQuery<Aula> createQuery = em.createQuery(sql, Aula.class);
+        createQuery.setParameter("disciplina", disciplina);
+        createQuery.setParameter("professor", professor.getCodigo());
+        return createQuery.getResultList();
     }
     
 }

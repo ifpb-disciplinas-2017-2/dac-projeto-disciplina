@@ -1,0 +1,33 @@
+<ion-view ng-controller="cadastroTurmaCtrl">
+    <ion-content padding="true">
+        <center><h4>Cadastro turma</h4></center>
+        <form name="formCad">
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Disciplina
+                </div>
+                <select ng-model="disciplina" ng-change="buscarProfessores(disciplina)" required>
+                    <option value="" disabled selected>Selecione a disciplina</option>
+                    <option ng-repeat="disc in disciplinas" ng-value="disc">
+                        {{disc}}
+                    </option>
+                </select>
+            </label>
+            <label class="item item-input item-select" ng-show="disciplina">
+                <div class="input-label">
+                    Professor
+                </div>
+                <select ng-model="professor" required>
+                    <option value="" selected disabled>Selecione o professor</option>
+                    <option ng-repeat="professor in professores">{{professor}}</option>
+                </select>
+            </label>
+            <button ng-disabled="!formCad.$valid" 
+                    ng-click="cadastrar(disciplina,professor)" 
+                    class="button button-block button-positive">
+                Se cadastrar
+            </button>   
+        </form>
+      </div>
+    </ion-content>
+</ion-view>

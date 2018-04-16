@@ -11,8 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @SequenceGenerator(name = "minha_seq_curso",
@@ -35,6 +40,9 @@ public class Curso implements Serializable {
     private List<Aula> aulas;
     @OneToMany(mappedBy = "curso", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Turma> turmas;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="coordenador_codigo")
+    private Coordenador coordenador;
     
     public Curso() {
         turmas = new ArrayList<>();
@@ -96,4 +104,18 @@ public class Curso implements Serializable {
         this.turmas = turmas;
     }
 
+    public Coordenador getCoordenador() {
+        return coordenador;
     }
+
+    public void setCoordenador(Coordenador coordenador) {
+        this.coordenador = coordenador;
+    }
+
+    @Override
+    public String toString() {
+        return "Curso{" + "codigo_curso=" + codigo_curso + ", info=" + info + ", periodo=" + periodo + ", unidade=" + unidade + ", aulas=" + aulas + ", turmas=" + turmas + ", coordenador=" + coordenador + '}';
+    }
+
+    
+}

@@ -28,22 +28,31 @@ public class Duvida implements Serializable {
     
     private String resposta;
     
+    private String usuario;
+    
     @ManyToOne
     @JoinColumn(name = "codigo_aluno")
     private Aluno aluno;
     @ManyToOne
-    @JoinColumn(name = "codigo_professor")
-    private Professor professor;
+    @JoinColumn(name = "codigo_turma")
+    private Turma turma;
     
     public Duvida() {
         
     }
-    
-    public Duvida(String pergunta, Aluno aluno, Professor professor) {
+
+    public Duvida(String pergunta, String resposta, String usuario, Aluno aluno, Turma turma) {
         this.pergunta = pergunta;
-        this.resposta = null;
+        this.resposta = resposta;
+        this.usuario = usuario;
         this.aluno = aluno;
-        this.professor = professor;
+        this.turma = turma;
+    }
+
+    public Duvida(String pergunta, Aluno aluno, Turma turma) {
+        this.pergunta = pergunta;
+        this.aluno = aluno;
+        this.turma = turma;
     }
 
     public int getId() {
@@ -70,6 +79,14 @@ public class Duvida implements Serializable {
         this.resposta = resposta;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public Aluno getAluno() {
         return aluno;
     }
@@ -78,18 +95,19 @@ public class Duvida implements Serializable {
         this.aluno = aluno;
     }
 
-    public Professor getProfessor() {
-        return professor;
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
     @Override
     public String toString() {
-        return "Duvida{" + "id=" + id + ", pergunta=" + pergunta + ", resposta=" + resposta + ", aluno=" + aluno + ", professor=" + professor + '}';
+        return "Duvida{" + "id=" + id + ", pergunta=" + pergunta + ", resposta=" + resposta + ", usuario=" + usuario + ", aluno=" + aluno + ", turma=" + turma + '}';
     }
     
+   
     
 }

@@ -4,7 +4,6 @@ import com.ifpb.dac.jms.QueueAdd;
 import com.ifpb.dac.jms.QueueRmv;
 import com.ifpb.dac.entidades.Atividade;
 import com.ifpb.dac.interfaces.GoogleAgenda;
-import com.ifpb.dac.entidades.Usuario;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

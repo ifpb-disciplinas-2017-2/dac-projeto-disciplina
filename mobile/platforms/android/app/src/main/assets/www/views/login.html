@@ -1,0 +1,25 @@
+<ion-view ng-controller="loginCtrl">
+    <ion-content padding="true">
+        <br><br>
+            <center><img src="img/sicad.png" width="220"/></center>
+            <br>
+            <label class="item item-input">
+                <span class="input-label">E-mail</span>
+                <input type="text" ng-model="usuario.email">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Senha</span>
+                <input type="password" ng-model="usuario.senha">
+            </label>
+            <div class="row">
+                <button ng-click="logar(usuario)" class="button button-block button-positive">
+                    Entrar
+                </button>
+            </div>
+            <div class="row">
+                <button ui-sref="cadastro" class="button button-block button-stable">
+                    Cadastrar
+                </button>
+            </div>
+    </ion-content>
+</ion-view>
